@@ -19,14 +19,22 @@ Generate Conventional Commit messages for this repo.
 | `ops`      | Infrastructure, deployment, CI/CD, monitoring, or recovery  |
 | `chore`    | General maintenance tasks                                   |
 
+### Scopes
+
+| Scope     | Description                      |
+| --------- | -------------------------------- |
+| `backend` | Changes under the backend folder |
+| `web`     | Changes under the web folder     |
+| `mobile`  | Changes under the mobile folder  |
+
 ### Rules
 
 - Output only the commit message.
-- Format: `type: description`
-- Scope must be `hotel-management`.
+- Format: `type(scope): description`
+- Scope must be `backend`, `web`, or `mobile`, based on the changed files.
 - Use only the commit types listed above.
 - Keep the description concise and specific.
 - Include the task/code prefix when provided.
 - Do not add explanations or additional text.
 
-`git diff, git diff --staged command can be used to find diff and write commit based on diff`
+Use `git diff` and `git diff --staged` to inspect changes before generating the commit message.
