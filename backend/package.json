@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@campusly/backend",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -17,7 +17,9 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "pg": "^8.23.0"
+    "firebase-admin": "^14.2.0",
+    "pg": "^8.23.0",
+    "uuid": "^14.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

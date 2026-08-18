@@ -39,6 +39,20 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+
+    "paths": {
+      "@/*": ["./*"],
+      "@src/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@middleware/*": ["./src/middleware/*"],
+      "@route/*": ["./src/route/*"],
+      "@controller/*": ["./src/controller/*"],
+      "@common/*": ["./src/common/*"],
+      "@util/*": ["./src/util/*"],
+      "@packages/shared/*": ["../node_modules/@campusly/shared/*"]
+    },
+    "typeRoots": ["@types", "./node_modules/@types"]
+  },
+  "include": ["src/**/*.ts"]
 }
