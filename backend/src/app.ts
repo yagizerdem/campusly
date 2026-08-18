@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import authRoute from "@route/auth-route.js";
+import { globalErrorHandler } from "@src/global-error-handler.js";
 
 const app = express();
 
@@ -13,5 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoute);
+
+app.use(globalErrorHandler);
 
 export { app };
