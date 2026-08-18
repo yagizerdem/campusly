@@ -43,7 +43,12 @@
     "paths": {
       "@/*": ["./*"],
       "@src/*": ["./src/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@middleware/*": ["./src/middleware/*"],
+      "@route/*": ["./src/route/*"],
+      "@controller/*": ["./src/controller/*"],
+      "@common/*": ["./src/common/*"],
+      "@type/*": ["./src/type/*"]
     }
   },
   "include": ["src/**/*.ts"]

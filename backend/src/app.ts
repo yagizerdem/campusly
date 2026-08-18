@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import authRoute from "@route/auth-route.js";
 
 const app = express();
 
@@ -10,5 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/auth", authRoute);
 
 export { app };
