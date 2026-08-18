@@ -40,6 +40,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+
     "paths": {
       "@/*": ["./*"],
       "@src/*": ["./src/*"],
@@ -48,8 +49,9 @@
       "@route/*": ["./src/route/*"],
       "@controller/*": ["./src/controller/*"],
       "@common/*": ["./src/common/*"],
-      "@type/*": ["./src/type/*"]
-    }
+      "@util/*": ["./src/util/*"]
+    },
+    "typeRoots": ["@types", "./node_modules/@types"]
   },
   "include": ["src/**/*.ts"]
 }

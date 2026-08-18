@@ -1,5 +1,5 @@
-import HttpStatusCode from "@type/http-status-code.js";
-import { ErrorMachineCode } from "@type/error-machine-code.js";
+import HttpStatusCode from "@/src/util/http-status-code.js";
+import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
 
 export class ApiResponse<T> {
   public readonly success: boolean;
