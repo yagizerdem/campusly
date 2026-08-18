@@ -4,7 +4,7 @@ import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
 export class ApiResponse<T> {
   public readonly success: boolean;
   public readonly data: T | null;
-  public readonly error: string | null;
+  public readonly message: string | null;
   public readonly machineCode: ErrorMachineCode | null;
   public readonly statusCode: HttpStatusCode;
   public readonly timestamp: string;
@@ -13,35 +13,50 @@ export class ApiResponse<T> {
     success: boolean,
     statusCode: HttpStatusCode,
     data: T | null,
-    error: string | null,
+    message: string | null,
     machineCode: ErrorMachineCode | null,
   ) {
     this.success = success;
     this.statusCode = statusCode;
     this.data = data;
-    this.error = error;
+    this.message = message;
     this.machineCode = machineCode;
     this.timestamp = new Date().toISOString();
   }
 
-  public static success<T>(data: T): ApiResponse<T> {
-    return new ApiResponse<T>(true, HttpStatusCode.OK, data, null, null);
+  public static success<T>(
+    message: string = "",
+    data: T | null = null,
+  ): ApiResponse<T> {
+    return new ApiResponse<T>(true, HttpStatusCode.OK, data, message, null);
   }
 
-  public static ok<T>(data: T): ApiResponse<T> {
-    return ApiResponse.success(data);
+  public static ok<T>(
+    message: string = "",
+    data: T | null = null,
+  ): ApiResponse<T> {
+    return new ApiResponse<T>(true, HttpStatusCode.OK, data, message, null);
   }
 
-  public static created<T>(data: T): ApiResponse<T> {
-    return new ApiResponse<T>(true, HttpStatusCode.CREATED, data, null, null);
+  public static created<T>(
+    message: string = "",
+    data: T | null = null,
+  ): ApiResponse<T> {
+    return new ApiResponse<T>(
+      true,
+      HttpStatusCode.CREATED,
+      data,
+      message,
+      null,
+    );
   }
 
-  public static noContent(): ApiResponse<null> {
+  public static noContent(message: string = ""): ApiResponse<null> {
     return new ApiResponse<null>(
       true,
       HttpStatusCode.NO_CONTENT,
       null,
-      null,
+      message,
       null,
     );
   }

@@ -3,16 +3,28 @@ import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
 
 export type ErrorStatus = "fail" | "error";
 
+export interface ErrorDiagnostic {
+  readonly path: string;
+  readonly details: ErrorDiagnosticDetail[];
+}
+
+export interface ErrorDiagnosticDetail {
+  readonly message: string;
+  readonly machineCode: ErrorMachineCode;
+}
+
 export class AppError extends Error {
   public readonly statusCode: HttpStatusCode;
   public readonly machineCode: ErrorMachineCode;
   public readonly status: ErrorStatus;
   public readonly isOperational: boolean;
+  public readonly diagnostic?: ErrorDiagnostic | undefined;
 
   private constructor(
     message: string,
     statusCode: HttpStatusCode,
     machineCode: ErrorMachineCode,
+    diagnostic?: ErrorDiagnostic,
     cause?: unknown,
     isOperational = true,
   ) {
@@ -23,6 +35,7 @@ export class AppError extends Error {
     this.machineCode = machineCode;
     this.status = statusCode >= 400 && statusCode < 500 ? "fail" : "error";
     this.isOperational = isOperational;
+    this.diagnostic = diagnostic;
 
     Object.setPrototypeOf(this, new.target.prototype);
 
@@ -36,14 +49,23 @@ export class AppError extends Error {
     machineCode,
     cause,
     isOperational = true,
+    diagnostic,
   }: {
     message: string;
     statusCode: HttpStatusCode;
     machineCode: ErrorMachineCode;
     cause?: unknown;
     isOperational?: boolean;
+    diagnostic?: ErrorDiagnostic;
   }): AppError {
-    return new AppError(message, statusCode, machineCode, cause, isOperational);
+    return new AppError(
+      message,
+      statusCode,
+      machineCode,
+      diagnostic,
+      cause,
+      isOperational,
+    );
   }
   public static create(
     message: string,
@@ -51,8 +73,16 @@ export class AppError extends Error {
     machineCode: ErrorMachineCode,
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
-    return new AppError(message, statusCode, machineCode, cause, isOperational);
+    return new AppError(
+      message,
+      statusCode,
+      machineCode,
+      diagnostic,
+      cause,
+      isOperational,
+    );
   }
 
   public static badRequest(
@@ -60,11 +90,13 @@ export class AppError extends Error {
     message = "Bad request.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.BAD_REQUEST,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -75,11 +107,13 @@ export class AppError extends Error {
     message = "Unauthorized.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.UNAUTHORIZED,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -90,11 +124,13 @@ export class AppError extends Error {
     message = "Forbidden.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.FORBIDDEN,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -105,11 +141,13 @@ export class AppError extends Error {
     message = "Resource not found.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.NOT_FOUND,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -120,11 +158,13 @@ export class AppError extends Error {
     message = "Resource conflict.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.CONFLICT,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -135,11 +175,13 @@ export class AppError extends Error {
     message = "Unprocessable entity.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.UNPROCESSABLE_ENTITY,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -150,11 +192,13 @@ export class AppError extends Error {
     message = "Too many requests.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.TOO_MANY_REQUESTS,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -165,11 +209,13 @@ export class AppError extends Error {
     message = "Internal server error.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.INTERNAL_SERVER_ERROR,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
@@ -180,11 +226,13 @@ export class AppError extends Error {
     message = "Service unavailable.",
     cause?: unknown,
     isOperational = true,
+    diagnostic?: ErrorDiagnostic,
   ): AppError {
     return new AppError(
       message,
       HttpStatusCode.SERVICE_UNAVAILABLE,
       machineCode,
+      diagnostic,
       cause,
       isOperational,
     );
