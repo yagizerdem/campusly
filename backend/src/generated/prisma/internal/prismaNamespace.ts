@@ -610,6 +610,7 @@ export const ProfileScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   profilePicUri: 'profilePicUri',
+  telephoneNumber: 'telephoneNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

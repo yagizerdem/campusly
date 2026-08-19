@@ -14,6 +14,7 @@ model Profile {
   firstName String
   lastName String
   profilePicUri String?
+  telephoneNumber String?
 
   administeredClubs Club[]
 

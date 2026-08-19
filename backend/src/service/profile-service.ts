@@ -1,4 +1,7 @@
-import type { CreateProfileDto } from "@packages/shared/dto/profile-dto.js";
+import type {
+  CreateProfileDto,
+  UpdateProfileMetaDataDto,
+} from "@packages/shared/dto/profile-dto.js";
 import { prisma } from "@lib/prisma.js";
 import { AppError } from "@common/app-error.js";
 import HttpStatusCode from "@util/http-status-code.js";
@@ -13,6 +16,27 @@ export async function createProfile(uid: string, dto: CreateProfileDto) {
       firstName: dto.firstName,
       lastName: dto.lastName,
       profilePicUri: dto.profilePicUri ?? null,
+      telephoneNumber: dto.telephoneNumber ?? null,
+    },
+  });
+
+  return profile;
+}
+
+export async function updateProfileMetaData(
+  uid: string,
+  dto: UpdateProfileMetaDataDto,
+) {
+  await ensureProfileExistbyUid(uid);
+  const profile = await prisma.profile.update({
+    where: {
+      id: uid,
+    },
+    data: {
+      firstName: dto.firstName,
+      lastName: dto.lastName,
+      profilePicUri: dto.profilePicUri ?? null,
+      telephoneNumber: dto.telephoneNumber ?? null,
     },
   });
 
@@ -31,6 +55,23 @@ export async function ensureProfileNotExistbyUid(uid: string) {
       machineCode: ErrorMachineCode.PROFILE_ALREADY_EXISTS,
       message: "Profile already exists",
       statusCode: HttpStatusCode.CONFLICT,
+      isOperational: true,
+    });
+  }
+}
+
+export async function ensureProfileExistbyUid(uid: string) {
+  const profile = await prisma.profile.findFirst({
+    where: {
+      id: uid,
+    },
+  });
+
+  if (!profile) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.PROFILE_NOT_FOUND,
+      message: "Profile not found",
+      statusCode: HttpStatusCode.NOT_FOUND,
       isOperational: true,
     });
   }

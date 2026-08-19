@@ -17,4 +17,10 @@ router.post(
   catchAsync(profileController.createProfile),
 );
 
+router.post(
+  "/update-profile-metadata",
+  authGuard,
+  catchAsync(profileController.updateProfileMetaData),
+);
+
 export default router;
