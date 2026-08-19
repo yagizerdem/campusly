@@ -583,6 +583,18 @@ export function firebaseAuthErrorMapper(error: FirebaseAppError): AppError {
       });
     }
 
+    case "auth/argument-error": {
+      return AppError.from({
+        message:
+          error.message ||
+          "An argument error occurred in Firebase Authentication.",
+        statusCode: HttpStatusCode.BAD_REQUEST,
+        machineCode: ErrorMachineCode.FIREBASE_ERROR,
+        cause: error,
+        isOperational: true,
+      });
+    }
+
     default: {
       return AppError.from({
         message:

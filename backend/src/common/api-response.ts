@@ -24,9 +24,25 @@ export class ApiResponse<T> {
     this.timestamp = new Date().toISOString();
   }
 
+  public static from<T>({
+    success,
+    statusCode,
+    data,
+    message,
+    machineCode,
+  }: {
+    success: boolean;
+    statusCode: HttpStatusCode;
+    data: T | null;
+    message: string | null;
+    machineCode: ErrorMachineCode | null;
+  }): ApiResponse<T> {
+    return new ApiResponse<T>(success, statusCode, data, message, machineCode);
+  }
+
   public static success<T>(
-    message: string = "",
     data: T | null = null,
+    message: string = "",
   ): ApiResponse<T> {
     return new ApiResponse<T>(true, HttpStatusCode.OK, data, message, null);
   }

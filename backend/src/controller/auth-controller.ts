@@ -6,7 +6,7 @@ import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
 import { firebaseApp } from "../firebase.js";
 import { FirebaseAuthError, getAuth, UserRecord } from "firebase-admin/auth";
-import { firebaseAuthErrorMapper } from "@common/firebase/auth-error-mapper.js";
+import { firebaseAuthErrorMapper } from "@lib/firebase/auth-error-mapper.js";
 import { v4 as uuidv4 } from "uuid";
 import { AppRoles } from "@util/app-roles.js";
 
@@ -50,14 +50,16 @@ export async function register(req: Request, res: Response) {
     });
 
     return res.status(HttpStatusCode.CREATED).json(
-      ApiResponse.success("User registered successfully.", {
-        uid: userRecord.uid,
-        email: userRecord.email,
-      }),
+      ApiResponse.success(
+        {
+          uid: userRecord.uid,
+          email: userRecord.email,
+        },
+        "User registered successfully.",
+      ),
     );
   } catch (err) {
     if (err instanceof FirebaseAuthError) {
-      console.log("girdi");
       throw firebaseAuthErrorMapper(err);
     }
 
@@ -92,9 +94,12 @@ export async function generateToken(req: Request, res: Response) {
     const customToken = await getAuth(firebaseApp).createCustomToken(uid);
 
     return res.status(HttpStatusCode.OK).json(
-      ApiResponse.success("Custom token generated successfully.", {
-        token: customToken,
-      }),
+      ApiResponse.success(
+        {
+          token: customToken,
+        },
+        "Custom token generated successfully.",
+      ),
     );
   } catch (err) {
     if (err instanceof FirebaseAuthError) {
