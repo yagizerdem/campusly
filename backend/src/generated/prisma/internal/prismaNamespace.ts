@@ -621,6 +621,7 @@ export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeo
 export const ClubScalarFieldEnum = {
   id: 'id',
   clubName: 'clubName',
+  clubNormalizedName: 'clubNormalizedName',
   clubDescription: 'clubDescription',
   clubLogoUri: 'clubLogoUri',
   clubAdminId: 'clubAdminId',

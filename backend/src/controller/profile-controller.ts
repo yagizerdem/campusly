@@ -8,7 +8,7 @@ import {
   CreateProfileValidator,
   UpdateProfileMetaDataValidator,
 } from "@packages/shared/dto/profile-dto.js";
-import { AppError } from "../common/app-error.js";
+import { AppError } from "@common/app-error.js";
 import * as profileService from "@service/profile-service.js";
 
 export async function isProfileExist(req: Request, res: Response) {
