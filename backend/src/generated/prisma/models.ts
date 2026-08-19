@@ -10,4 +10,9 @@
  */
 export type * from './models/Profile.js'
 export type * from './models/Club.js'
+export type * from './models/Post.js'
+export type * from './models/PostImage.js'
+export type * from './models/Like.js'
+export type * from './models/Comment.js'
+export type * from './models/Image.js'
 export type * from './commonInputTypes.js'

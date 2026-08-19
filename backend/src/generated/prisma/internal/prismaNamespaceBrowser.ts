@@ -52,7 +52,12 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Profile: 'Profile',
-  Club: 'Club'
+  Club: 'Club',
+  Post: 'Post',
+  PostImage: 'PostImage',
+  Like: 'Like',
+  Comment: 'Comment',
+  Image: 'Image'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -75,8 +80,8 @@ export const ProfileScalarFieldEnum = {
   id: 'id',
   firstName: 'firstName',
   lastName: 'lastName',
-  profilePicUri: 'profilePicUri',
   telephoneNumber: 'telephoneNumber',
+  profileImageId: 'profileImageId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -91,11 +96,67 @@ export const ClubScalarFieldEnum = {
   clubDescription: 'clubDescription',
   clubLogoUri: 'clubLogoUri',
   clubAdminId: 'clubAdminId',
+  clubLogoId: 'clubLogoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
+
+
+export const PostScalarFieldEnum = {
+  id: 'id',
+  postTitle: 'postTitle',
+  postContent: 'postContent',
+  postImageUri: 'postImageUri',
+  clubId: 'clubId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+export const PostImageScalarFieldEnum = {
+  postId: 'postId',
+  imageId: 'imageId',
+  order: 'order'
+} as const
+
+export type PostImageScalarFieldEnum = (typeof PostImageScalarFieldEnum)[keyof typeof PostImageScalarFieldEnum]
+
+
+export const LikeScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  profileId: 'profileId',
+  createdAt: 'createdAt'
+} as const
+
+export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  commentContent: 'commentContent',
+  postId: 'postId',
+  profileId: 'profileId',
+  createdAt: 'createdAt'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const ImageScalarFieldEnum = {
+  id: 'id',
+  imageUri: 'imageUri',
+  fileName: 'fileName',
+  bucketName: 'bucketName',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt'
+} as const
+
+export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
 
 
 export const SortOrder = {

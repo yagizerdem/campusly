@@ -9,7 +9,7 @@ import { ErrorMachineCode } from "@util/error-machine-code.js";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
 import path from "path/win32";
 import { uploadDir } from "@lib/multer/upload.js";
-import { firebaseApp } from "../firebase.js";
+import { firebaseApp } from "@src/firebase.js";
 import fs from "fs/promises";
 
 export async function createProfile(uid: string, dto: CreateProfileDto) {
@@ -20,7 +20,6 @@ export async function createProfile(uid: string, dto: CreateProfileDto) {
       id: uid,
       firstName: dto.firstName,
       lastName: dto.lastName,
-      profilePicUri: dto.profilePicUri ?? null,
       telephoneNumber: dto.telephoneNumber ?? null,
     },
   });
@@ -40,7 +39,6 @@ export async function updateProfileMetaData(
     data: {
       firstName: dto.firstName,
       lastName: dto.lastName,
-      profilePicUri: dto.profilePicUri ?? null,
       telephoneNumber: dto.telephoneNumber ?? null,
     },
   });
