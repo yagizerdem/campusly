@@ -3,6 +3,7 @@ import serviceAccount from "@/.firebase/firebase-adminsdk.json" with { type: "js
 
 const firebaseApp = initializeApp({
   credential: cert(serviceAccount as ServiceAccount),
+  storageBucket: "campusly-c5a2b.firebasestorage.app", //  default bucket
 });
 
 export { firebaseApp };

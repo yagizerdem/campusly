@@ -6,6 +6,11 @@ import { prisma } from "@lib/prisma.js";
 import { AppError } from "@common/app-error.js";
 import HttpStatusCode from "@util/http-status-code.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { getDownloadURL, getStorage } from "firebase-admin/storage";
+import path from "path/win32";
+import { uploadDir } from "@lib/multer/upload.js";
+import { firebaseApp } from "../firebase.js";
+import fs from "fs/promises";
 
 export async function createProfile(uid: string, dto: CreateProfileDto) {
   await ensureProfileNotExistbyUid(uid);
@@ -75,4 +80,60 @@ export async function ensureProfileExistbyUid(uid: string) {
       isOperational: true,
     });
   }
+}
+
+export function isAllowedImageMimeType(mimeType: string): boolean {
+  const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp"];
+
+  return allowedMimeTypes.includes(mimeType);
+}
+
+export function throwIfNotAllowedImageMimeType(mimeType: string): void {
+  if (!isAllowedImageMimeType(mimeType)) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INVALID_IMAGE_MIME_TYPE,
+      message: "Invalid image MIME type",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+}
+
+export async function throwIfProfileImgNotExistInUploadsFolder(
+  fileName: string,
+) {
+  const filePath = path.resolve(uploadDir, fileName);
+
+  try {
+    await fs.access(filePath);
+  } catch (err) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.FILE_NOT_FOUND,
+      message: "Profile image not found in uploads folder",
+      statusCode: HttpStatusCode.NOT_FOUND,
+      isOperational: true,
+    });
+  }
+}
+
+export async function uploadProfileImage(
+  profileImageName: string,
+  mimeType: string,
+): Promise<string> {
+  const storage = getStorage(firebaseApp);
+  const bucket = storage.bucket();
+
+  const [uploadedFile] = await bucket.upload(
+    path.resolve(uploadDir, profileImageName),
+    {
+      destination: `profile-images/${profileImageName}`,
+      metadata: {
+        contentType: mimeType,
+      },
+    },
+  );
+
+  const downloadURL = await getDownloadURL(uploadedFile);
+
+  return downloadURL;
 }

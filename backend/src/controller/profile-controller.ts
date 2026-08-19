@@ -10,6 +10,9 @@ import {
 } from "@packages/shared/dto/profile-dto.js";
 import { AppError } from "@common/app-error.js";
 import * as profileService from "@service/profile-service.js";
+import path from "path";
+import { uploadDir } from "../lib/multer/upload.js";
+import fs from "fs/promises";
 
 export async function isProfileExist(req: Request, res: Response) {
   const uid = req.uid!;
@@ -97,4 +100,39 @@ export async function updateProfileMetaData(req: Request, res: Response) {
   return res
     .status(HttpStatusCode.OK)
     .json(ApiResponse.success(profile, "Profile updated successfully."));
+}
+
+export async function uploadProfileImage(req: Request, res: Response) {
+  try {
+    const uid = req.uid!;
+    throwIfUidNotExist(req);
+
+    const diskFile = req.file;
+    profileService.throwIfNotAllowedImageMimeType(diskFile?.mimetype || "");
+
+    const profileImageUri = await profileService.uploadProfileImage(
+      diskFile?.filename || "",
+      diskFile?.mimetype || "",
+    );
+
+    return res
+      .status(HttpStatusCode.OK)
+      .json(
+        ApiResponse.success(
+          profileImageUri,
+          "Profile image uploaded successfully.",
+        ),
+      );
+  } finally {
+    // Clean up the uploaded file from the server's disk storage
+    const diskFile = req.file;
+    if (diskFile) {
+      const filePath = path.resolve(uploadDir, diskFile.filename);
+      try {
+        await fs.unlink(filePath);
+      } catch (err) {
+        console.error(`Failed to delete uploaded file: ${filePath}`, err);
+      }
+    }
+  }
 }
