@@ -25,6 +25,7 @@ export async function ensureProfileNotExistbyUid(uid: string) {
       id: uid,
     },
   });
+
   if (profile) {
     throw AppError.from({
       machineCode: ErrorMachineCode.PROFILE_ALREADY_EXISTS,

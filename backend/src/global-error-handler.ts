@@ -13,6 +13,8 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res,
   next,
 ) => {
+  console.log(error);
+
   if (res.headersSent) {
     next(error);
     return;
