@@ -103,8 +103,7 @@ export async function uploadLogo(req: Request, res: Response) {
     const clubLogoImageUri = await clubService.uploadClubLogoImage(
       uid,
       clubId,
-      diskFile.filename || "",
-      diskFile.mimetype || "",
+      diskFile,
     );
 
     return res

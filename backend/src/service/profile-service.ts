@@ -102,9 +102,10 @@ export async function throwIfProfileImgNotExistInUploadsFolder(
 
 export async function uploadProfileImage(
   profileUid: string,
-  profileImageName: string,
-  mimeType: string,
+  multerFile: Express.Multer.File,
 ): Promise<string> {
+  const mimeType = multerFile.mimetype;
+  const profileImageName = multerFile.filename;
   imageService.throwIfNotAllowedImageMimeType(mimeType);
   const profile = await ensureProfileExistbyUid(profileUid);
   const storage = getStorage(firebaseApp);

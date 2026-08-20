@@ -120,8 +120,7 @@ export async function uploadProfileImage(req: Request, res: Response) {
 
     const profileImageUri = await profileService.uploadProfileImage(
       uid,
-      diskFile.filename || "",
-      diskFile.mimetype || "",
+      diskFile,
     );
 
     return res

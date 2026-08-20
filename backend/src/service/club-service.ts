@@ -143,9 +143,10 @@ export async function ensureUserIsClubAdmin(userUid: string, clubId: string) {
 export async function uploadClubLogoImage(
   clubAdminUid: string,
   clubId: string,
-  clubLogoImageName: string,
-  mimeType: string,
+  multerFile: Express.Multer.File,
 ): Promise<string> {
+  const mimeType = multerFile.mimetype;
+  const clubLogoImageName = multerFile.filename;
   imageService.throwIfNotAllowedImageMimeType(mimeType);
 
   const club = await ensureClubExistById(clubId);

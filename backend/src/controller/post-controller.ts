@@ -30,9 +30,11 @@ export async function createPost(req: Request, res: Response) {
   //     });
   //   }
 
+  const files = req.files as Express.Multer.File[];
+
   //   const post = await postService.createPost(adminUid, data);
 
   return res
     .status(HttpStatusCode.OK)
-    .json(ApiResponse.ok("Post created successfully", post));
+    .json(ApiResponse.ok("Post created successfully", null));
 }
