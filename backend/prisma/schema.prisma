@@ -52,7 +52,6 @@ model Post {
   id    String     @id @default(uuid()) 
   postTitle String
   postContent String
-  postImageUri String[]
 
   club Club @relation(fields: [clubId], references: [id])
   clubId String  // Foreign key connecting Post to Club

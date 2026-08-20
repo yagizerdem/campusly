@@ -111,6 +111,7 @@ export async function uploadProfileImage(
   const storage = getStorage(firebaseApp);
   const bucket = storage.bucket();
 
+  // check if profile already has an image, if yes, delete it from firebase storage and db
   const imageEntityFromDb = await prisma.image.findFirst({
     where: {
       profile: profile,
