@@ -13,4 +13,10 @@ router.post(
   catchAsync(postController.createPost),
 );
 
+router.post(
+  "/delete/:postId",
+  authGuard,
+  catchAsync(postController.deletePost),
+);
+
 export default router;

@@ -137,3 +137,74 @@ export function getPostById(postId: string, throwErrorIfNotFound = false) {
     },
   });
 }
+
+export async function deletePostById(profileId: string, postId: string) {
+  const profile = await profileService.ensureProfileExistbyUid(profileId);
+  const post = await ensurePostExistById(postId);
+  const club = await clubService.ensureClubExistById(post.clubId);
+
+  // check user
+  if (club.clubAdminId !== profile.id) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "User is not the admin of the club",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  const storage = getStorage(firebaseApp);
+  const bucket = storage.bucket();
+
+  // delete post images from firebase storage and db
+  const postImages = await prisma.postImage.findMany({
+    where: {
+      postId: post.id,
+    },
+  });
+
+  const postImagesEntity = await Promise.all(
+    postImages.map(async (postImage) => {
+      const imageEntity = await prisma.image.findFirst({
+        where: {
+          id: postImage.imageId,
+        },
+      });
+      return imageEntity;
+    }),
+  );
+
+  // delete images from firebase storage
+  await Promise.all(
+    postImagesEntity.map(async (imageEntity) => {
+      if (imageEntity) {
+        // delete img from firebase storage
+        const file = bucket.file(`post-images/${imageEntity.fileName}`);
+        await file.delete({
+          ignoreNotFound: true,
+        });
+      }
+    }),
+  );
+
+  // delete images from db
+  await prisma.postImage.deleteMany({
+    where: {
+      postId: post.id,
+    },
+  });
+
+  await prisma.image.deleteMany({
+    where: {
+      id: {
+        in: postImagesEntity.filter(Boolean).map((image) => image!.id),
+      },
+    },
+  });
+
+  await prisma.post.delete({
+    where: {
+      id: postId,
+    },
+  });
+}
