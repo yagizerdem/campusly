@@ -1012,8 +1012,8 @@ export const PostScalarFieldEnum = {
   id: 'id',
   postTitle: 'postTitle',
   postContent: 'postContent',
-  postImageUri: 'postImageUri',
   clubId: 'clubId',
+  authorId: 'authorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

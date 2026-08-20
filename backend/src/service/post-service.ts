@@ -65,6 +65,7 @@ export async function createPost(
       postContent: dto.postContent,
       postTitle: dto.postTitle,
       clubId: club.id,
+      authorId: profile.id,
     },
   });
 

@@ -18,6 +18,7 @@ model Profile {
   administeredClubs Club[]
   likes Like[]
   comments Comment[]
+  posts Post[]
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -56,6 +57,9 @@ model Post {
   club Club @relation(fields: [clubId], references: [id])
   clubId String  // Foreign key connecting Post to Club
 
+  author   Profile @relation(fields: [authorId], references: [id])
+  authorId String
+
   likes Like[]
   comments Comment[]
   images PostImage[]
@@ -87,6 +91,8 @@ model Like {
   profileId String  // Foreign key connecting Like to Profile
 
   createdAt DateTime @default(now())
+
+  @@unique([postId, profileId]) // Ensures a user can like a post only once
 }
 
 model Comment {

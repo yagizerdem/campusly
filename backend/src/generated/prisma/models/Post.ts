@@ -29,6 +29,7 @@ export type PostMinAggregateOutputType = {
   postTitle: string | null
   postContent: string | null
   clubId: string | null
+  authorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,6 +39,7 @@ export type PostMaxAggregateOutputType = {
   postTitle: string | null
   postContent: string | null
   clubId: string | null
+  authorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,8 +48,8 @@ export type PostCountAggregateOutputType = {
   id: number
   postTitle: number
   postContent: number
-  postImageUri: number
   clubId: number
+  authorId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -59,6 +61,7 @@ export type PostMinAggregateInputType = {
   postTitle?: true
   postContent?: true
   clubId?: true
+  authorId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -68,6 +71,7 @@ export type PostMaxAggregateInputType = {
   postTitle?: true
   postContent?: true
   clubId?: true
+  authorId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -76,8 +80,8 @@ export type PostCountAggregateInputType = {
   id?: true
   postTitle?: true
   postContent?: true
-  postImageUri?: true
   clubId?: true
+  authorId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -159,8 +163,8 @@ export type PostGroupByOutputType = {
   id: string
   postTitle: string
   postContent: string
-  postImageUri: string[]
   clubId: string
+  authorId: string
   createdAt: Date
   updatedAt: Date
   _count: PostCountAggregateOutputType | null
@@ -190,11 +194,12 @@ export type PostWhereInput = {
   id?: Prisma.StringFilter<"Post"> | string
   postTitle?: Prisma.StringFilter<"Post"> | string
   postContent?: Prisma.StringFilter<"Post"> | string
-  postImageUri?: Prisma.StringNullableListFilter<"Post">
   clubId?: Prisma.StringFilter<"Post"> | string
+  authorId?: Prisma.StringFilter<"Post"> | string
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
+  author?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   likes?: Prisma.LikeListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   images?: Prisma.PostImageListRelationFilter
@@ -204,11 +209,12 @@ export type PostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   postTitle?: Prisma.SortOrder
   postContent?: Prisma.SortOrder
-  postImageUri?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   club?: Prisma.ClubOrderByWithRelationInput
+  author?: Prisma.ProfileOrderByWithRelationInput
   likes?: Prisma.LikeOrderByRelationAggregateInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
   images?: Prisma.PostImageOrderByRelationAggregateInput
@@ -221,11 +227,12 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   postTitle?: Prisma.StringFilter<"Post"> | string
   postContent?: Prisma.StringFilter<"Post"> | string
-  postImageUri?: Prisma.StringNullableListFilter<"Post">
   clubId?: Prisma.StringFilter<"Post"> | string
+  authorId?: Prisma.StringFilter<"Post"> | string
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
+  author?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   likes?: Prisma.LikeListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   images?: Prisma.PostImageListRelationFilter
@@ -235,8 +242,8 @@ export type PostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   postTitle?: Prisma.SortOrder
   postContent?: Prisma.SortOrder
-  postImageUri?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PostCountOrderByAggregateInput
@@ -251,8 +258,8 @@ export type PostScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Post"> | string
   postTitle?: Prisma.StringWithAggregatesFilter<"Post"> | string
   postContent?: Prisma.StringWithAggregatesFilter<"Post"> | string
-  postImageUri?: Prisma.StringNullableListFilter<"Post">
   clubId?: Prisma.StringWithAggregatesFilter<"Post"> | string
+  authorId?: Prisma.StringWithAggregatesFilter<"Post"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
 }
@@ -261,10 +268,10 @@ export type PostCreateInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubCreateNestedOneWithoutPostsInput
+  author: Prisma.ProfileCreateNestedOneWithoutPostsInput
   likes?: Prisma.LikeCreateNestedManyWithoutPostInput
   comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   images?: Prisma.PostImageCreateNestedManyWithoutPostInput
@@ -274,8 +281,8 @@ export type PostUncheckedCreateInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   clubId: string
+  authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -287,10 +294,10 @@ export type PostUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneRequiredWithoutPostsNestedInput
+  author?: Prisma.ProfileUpdateOneRequiredWithoutPostsNestedInput
   likes?: Prisma.LikeUpdateManyWithoutPostNestedInput
   comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   images?: Prisma.PostImageUpdateManyWithoutPostNestedInput
@@ -300,8 +307,8 @@ export type PostUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -313,8 +320,8 @@ export type PostCreateManyInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   clubId: string
+  authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -323,7 +330,6 @@ export type PostUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -332,8 +338,8 @@ export type PostUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -348,20 +354,12 @@ export type PostOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
 export type PostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   postTitle?: Prisma.SortOrder
   postContent?: Prisma.SortOrder
-  postImageUri?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -371,6 +369,7 @@ export type PostMaxOrderByAggregateInput = {
   postTitle?: Prisma.SortOrder
   postContent?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -380,6 +379,7 @@ export type PostMinOrderByAggregateInput = {
   postTitle?: Prisma.SortOrder
   postContent?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -387,6 +387,48 @@ export type PostMinOrderByAggregateInput = {
 export type PostScalarRelationFilter = {
   is?: Prisma.PostWhereInput
   isNot?: Prisma.PostWhereInput
+}
+
+export type PostCreateNestedManyWithoutAuthorInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
+  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+}
+
+export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
+  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+}
+
+export type PostUpdateManyWithoutAuthorNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput | Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+  set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput | Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutAuthorInput | Prisma.PostUpdateManyWithWhereWithoutAuthorInput[]
+  deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
+}
+
+export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput | Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+  set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput | Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutAuthorInput | Prisma.PostUpdateManyWithWhereWithoutAuthorInput[]
+  deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
 export type PostCreateNestedManyWithoutClubInput = {
@@ -431,15 +473,6 @@ export type PostUncheckedUpdateManyWithoutClubNestedInput = {
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
-export type PostCreatepostImageUriInput = {
-  set: string[]
-}
-
-export type PostUpdatepostImageUriInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
 export type PostCreateNestedOneWithoutImagesInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutImagesInput, Prisma.PostUncheckedCreateWithoutImagesInput>
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutImagesInput
@@ -482,13 +515,76 @@ export type PostUpdateOneRequiredWithoutCommentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutCommentsInput, Prisma.PostUpdateWithoutCommentsInput>, Prisma.PostUncheckedUpdateWithoutCommentsInput>
 }
 
+export type PostCreateWithoutAuthorInput = {
+  id?: string
+  postTitle: string
+  postContent: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  club: Prisma.ClubCreateNestedOneWithoutPostsInput
+  likes?: Prisma.LikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.CommentCreateNestedManyWithoutPostInput
+  images?: Prisma.PostImageCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutAuthorInput = {
+  id?: string
+  postTitle: string
+  postContent: string
+  clubId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
+  images?: Prisma.PostImageUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutAuthorInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput>
+}
+
+export type PostCreateManyAuthorInputEnvelope = {
+  data: Prisma.PostCreateManyAuthorInput | Prisma.PostCreateManyAuthorInput[]
+  skipDuplicates?: boolean
+}
+
+export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
+  where: Prisma.PostWhereUniqueInput
+  update: Prisma.XOR<Prisma.PostUpdateWithoutAuthorInput, Prisma.PostUncheckedUpdateWithoutAuthorInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput>
+}
+
+export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
+  where: Prisma.PostWhereUniqueInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutAuthorInput, Prisma.PostUncheckedUpdateWithoutAuthorInput>
+}
+
+export type PostUpdateManyWithWhereWithoutAuthorInput = {
+  where: Prisma.PostScalarWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutAuthorInput>
+}
+
+export type PostScalarWhereInput = {
+  AND?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
+  OR?: Prisma.PostScalarWhereInput[]
+  NOT?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
+  id?: Prisma.StringFilter<"Post"> | string
+  postTitle?: Prisma.StringFilter<"Post"> | string
+  postContent?: Prisma.StringFilter<"Post"> | string
+  clubId?: Prisma.StringFilter<"Post"> | string
+  authorId?: Prisma.StringFilter<"Post"> | string
+  createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+}
+
 export type PostCreateWithoutClubInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  author: Prisma.ProfileCreateNestedOneWithoutPostsInput
   likes?: Prisma.LikeCreateNestedManyWithoutPostInput
   comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   images?: Prisma.PostImageCreateNestedManyWithoutPostInput
@@ -498,7 +594,7 @@ export type PostUncheckedCreateWithoutClubInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
+  authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -532,27 +628,14 @@ export type PostUpdateManyWithWhereWithoutClubInput = {
   data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutClubInput>
 }
 
-export type PostScalarWhereInput = {
-  AND?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
-  OR?: Prisma.PostScalarWhereInput[]
-  NOT?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
-  id?: Prisma.StringFilter<"Post"> | string
-  postTitle?: Prisma.StringFilter<"Post"> | string
-  postContent?: Prisma.StringFilter<"Post"> | string
-  postImageUri?: Prisma.StringNullableListFilter<"Post">
-  clubId?: Prisma.StringFilter<"Post"> | string
-  createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
-}
-
 export type PostCreateWithoutImagesInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubCreateNestedOneWithoutPostsInput
+  author: Prisma.ProfileCreateNestedOneWithoutPostsInput
   likes?: Prisma.LikeCreateNestedManyWithoutPostInput
   comments?: Prisma.CommentCreateNestedManyWithoutPostInput
 }
@@ -561,8 +644,8 @@ export type PostUncheckedCreateWithoutImagesInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   clubId: string
+  authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -589,10 +672,10 @@ export type PostUpdateWithoutImagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneRequiredWithoutPostsNestedInput
+  author?: Prisma.ProfileUpdateOneRequiredWithoutPostsNestedInput
   likes?: Prisma.LikeUpdateManyWithoutPostNestedInput
   comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
 }
@@ -601,8 +684,8 @@ export type PostUncheckedUpdateWithoutImagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -613,10 +696,10 @@ export type PostCreateWithoutLikesInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubCreateNestedOneWithoutPostsInput
+  author: Prisma.ProfileCreateNestedOneWithoutPostsInput
   comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   images?: Prisma.PostImageCreateNestedManyWithoutPostInput
 }
@@ -625,8 +708,8 @@ export type PostUncheckedCreateWithoutLikesInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   clubId: string
+  authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
@@ -653,10 +736,10 @@ export type PostUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneRequiredWithoutPostsNestedInput
+  author?: Prisma.ProfileUpdateOneRequiredWithoutPostsNestedInput
   comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   images?: Prisma.PostImageUpdateManyWithoutPostNestedInput
 }
@@ -665,8 +748,8 @@ export type PostUncheckedUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -677,10 +760,10 @@ export type PostCreateWithoutCommentsInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubCreateNestedOneWithoutPostsInput
+  author: Prisma.ProfileCreateNestedOneWithoutPostsInput
   likes?: Prisma.LikeCreateNestedManyWithoutPostInput
   images?: Prisma.PostImageCreateNestedManyWithoutPostInput
 }
@@ -689,8 +772,8 @@ export type PostUncheckedCreateWithoutCommentsInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
   clubId: string
+  authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -717,10 +800,10 @@ export type PostUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneRequiredWithoutPostsNestedInput
+  author?: Prisma.ProfileUpdateOneRequiredWithoutPostsNestedInput
   likes?: Prisma.LikeUpdateManyWithoutPostNestedInput
   images?: Prisma.PostImageUpdateManyWithoutPostNestedInput
 }
@@ -729,19 +812,61 @@ export type PostUncheckedUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
   images?: Prisma.PostImageUncheckedUpdateManyWithoutPostNestedInput
 }
 
+export type PostCreateManyAuthorInput = {
+  id?: string
+  postTitle: string
+  postContent: string
+  clubId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PostUpdateWithoutAuthorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  postContent?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  club?: Prisma.ClubUpdateOneRequiredWithoutPostsNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
+  images?: Prisma.PostImageUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutAuthorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  postContent?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
+  images?: Prisma.PostImageUncheckedUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateManyWithoutAuthorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  postContent?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type PostCreateManyClubInput = {
   id?: string
   postTitle: string
   postContent: string
-  postImageUri?: Prisma.PostCreatepostImageUriInput | string[]
+  authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -750,9 +875,9 @@ export type PostUpdateWithoutClubInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.ProfileUpdateOneRequiredWithoutPostsNestedInput
   likes?: Prisma.LikeUpdateManyWithoutPostNestedInput
   comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   images?: Prisma.PostImageUpdateManyWithoutPostNestedInput
@@ -762,7 +887,7 @@ export type PostUncheckedUpdateWithoutClubInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -774,7 +899,7 @@ export type PostUncheckedUpdateManyWithoutClubInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   postTitle?: Prisma.StringFieldUpdateOperationsInput | string
   postContent?: Prisma.StringFieldUpdateOperationsInput | string
-  postImageUri?: Prisma.PostUpdatepostImageUriInput | string[]
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -832,11 +957,12 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   postTitle?: boolean
   postContent?: boolean
-  postImageUri?: boolean
   clubId?: boolean
+  authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   likes?: boolean | Prisma.Post$likesArgs<ExtArgs>
   comments?: boolean | Prisma.Post$commentsArgs<ExtArgs>
   images?: boolean | Prisma.Post$imagesArgs<ExtArgs>
@@ -847,37 +973,40 @@ export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   postTitle?: boolean
   postContent?: boolean
-  postImageUri?: boolean
   clubId?: boolean
+  authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   postTitle?: boolean
   postContent?: boolean
-  postImageUri?: boolean
   clubId?: boolean
+  authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectScalar = {
   id?: boolean
   postTitle?: boolean
   postContent?: boolean
-  postImageUri?: boolean
   clubId?: boolean
+  authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "postTitle" | "postContent" | "postImageUri" | "clubId" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "postTitle" | "postContent" | "clubId" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   likes?: boolean | Prisma.Post$likesArgs<ExtArgs>
   comments?: boolean | Prisma.Post$commentsArgs<ExtArgs>
   images?: boolean | Prisma.Post$imagesArgs<ExtArgs>
@@ -885,15 +1014,18 @@ export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 }
 export type PostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }
 export type PostIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }
 
 export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Post"
   objects: {
     club: Prisma.$ClubPayload<ExtArgs>
+    author: Prisma.$ProfilePayload<ExtArgs>
     likes: Prisma.$LikePayload<ExtArgs>[]
     comments: Prisma.$CommentPayload<ExtArgs>[]
     images: Prisma.$PostImagePayload<ExtArgs>[]
@@ -902,8 +1034,8 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     postTitle: string
     postContent: string
-    postImageUri: string[]
     clubId: string
+    authorId: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["post"]>
@@ -1301,6 +1433,7 @@ readonly fields: PostFieldRefs;
 export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   club<T extends Prisma.ClubDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClubDefaultArgs<ExtArgs>>): Prisma.Prisma__ClubClient<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  author<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   likes<T extends Prisma.Post$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.Post$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   images<T extends Prisma.Post$imagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1336,8 +1469,8 @@ export interface PostFieldRefs {
   readonly id: Prisma.FieldRef<"Post", 'String'>
   readonly postTitle: Prisma.FieldRef<"Post", 'String'>
   readonly postContent: Prisma.FieldRef<"Post", 'String'>
-  readonly postImageUri: Prisma.FieldRef<"Post", 'String[]'>
   readonly clubId: Prisma.FieldRef<"Post", 'String'>
+  readonly authorId: Prisma.FieldRef<"Post", 'String'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Post", 'DateTime'>
 }

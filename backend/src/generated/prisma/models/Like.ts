@@ -189,6 +189,7 @@ export type LikeOrderByWithRelationInput = {
 
 export type LikeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  postId_profileId?: Prisma.LikePostIdProfileIdCompoundUniqueInput
   AND?: Prisma.LikeWhereInput | Prisma.LikeWhereInput[]
   OR?: Prisma.LikeWhereInput[]
   NOT?: Prisma.LikeWhereInput | Prisma.LikeWhereInput[]
@@ -197,7 +198,7 @@ export type LikeWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
   profile?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
-}, "id">
+}, "id" | "postId_profileId">
 
 export type LikeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -274,6 +275,11 @@ export type LikeListRelationFilter = {
 
 export type LikeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type LikePostIdProfileIdCompoundUniqueInput = {
+  postId: string
+  profileId: string
 }
 
 export type LikeCountOrderByAggregateInput = {
