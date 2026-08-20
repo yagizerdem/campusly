@@ -1,4 +1,7 @@
-import type { CreatePostDto } from "@packages/shared/dto/post-dto.js";
+import type {
+  CreatePostDto,
+  UpdatePostDto,
+} from "@packages/shared/dto/post-dto.js";
 import * as profileService from "@service/profile-service.js";
 import * as clubService from "@service/club-service.js";
 import * as imageService from "@service/image-service.js";
@@ -207,4 +210,42 @@ export async function deletePostById(profileId: string, postId: string) {
       id: postId,
     },
   });
+}
+
+export async function updatePost(profileId: string, dto: UpdatePostDto) {
+  const profile = await profileService.ensureProfileExistbyUid(profileId);
+  const post = await ensurePostExistById(dto.postId);
+  const club = await clubService.ensureClubExistById(dto.clubId);
+
+  // check post belongs to the club
+  if (post.clubId != dto.clubId) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.VALIDATION_ERROR,
+      message: "Post does not belong to the specified club",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+
+  //  check user is club admin
+  if (club.clubAdminId !== profile.id) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "User is not the admin of the club",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  const postFromDb = await prisma.post.update({
+    where: {
+      id: dto.postId,
+    },
+    data: {
+      postTitle: dto.postTitle,
+      postContent: dto.postContent,
+    },
+  });
+
+  return postFromDb;
 }
