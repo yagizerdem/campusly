@@ -51,4 +51,7 @@ export enum ErrorMachineCode {
 
   // Post
   POST_NOT_FOUND = "POST_NOT_FOUND",
+
+  // Like
+  LIKE_ALREADY_EXIST = "LIKE_ALREADY_EXIST",
 }
