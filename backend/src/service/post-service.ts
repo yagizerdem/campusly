@@ -1,12 +1,15 @@
-import type { CreatePostDto } from "@packages/shared/dto/post-dto.js";
+import type {
+  CreatePostDto,
+  UpdatePostDto,
+} from "@packages/shared/dto/post-dto.js";
 import * as profileService from "@service/profile-service.js";
 import * as clubService from "@service/club-service.js";
 import * as imageService from "@service/image-service.js";
 import { prisma } from "@lib/prisma.js";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
 import { firebaseApp } from "@src/firebase.js";
-import { AppError } from "../common/app-error.js";
-import { ErrorMachineCode } from "../util/error-machine-code.js";
+import { AppError } from "@common/app-error.js";
+import { ErrorMachineCode } from "@util/error-machine-code.js";
 import HttpStatusCode from "@packages/shared/util/http-status-code.js";
 
 export async function createPost(
@@ -62,6 +65,7 @@ export async function createPost(
       postContent: dto.postContent,
       postTitle: dto.postTitle,
       clubId: club.id,
+      authorId: profile.id,
     },
   });
 
@@ -106,4 +110,143 @@ export async function createPost(
   }
 
   return post;
+}
+
+export async function ensurePostExistById(postId: string) {
+  const postEntity = await prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+  });
+
+  if (!postEntity) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.POST_NOT_FOUND,
+      message: "Post not found",
+      statusCode: HttpStatusCode.NOT_FOUND,
+      isOperational: true,
+    });
+  }
+  return postEntity;
+}
+
+export function getPostById(postId: string, throwErrorIfNotFound = false) {
+  if (throwErrorIfNotFound) {
+    return ensurePostExistById(postId);
+  }
+
+  return prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+  });
+}
+
+export async function deletePostById(profileId: string, postId: string) {
+  const profile = await profileService.ensureProfileExistbyUid(profileId);
+  const post = await ensurePostExistById(postId);
+  const club = await clubService.ensureClubExistById(post.clubId);
+
+  // check user
+  if (club.clubAdminId !== profile.id) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "User is not the admin of the club",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  const storage = getStorage(firebaseApp);
+  const bucket = storage.bucket();
+
+  // delete post images from firebase storage and db
+  const postImages = await prisma.postImage.findMany({
+    where: {
+      postId: post.id,
+    },
+  });
+
+  const postImagesEntity = await Promise.all(
+    postImages.map(async (postImage) => {
+      const imageEntity = await prisma.image.findFirst({
+        where: {
+          id: postImage.imageId,
+        },
+      });
+      return imageEntity;
+    }),
+  );
+
+  // delete images from firebase storage
+  await Promise.all(
+    postImagesEntity.map(async (imageEntity) => {
+      if (imageEntity) {
+        // delete img from firebase storage
+        const file = bucket.file(`post-images/${imageEntity.fileName}`);
+        await file.delete({
+          ignoreNotFound: true,
+        });
+      }
+    }),
+  );
+
+  // delete images from db
+  await prisma.postImage.deleteMany({
+    where: {
+      postId: post.id,
+    },
+  });
+
+  await prisma.image.deleteMany({
+    where: {
+      id: {
+        in: postImagesEntity.filter(Boolean).map((image) => image!.id),
+      },
+    },
+  });
+
+  await prisma.post.delete({
+    where: {
+      id: postId,
+    },
+  });
+}
+
+export async function updatePost(profileId: string, dto: UpdatePostDto) {
+  const profile = await profileService.ensureProfileExistbyUid(profileId);
+  const post = await ensurePostExistById(dto.postId);
+  const club = await clubService.ensureClubExistById(dto.clubId);
+
+  // check post belongs to the club
+  if (post.clubId != dto.clubId) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.VALIDATION_ERROR,
+      message: "Post does not belong to the specified club",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+
+  //  check user is club admin
+  if (club.clubAdminId !== profile.id) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "User is not the admin of the club",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  const postFromDb = await prisma.post.update({
+    where: {
+      id: dto.postId,
+    },
+    data: {
+      postTitle: dto.postTitle,
+      postContent: dto.postContent,
+    },
+  });
+
+  return postFromDb;
 }
