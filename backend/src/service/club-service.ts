@@ -8,7 +8,7 @@ import HttpStatusCode from "@util/http-status-code.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
-import { firebaseApp } from "../firebase.js";
+import { firebaseApp } from "@src/firebase.js";
 import * as imageService from "@service/image-service.js";
 import * as profileService from "@service/profile-service.js";
 import { uploadDir } from "@lib/multer/upload.js";
