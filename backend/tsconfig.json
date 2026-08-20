@@ -55,5 +55,5 @@
     },
     "typeRoots": ["@types", "./node_modules/@types"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "../packages/shared/util/http-status-code.ts"]
 }

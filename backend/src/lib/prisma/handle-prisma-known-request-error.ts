@@ -1,6 +1,6 @@
 import type { Response } from "express";
 import { Prisma } from "@/src/generated/prisma/client.js";
-import HttpStatusCode from "@/src/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { ApiResponse } from "@/src/common/api-response.js";
 import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
 

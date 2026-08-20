@@ -1,7 +1,7 @@
 import type { CreateImageDto } from "@packages/shared/dto/image-dto.js";
 import { prisma } from "@lib/prisma.js";
 import { AppError } from "@common/app-error.js";
-import HttpStatusCode from "@util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
 
 export function createImageEntity(dto: CreateImageDto) {

@@ -4,7 +4,7 @@ import type {
 } from "@packages/shared/dto/club-dto.js";
 import { prisma } from "@lib/prisma.js";
 import { AppError } from "@common/app-error.js";
-import HttpStatusCode from "@util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";

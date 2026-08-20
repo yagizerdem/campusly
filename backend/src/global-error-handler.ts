@@ -2,7 +2,7 @@ import type { ErrorRequestHandler } from "express";
 import { ApiResponse } from "@common/api-response.js";
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
-import HttpStatusCode from "@util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { Prisma } from "@/src/generated/prisma/client.js";
 import { handlePrismaKnownRequestError } from "@lib/prisma/handle-prisma-known-request-error.js";
 import { FirebaseAppError } from "firebase-admin/app";

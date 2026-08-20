@@ -1,4 +1,4 @@
-import HttpStatusCode from "@/src/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
 
 export type ErrorStatus = "fail" | "error";
