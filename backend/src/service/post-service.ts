@@ -5,8 +5,8 @@ import * as imageService from "@service/image-service.js";
 import { prisma } from "@lib/prisma.js";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
 import { firebaseApp } from "@src/firebase.js";
-import { AppError } from "../common/app-error.js";
-import { ErrorMachineCode } from "../util/error-machine-code.js";
+import { AppError } from "@common/app-error.js";
+import { ErrorMachineCode } from "@util/error-machine-code.js";
 import HttpStatusCode from "@packages/shared/util/http-status-code.js";
 
 export async function createPost(
@@ -106,4 +106,34 @@ export async function createPost(
   }
 
   return post;
+}
+
+export async function ensurePostExistById(postId: string) {
+  const postEntity = await prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+  });
+
+  if (!postEntity) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.POST_NOT_FOUND,
+      message: "Post not found",
+      statusCode: HttpStatusCode.NOT_FOUND,
+      isOperational: true,
+    });
+  }
+  return postEntity;
+}
+
+export function getPostById(postId: string, throwErrorIfNotFound = false) {
+  if (throwErrorIfNotFound) {
+    return ensurePostExistById(postId);
+  }
+
+  return prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+  });
 }
