@@ -8,6 +8,7 @@ import { globalErrorHandler } from "@src/global-error-handler.js";
 import helmet from "helmet";
 import compression from "compression";
 import likeRoute from "@route/like-route.js";
+import commentRoute from "@route/comment-route.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/profile", profileRoute);
 app.use("/api/club", clubRoute);
 app.use("/api/post", postRoute);
 app.use("/api/like", likeRoute);
+app.use("/api/comment", commentRoute);
 
 app.use(globalErrorHandler);
 
