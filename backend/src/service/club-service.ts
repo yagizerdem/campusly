@@ -7,6 +7,12 @@ import { AppError } from "@common/app-error.js";
 import HttpStatusCode from "@util/http-status-code.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
 import { v4 as uuidv4 } from "uuid";
+import { getDownloadURL, getStorage } from "firebase-admin/storage";
+import { firebaseApp } from "../firebase.js";
+import * as imageService from "@service/image-service.js";
+import * as profileService from "@service/profile-service.js";
+import { uploadDir } from "@lib/multer/upload.js";
+import path from "path";
 
 export function normalizeClubName(name: string) {
   return name.trim().replace(/\s+/g, " ").toLowerCase();
@@ -72,6 +78,7 @@ export async function ensureClubExistById(clubId: string) {
       isOperational: true,
     });
   }
+  return club;
 }
 
 export async function ensureClubNotExistById(clubId: string) {
@@ -118,4 +125,108 @@ export async function ensureClubExistByNormalizedName(clubName: string) {
       isOperational: true,
     });
   }
+  return club;
+}
+
+export async function ensureUserIsClubAdmin(userUid: string, clubId: string) {
+  const club = await ensureClubExistById(clubId);
+  if (club.clubAdminId !== userUid) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "User is not the club admin",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+}
+
+export async function uploadClubLogoImage(
+  clubAdminUid: string,
+  clubId: string,
+  clubLogoImageName: string,
+  mimeType: string,
+): Promise<string> {
+  imageService.throwIfNotAllowedImageMimeType(mimeType);
+
+  const club = await ensureClubExistById(clubId);
+  await profileService.ensureProfileExistbyUid(clubAdminUid);
+  await ensureUserIsClubAdmin(clubAdminUid, clubId);
+
+  const storage = getStorage(firebaseApp);
+  const bucket = storage.bucket();
+
+  const imageEntityFromDb = await prisma.image.findFirst({
+    where: {
+      club: club,
+    },
+  });
+
+  if (imageEntityFromDb) {
+    // delete img from firebase storage
+    const file = bucket.file(`club-logo-images/${imageEntityFromDb.fileName}`);
+    await file.delete();
+
+    // delete img from db
+    await imageService.removeImageById(imageEntityFromDb.id);
+  }
+
+  // upload new img to firebase storage
+  const [uploadedFile] = await bucket.upload(
+    path.resolve(uploadDir, clubLogoImageName),
+    {
+      destination: `club-logo-images/${clubLogoImageName}`,
+      metadata: {
+        contentType: mimeType,
+      },
+    },
+  );
+
+  const downloadURL = await getDownloadURL(uploadedFile);
+
+  // create new img entity in db and update club with new img id
+  const imageEntity = await imageService.createImageEntity({
+    bucketName: bucket.name,
+    fileName: clubLogoImageName,
+    imageUri: downloadURL,
+    mimeType,
+  });
+
+  await prisma.club.update({
+    where: {
+      id: clubId,
+    },
+    data: {
+      clubLogoId: imageEntity.id,
+    },
+  });
+
+  return downloadURL;
+}
+
+export async function deleteClubLogoImage(
+  clubAdminUid: string,
+  clubId: string,
+) {
+  const club = await ensureClubExistById(clubId);
+  await profileService.ensureProfileExistbyUid(clubAdminUid);
+  await ensureUserIsClubAdmin(clubAdminUid, clubId);
+
+  const storage = getStorage(firebaseApp);
+  const bucket = storage.bucket();
+
+  const imageEntityFromDb = await prisma.image.findFirst({
+    where: {
+      club: club,
+    },
+  });
+
+  if (!imageEntityFromDb) {
+    return;
+  }
+  // delete img from firebase storage
+  const file = bucket.file(`club-logo-images/${imageEntityFromDb.fileName}`);
+  await file.delete();
+
+  // delete img from db
+  await imageService.removeImageById(imageEntityFromDb.id);
 }

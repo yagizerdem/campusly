@@ -44,3 +44,25 @@ export async function ensureImageExistById(id: string) {
   }
   return imageEntity;
 }
+
+export function isAllowedImageMimeType(mimeType: string): boolean {
+  const allowedMimeTypes = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/webp",
+  ];
+
+  return allowedMimeTypes.includes(mimeType);
+}
+
+export function throwIfNotAllowedImageMimeType(mimeType: string): void {
+  if (!isAllowedImageMimeType(mimeType)) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INVALID_IMAGE_MIME_TYPE,
+      message: "Invalid image MIME type",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+}

@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as profileController from "@controller/profile-controller.js";
 import { authGuard } from "@middleware/authGuard.js";
-import { catchAsync } from "../common/catchAsync.js";
+import { catchAsync } from "@common/catchAsync.js";
 import upload from "@lib/multer/upload.js";
 
 const router: Router = express.Router();
@@ -30,4 +30,11 @@ router.post(
   upload.single("profileImage"),
   catchAsync(profileController.uploadProfileImage),
 );
+
+router.post(
+  "/delete-profile-image",
+  authGuard,
+  catchAsync(profileController.deleteProfileImage),
+);
+
 export default router;

@@ -11,7 +11,7 @@ import {
 import { AppError } from "@common/app-error.js";
 import * as profileService from "@service/profile-service.js";
 import path from "path";
-import { uploadDir } from "../lib/multer/upload.js";
+import { uploadDir } from "@lib/multer/upload.js";
 import fs from "fs/promises";
 
 export async function isProfileExist(req: Request, res: Response) {
@@ -109,12 +109,19 @@ export async function uploadProfileImage(req: Request, res: Response) {
 
     const diskFile = req.file;
 
-    profileService.throwIfNotAllowedImageMimeType(diskFile?.mimetype || "");
+    if (!diskFile) {
+      throw AppError.from({
+        machineCode: ErrorMachineCode.FILE_NOT_FOUND,
+        message: "No file uploaded",
+        statusCode: HttpStatusCode.BAD_REQUEST,
+        isOperational: true,
+      });
+    }
 
     const profileImageUri = await profileService.uploadProfileImage(
       uid,
-      diskFile?.filename || "",
-      diskFile?.mimetype || "",
+      diskFile.filename || "",
+      diskFile.mimetype || "",
     );
 
     return res
@@ -137,4 +144,15 @@ export async function uploadProfileImage(req: Request, res: Response) {
       }
     }
   }
+}
+
+export async function deleteProfileImage(req: Request, res: Response) {
+  const uid = req.uid!;
+  throwIfUidNotExist(req);
+
+  await profileService.deleteProfileImage(uid);
+
+  return res
+    .status(HttpStatusCode.OK)
+    .json(ApiResponse.success(null, "Profile image deleted successfully."));
 }

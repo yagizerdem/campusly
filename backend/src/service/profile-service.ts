@@ -7,7 +7,7 @@ import { AppError } from "@common/app-error.js";
 import HttpStatusCode from "@util/http-status-code.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
-import path from "path/win32";
+import path from "path";
 import { uploadDir } from "@lib/multer/upload.js";
 import { firebaseApp } from "@src/firebase.js";
 import * as imageService from "@service/image-service.js";
@@ -83,28 +83,6 @@ export async function ensureProfileExistbyUid(uid: string) {
   return profile;
 }
 
-export function isAllowedImageMimeType(mimeType: string): boolean {
-  const allowedMimeTypes = [
-    "image/jpeg",
-    "image/jpg",
-    "image/png",
-    "image/webp",
-  ];
-
-  return allowedMimeTypes.includes(mimeType);
-}
-
-export function throwIfNotAllowedImageMimeType(mimeType: string): void {
-  if (!isAllowedImageMimeType(mimeType)) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.INVALID_IMAGE_MIME_TYPE,
-      message: "Invalid image MIME type",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-}
-
 export async function throwIfProfileImgNotExistInUploadsFolder(
   fileName: string,
 ) {
@@ -127,6 +105,7 @@ export async function uploadProfileImage(
   profileImageName: string,
   mimeType: string,
 ): Promise<string> {
+  imageService.throwIfNotAllowedImageMimeType(mimeType);
   const profile = await ensureProfileExistbyUid(profileUid);
   const storage = getStorage(firebaseApp);
   const bucket = storage.bucket();
@@ -177,4 +156,26 @@ export async function uploadProfileImage(
   });
 
   return downloadURL;
+}
+
+export async function deleteProfileImage(profileUid: string): Promise<void> {
+  const profile = await ensureProfileExistbyUid(profileUid);
+  const storage = getStorage(firebaseApp);
+  const bucket = storage.bucket();
+
+  const imageEntityFromDb = await prisma.image.findFirst({
+    where: {
+      profile: profile,
+    },
+  });
+
+  if (!imageEntityFromDb) {
+    return;
+  }
+  // delete img from firebase storage
+  const file = bucket.file(`profile-images/${imageEntityFromDb.fileName}`);
+  await file.delete();
+
+  // delete img from db
+  await imageService.removeImageById(imageEntityFromDb.id);
 }
