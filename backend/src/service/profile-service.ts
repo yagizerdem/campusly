@@ -10,6 +10,7 @@ import { getDownloadURL, getStorage } from "firebase-admin/storage";
 import path from "path/win32";
 import { uploadDir } from "@lib/multer/upload.js";
 import { firebaseApp } from "@src/firebase.js";
+import * as imageService from "@service/image-service.js";
 import fs from "fs/promises";
 
 export async function createProfile(uid: string, dto: CreateProfileDto) {
@@ -78,10 +79,17 @@ export async function ensureProfileExistbyUid(uid: string) {
       isOperational: true,
     });
   }
+
+  return profile;
 }
 
 export function isAllowedImageMimeType(mimeType: string): boolean {
-  const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp"];
+  const allowedMimeTypes = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/webp",
+  ];
 
   return allowedMimeTypes.includes(mimeType);
 }
@@ -115,12 +123,30 @@ export async function throwIfProfileImgNotExistInUploadsFolder(
 }
 
 export async function uploadProfileImage(
+  profileUid: string,
   profileImageName: string,
   mimeType: string,
 ): Promise<string> {
+  const profile = await ensureProfileExistbyUid(profileUid);
   const storage = getStorage(firebaseApp);
   const bucket = storage.bucket();
 
+  const imageEntityFromDb = await prisma.image.findFirst({
+    where: {
+      profile: profile,
+    },
+  });
+
+  if (imageEntityFromDb) {
+    // delete img from firebase storage
+    const file = bucket.file(`profile-images/${imageEntityFromDb.fileName}`);
+    await file.delete();
+
+    // delete img from db
+    await imageService.removeImageById(imageEntityFromDb.id);
+  }
+
+  // upload new img to firebase storage
   const [uploadedFile] = await bucket.upload(
     path.resolve(uploadDir, profileImageName),
     {
@@ -132,6 +158,23 @@ export async function uploadProfileImage(
   );
 
   const downloadURL = await getDownloadURL(uploadedFile);
+
+  // create new img entity in db and update profile with new img id
+  const imageEntity = await imageService.createImageEntity({
+    bucketName: bucket.name,
+    fileName: profileImageName,
+    imageUri: downloadURL,
+    mimeType,
+  });
+
+  await prisma.profile.update({
+    where: {
+      id: profileUid,
+    },
+    data: {
+      profileImageId: imageEntity.id,
+    },
+  });
 
   return downloadURL;
 }

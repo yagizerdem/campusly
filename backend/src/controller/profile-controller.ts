@@ -108,9 +108,11 @@ export async function uploadProfileImage(req: Request, res: Response) {
     throwIfUidNotExist(req);
 
     const diskFile = req.file;
+
     profileService.throwIfNotAllowedImageMimeType(diskFile?.mimetype || "");
 
     const profileImageUri = await profileService.uploadProfileImage(
+      uid,
       diskFile?.filename || "",
       diskFile?.mimetype || "",
     );

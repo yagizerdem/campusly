@@ -22,4 +22,4 @@ export const createImageEntityValidator = z.object({
   }),
 });
 
-export type ImageDto = z.infer<typeof createImageEntityValidator>;
+export type CreateImageDto = z.infer<typeof createImageEntityValidator>;

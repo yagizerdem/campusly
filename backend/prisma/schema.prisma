@@ -20,7 +20,7 @@ model Profile {
   comments Comment[]
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
-  profileImageId String @unique
+  profileImageId String? @unique
 
 
   createdAt DateTime @default(now())

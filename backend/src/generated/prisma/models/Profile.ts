@@ -164,7 +164,7 @@ export type ProfileGroupByOutputType = {
   firstName: string
   lastName: string
   telephoneNumber: string | null
-  profileImageId: string
+  profileImageId: string | null
   createdAt: Date
   updatedAt: Date
   _count: ProfileCountAggregateOutputType | null
@@ -195,7 +195,7 @@ export type ProfileWhereInput = {
   firstName?: Prisma.StringFilter<"Profile"> | string
   lastName?: Prisma.StringFilter<"Profile"> | string
   telephoneNumber?: Prisma.StringNullableFilter<"Profile"> | string | null
-  profileImageId?: Prisma.StringFilter<"Profile"> | string
+  profileImageId?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   administeredClubs?: Prisma.ClubListRelationFilter
@@ -209,7 +209,7 @@ export type ProfileOrderByWithRelationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   telephoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  profileImageId?: Prisma.SortOrder
+  profileImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   administeredClubs?: Prisma.ClubOrderByRelationAggregateInput
@@ -240,7 +240,7 @@ export type ProfileOrderByWithAggregationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   telephoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  profileImageId?: Prisma.SortOrder
+  profileImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProfileCountOrderByAggregateInput
@@ -256,7 +256,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   firstName?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   telephoneNumber?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
-  profileImageId?: Prisma.StringWithAggregatesFilter<"Profile"> | string
+  profileImageId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
 }
@@ -279,7 +279,7 @@ export type ProfileUncheckedCreateInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
-  profileImageId: string
+  profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
@@ -305,7 +305,7 @@ export type ProfileUncheckedUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImageId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
@@ -318,7 +318,7 @@ export type ProfileCreateManyInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
-  profileImageId: string
+  profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -337,7 +337,7 @@ export type ProfileUncheckedUpdateManyInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImageId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -485,7 +485,7 @@ export type ProfileUncheckedCreateWithoutAdministeredClubsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
-  profileImageId: string
+  profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
@@ -525,7 +525,7 @@ export type ProfileUncheckedUpdateWithoutAdministeredClubsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImageId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
@@ -549,7 +549,7 @@ export type ProfileUncheckedCreateWithoutLikesInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
-  profileImageId: string
+  profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
@@ -589,7 +589,7 @@ export type ProfileUncheckedUpdateWithoutLikesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImageId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
@@ -613,7 +613,7 @@ export type ProfileUncheckedCreateWithoutCommentsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
-  profileImageId: string
+  profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
@@ -653,7 +653,7 @@ export type ProfileUncheckedUpdateWithoutCommentsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImageId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
@@ -848,7 +848,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     firstName: string
     lastName: string
     telephoneNumber: string | null
-    profileImageId: string
+    profileImageId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["profile"]>
