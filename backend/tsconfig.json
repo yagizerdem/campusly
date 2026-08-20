@@ -50,9 +50,10 @@
       "@controller/*": ["./src/controller/*"],
       "@common/*": ["./src/common/*"],
       "@util/*": ["./src/util/*"],
+      "@service/*": ["./src/service/*"],
       "@packages/shared/*": ["../node_modules/@campusly/shared/*"]
     },
     "typeRoots": ["@types", "./node_modules/@types"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "../packages/shared/util/http-status-code.ts"]
 }

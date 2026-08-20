@@ -44,3 +44,17 @@
   "returnSecureToken": true
 }
 ```
+
+## Prisma commands
+
+### Use Prisma Migrate to create and apply migrations:
+
+```json
+npx prisma migrate dev --name <migration-name>
+```
+
+### Generate and use the type-safe client:
+
+```json
+npx prisma generate
+```

@@ -1,7 +1,7 @@
 import type { FirebaseAppError } from "firebase-admin";
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
-import HttpStatusCode from "@/src/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 
 export function firebaseAuthErrorMapper(error: FirebaseAppError): AppError {
   switch (error.code) {
@@ -577,6 +577,18 @@ export function firebaseAuthErrorMapper(error: FirebaseAppError): AppError {
       return AppError.from({
         message: error.message || "The Firebase user was not found.",
         statusCode: HttpStatusCode.NOT_FOUND,
+        machineCode: ErrorMachineCode.FIREBASE_ERROR,
+        cause: error,
+        isOperational: true,
+      });
+    }
+
+    case "auth/argument-error": {
+      return AppError.from({
+        message:
+          error.message ||
+          "An argument error occurred in Firebase Authentication.",
+        statusCode: HttpStatusCode.BAD_REQUEST,
         machineCode: ErrorMachineCode.FIREBASE_ERROR,
         cause: error,
         isOperational: true,

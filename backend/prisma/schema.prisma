@@ -7,3 +7,111 @@ datasource db {
   provider = "postgresql"
 }
 
+
+
+model Profile { 
+  id    String     @id @default(uuid()) 
+  firstName String
+  lastName String
+  telephoneNumber String?
+
+  administeredClubs Club[]
+  likes Like[]
+  comments Comment[]
+
+  profileImage Image? @relation(fields: [profileImageId], references: [id])
+  profileImageId String? @unique
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Club { 
+  id    String     @id @default(uuid()) 
+  clubName String
+  clubNormalizedName String @unique
+  clubDescription String
+  clubLogoUri String?
+
+  clubAdmin Profile @relation(fields: [clubAdminId], references: [id])
+  clubAdminId String  // Foreign key connecting Club to Profile
+
+  posts Post[]
+
+  clubLogo   Image?  @relation(fields: [clubLogoId], references: [id])
+  clubLogoId String? @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Post {
+  id    String     @id @default(uuid()) 
+  postTitle String
+  postContent String
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting Post to Club
+
+  likes Like[]
+  comments Comment[]
+  images PostImage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostImage {
+  postId  String
+  imageId String
+
+  post  Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  order Int @default(0)
+
+  @@id([postId, imageId])
+}
+
+
+model Like {
+  id    String     @id @default(uuid()) 
+
+  post Post @relation(fields: [postId], references: [id])
+  postId String  // Foreign key connecting Like to Post
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting Like to Profile
+
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id    String     @id @default(uuid()) 
+  commentContent String
+
+  post Post @relation(fields: [postId], references: [id])
+  postId String  // Foreign key connecting Comment to Post
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting Like to Profile
+
+  createdAt DateTime @default(now())
+}
+
+model Image {
+  id    String     @id @default(uuid()) 
+  imageUri String
+  fileName String
+  bucketName String
+  mimeType String
+
+  profile    Profile?
+  club       Club?
+  posts      PostImage[]
+
+  createdAt DateTime @default(now())
+}

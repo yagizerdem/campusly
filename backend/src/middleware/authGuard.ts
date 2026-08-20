@@ -2,10 +2,11 @@ import { FirebaseAppError } from "firebase-admin";
 import { firebaseApp } from "@src/firebase.js";
 
 import type { Request, Response, NextFunction } from "express";
-import { getAuth } from "firebase-admin/auth";
+import { FirebaseAuthError, getAuth } from "firebase-admin/auth";
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
-import { firebaseAuthErrorMapper } from "@common/firebase/auth-error-mapper.js";
+import { firebaseAuthErrorMapper } from "@/src/lib/firebase/auth-error-mapper.js";
+import { AppRoles } from "@util/app-roles.js";
 
 export async function authGuard(
   req: Request,
@@ -45,9 +46,12 @@ export async function authGuard(
       req.emailVerified = decodedToken.email_verified;
     }
 
+    const role = decodedToken.role ?? AppRoles.DEFAULT_USER;
+    req.role = role;
+
     next();
   } catch (error) {
-    if (error instanceof FirebaseAppError) {
+    if (error instanceof FirebaseAuthError) {
       throw firebaseAuthErrorMapper(error);
     }
     throw error;

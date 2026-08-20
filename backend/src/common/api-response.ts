@@ -1,4 +1,4 @@
-import HttpStatusCode from "@/src/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
 
 export class ApiResponse<T> {
@@ -24,9 +24,25 @@ export class ApiResponse<T> {
     this.timestamp = new Date().toISOString();
   }
 
+  public static from<T>({
+    success,
+    statusCode,
+    data,
+    message,
+    machineCode,
+  }: {
+    success: boolean;
+    statusCode: HttpStatusCode;
+    data: T | null;
+    message: string | null;
+    machineCode: ErrorMachineCode | null;
+  }): ApiResponse<T> {
+    return new ApiResponse<T>(success, statusCode, data, message, machineCode);
+  }
+
   public static success<T>(
-    message: string = "",
     data: T | null = null,
+    message: string = "",
   ): ApiResponse<T> {
     return new ApiResponse<T>(true, HttpStatusCode.OK, data, message, null);
   }

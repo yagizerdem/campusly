@@ -2,7 +2,10 @@ import type { ErrorRequestHandler } from "express";
 import { ApiResponse } from "@common/api-response.js";
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
-import HttpStatusCode from "@util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import { Prisma } from "@/src/generated/prisma/client.js";
+import { handlePrismaKnownRequestError } from "@lib/prisma/handle-prisma-known-request-error.js";
+import { FirebaseAppError } from "firebase-admin/app";
 
 export const globalErrorHandler: ErrorRequestHandler = (
   error: unknown,
@@ -10,6 +13,8 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res,
   next,
 ) => {
+  console.log(error);
+
   if (res.headersSent) {
     next(error);
     return;
@@ -24,8 +29,13 @@ export const globalErrorHandler: ErrorRequestHandler = (
     return;
   }
 
-  console.error("Unhandled application error:", error);
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    handlePrismaKnownRequestError(error, res);
+    return;
+  }
 
+  if (error instanceof FirebaseAppError) {
+  }
   res
     .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
     .json(
