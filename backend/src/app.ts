@@ -9,6 +9,7 @@ import helmet from "helmet";
 import compression from "compression";
 import likeRoute from "@route/like-route.js";
 import commentRoute from "@route/comment-route.js";
+import tagRoute from "@route/tag-route.js";
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/club", clubRoute);
 app.use("/api/post", postRoute);
 app.use("/api/like", likeRoute);
 app.use("/api/comment", commentRoute);
+app.use("/api/tag", tagRoute);
 
 app.use(globalErrorHandler);
 

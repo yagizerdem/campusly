@@ -57,7 +57,9 @@ export const ModelName = {
   PostImage: 'PostImage',
   Like: 'Like',
   Comment: 'Comment',
-  Image: 'Image'
+  Image: 'Image',
+  Tag: 'Tag',
+  TagsOnClub: 'TagsOnClub'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -157,6 +159,24 @@ export const ImageScalarFieldEnum = {
 } as const
 
 export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  tagName: 'tagName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const TagsOnClubScalarFieldEnum = {
+  tagId: 'tagId',
+  clubId: 'clubId'
+} as const
+
+export type TagsOnClubScalarFieldEnum = (typeof TagsOnClubScalarFieldEnum)[keyof typeof TagsOnClubScalarFieldEnum]
 
 
 export const SortOrder = {

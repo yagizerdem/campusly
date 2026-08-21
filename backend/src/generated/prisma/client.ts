@@ -76,3 +76,13 @@ export type Comment = Prisma.CommentModel
  * 
  */
 export type Image = Prisma.ImageModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model TagsOnClub
+ * 
+ */
+export type TagsOnClub = Prisma.TagsOnClubModel
