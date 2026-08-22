@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const AuditLogLevel = {
+  INFO: 'INFO',
+  WARNING: 'WARNING',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type AuditLogLevel = (typeof AuditLogLevel)[keyof typeof AuditLogLevel]
+
+
 export const JoinRequestStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',

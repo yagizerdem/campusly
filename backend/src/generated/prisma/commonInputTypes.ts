@@ -171,6 +171,23 @@ export type EnumClubMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumClubMemberRoleFilter<$PrismaModel>
 }
 
+export type EnumAuditLogLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuditLogLevel | Prisma.EnumAuditLogLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuditLogLevelFilter<$PrismaModel> | $Enums.AuditLogLevel
+}
+
+export type EnumAuditLogLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuditLogLevel | Prisma.EnumAuditLogLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuditLogLevelWithAggregatesFilter<$PrismaModel> | $Enums.AuditLogLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAuditLogLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAuditLogLevelFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -339,6 +356,23 @@ export type NestedEnumClubMemberRoleWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumClubMemberRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumClubMemberRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumAuditLogLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuditLogLevel | Prisma.EnumAuditLogLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuditLogLevelFilter<$PrismaModel> | $Enums.AuditLogLevel
+}
+
+export type NestedEnumAuditLogLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AuditLogLevel | Prisma.EnumAuditLogLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AuditLogLevel[] | Prisma.ListEnumAuditLogLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAuditLogLevelWithAggregatesFilter<$PrismaModel> | $Enums.AuditLogLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAuditLogLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAuditLogLevelFilter<$PrismaModel>
 }
 
 

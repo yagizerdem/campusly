@@ -96,3 +96,8 @@ export type ClubJoinRequest = Prisma.ClubJoinRequestModel
  * 
  */
 export type ClubMember = Prisma.ClubMemberModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel

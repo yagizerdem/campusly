@@ -20,6 +20,7 @@ model Profile {
   posts Post[]
   clubJoinRequests ClubJoinRequest[]
   clubMemberships ClubMember[]
+  auditLogs AuditLog[]
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -105,7 +106,7 @@ model Comment {
   postId String  // Foreign key connecting Comment to Post
 
   profile Profile @relation(fields: [profileId], references: [id])
-  profileId String  // Foreign key connecting Like to Profile
+  profileId String  // Foreign key connecting Comment to Profile
 
   createdAt DateTime @default(now())
 }
@@ -176,6 +177,25 @@ model ClubMember {
 
   @@unique([profileId, clubId])
 }
+
+model AuditLog {
+  id    String     @id @default(uuid()) 
+  level AuditLogLevel @default(INFO)
+  title String
+  message String
+  details String?
+  actor Profile? @relation(fields: [actorId], references: [id])
+  actorId String?  // Foreign key connecting AuditLog to Profile
+
+  createdAt DateTime @default(now())
+}
+
+enum AuditLogLevel {
+  INFO
+  WARNING
+  CRITICAL
+}
+
 
 enum JoinRequestStatus {
   PENDING
