@@ -5,11 +5,70 @@ import * as profileService from "@service/profile-service.js";
 import type { JoinRequestStatus } from "@src/generated/prisma/enums.js";
 import { ErrorMachineCode } from "@util/error-machine-code.js";
 import HttpStatusCode from "@packages/shared/util/http-status-code.js";
+import { differenceInDays } from "date-fns";
 
-export async function createClubJoinRequest(
-  profileId: string,
-  clubId: string,
-) {
+export async function sendClubJoinRequest(profileId: string, clubId: string) {
+  const profile = await profileService.ensureProfileExistbyUid(profileId);
+  const club = await clubService.ensureClubExistById(clubId);
+
+  if (club.clubAdminId == profile.id) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "You cannot send a join request to your own club.",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  const joinRequest = await prisma.clubJoinRequest.findFirst({
+    where: {
+      profileId,
+      clubId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  if (joinRequest && joinRequest.status === "PENDING") {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.RESOURCE_ALREADY_EXISTS,
+      message: "You have already sent a join request to this club.",
+      statusCode: HttpStatusCode.CONFLICT,
+      isOperational: true,
+    });
+  }
+
+  if (joinRequest && joinRequest.status === "APPROVED") {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.RESOURCE_ALREADY_EXISTS,
+      message: "You are already a member of this club.",
+      statusCode: HttpStatusCode.CONFLICT,
+      isOperational: true,
+    });
+  }
+
+  if (joinRequest && joinRequest.status === "REJECTED") {
+    if (differenceInDays(Date.now(), joinRequest.createdAt) < 3) {
+      throw AppError.from({
+        machineCode: ErrorMachineCode.RESOURCE_ALREADY_EXISTS,
+        message:
+          "You have been rejected from this club. Please wait for 3 days before sending another join request.",
+        statusCode: HttpStatusCode.CONFLICT,
+        isOperational: true,
+      });
+    }
+  }
+
+  return prisma.clubJoinRequest.create({
+    data: {
+      profileId: profile.id,
+      clubId: club.id,
+    },
+  });
+}
+
+export async function createClubJoinRequest(profileId: string, clubId: string) {
   const profile = await profileService.ensureProfileExistbyUid(profileId);
   const club = await clubService.ensureClubExistById(clubId);
 
