@@ -1397,6 +1397,8 @@ export const ClubMemberScalarFieldEnum = {
   id: 'id',
   clubId: 'clubId',
   profileId: 'profileId',
+  role: 'role',
+  roleDescription: 'roleDescription',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1487,6 +1489,20 @@ export type EnumJoinRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType
  * Reference to a field of type 'JoinRequestStatus[]'
  */
 export type ListEnumJoinRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JoinRequestStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ClubMemberRole'
+ */
+export type EnumClubMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClubMemberRole'>
+    
+
+
+/**
+ * Reference to a field of type 'ClubMemberRole[]'
+ */
+export type ListEnumClubMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClubMemberRole[]'>
     
 
 

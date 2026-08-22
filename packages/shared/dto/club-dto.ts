@@ -41,6 +41,18 @@ export const UpdateClubValidator = z.object({
     .optional(),
 });
 
+// role ClubMemberRole @default(MEMBER)
+// roleDescription String?
+
+export const UpdateClubMemberValidator = z.object({
+  role: z.enum(["MEMBER", "ADMIN", "MANAGER"]),
+  roleDescription: z
+    .string()
+    .max(255, "Role description is too long")
+    .nullable()
+    .optional(),
+});
+
 export type CreateClubDto = z.infer<typeof CreateClubValidator>;
 
 export type UpdateClubDto = z.infer<typeof UpdateClubValidator>;

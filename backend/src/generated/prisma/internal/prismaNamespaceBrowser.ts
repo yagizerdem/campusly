@@ -197,6 +197,8 @@ export const ClubMemberScalarFieldEnum = {
   id: 'id',
   clubId: 'clubId',
   profileId: 'profileId',
+  role: 'role',
+  roleDescription: 'roleDescription',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

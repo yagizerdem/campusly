@@ -16,3 +16,12 @@ export const JoinRequestStatus = {
 } as const
 
 export type JoinRequestStatus = (typeof JoinRequestStatus)[keyof typeof JoinRequestStatus]
+
+
+export const ClubMemberRole = {
+  MEMBER: 'MEMBER',
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER'
+} as const
+
+export type ClubMemberRole = (typeof ClubMemberRole)[keyof typeof ClubMemberRole]
