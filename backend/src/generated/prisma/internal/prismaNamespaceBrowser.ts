@@ -59,7 +59,8 @@ export const ModelName = {
   Comment: 'Comment',
   Image: 'Image',
   Tag: 'Tag',
-  TagsOnClub: 'TagsOnClub'
+  TagsOnClub: 'TagsOnClub',
+  ClubJoinRequest: 'ClubJoinRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -177,6 +178,18 @@ export const TagsOnClubScalarFieldEnum = {
 } as const
 
 export type TagsOnClubScalarFieldEnum = (typeof TagsOnClubScalarFieldEnum)[keyof typeof TagsOnClubScalarFieldEnum]
+
+
+export const ClubJoinRequestScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  profileId: 'profileId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClubJoinRequestScalarFieldEnum = (typeof ClubJoinRequestScalarFieldEnum)[keyof typeof ClubJoinRequestScalarFieldEnum]
 
 
 export const SortOrder = {

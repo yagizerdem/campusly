@@ -405,7 +405,8 @@ export const ModelName = {
   Comment: 'Comment',
   Image: 'Image',
   Tag: 'Tag',
-  TagsOnClub: 'TagsOnClub'
+  TagsOnClub: 'TagsOnClub',
+  ClubJoinRequest: 'ClubJoinRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -421,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "club" | "post" | "postImage" | "like" | "comment" | "image" | "tag" | "tagsOnClub"
+    modelProps: "profile" | "club" | "post" | "postImage" | "like" | "comment" | "image" | "tag" | "tagsOnClub" | "clubJoinRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1091,6 +1092,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ClubJoinRequest: {
+      payload: Prisma.$ClubJoinRequestPayload<ExtArgs>
+      fields: Prisma.ClubJoinRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClubJoinRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClubJoinRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.ClubJoinRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClubJoinRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        findMany: {
+          args: Prisma.ClubJoinRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>[]
+        }
+        create: {
+          args: Prisma.ClubJoinRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        createMany: {
+          args: Prisma.ClubJoinRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClubJoinRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.ClubJoinRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        update: {
+          args: Prisma.ClubJoinRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.ClubJoinRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClubJoinRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClubJoinRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.ClubJoinRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.ClubJoinRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClubJoinRequest>
+        }
+        groupBy: {
+          args: Prisma.ClubJoinRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubJoinRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClubJoinRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubJoinRequestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1231,6 +1306,18 @@ export const TagsOnClubScalarFieldEnum = {
 export type TagsOnClubScalarFieldEnum = (typeof TagsOnClubScalarFieldEnum)[keyof typeof TagsOnClubScalarFieldEnum]
 
 
+export const ClubJoinRequestScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  profileId: 'profileId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClubJoinRequestScalarFieldEnum = (typeof ClubJoinRequestScalarFieldEnum)[keyof typeof ClubJoinRequestScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1300,6 +1387,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JoinRequestStatus'
+ */
+export type EnumJoinRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JoinRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JoinRequestStatus[]'
+ */
+export type ListEnumJoinRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JoinRequestStatus[]'>
     
 
 
@@ -1476,6 +1577,7 @@ export type GlobalOmitConfig = {
   image?: Prisma.ImageOmit
   tag?: Prisma.TagOmit
   tagsOnClub?: Prisma.TagsOnClubOmit
+  clubJoinRequest?: Prisma.ClubJoinRequestOmit
 }
 
 /* Types for Logging */

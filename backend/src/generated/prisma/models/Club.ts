@@ -217,6 +217,7 @@ export type ClubWhereInput = {
   clubAdmin?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   posts?: Prisma.PostListRelationFilter
   tagsOnClubs?: Prisma.TagsOnClubListRelationFilter
+  clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
   clubLogo?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }
 
@@ -233,6 +234,7 @@ export type ClubOrderByWithRelationInput = {
   clubAdmin?: Prisma.ProfileOrderByWithRelationInput
   posts?: Prisma.PostOrderByRelationAggregateInput
   tagsOnClubs?: Prisma.TagsOnClubOrderByRelationAggregateInput
+  clubJoinRequests?: Prisma.ClubJoinRequestOrderByRelationAggregateInput
   clubLogo?: Prisma.ImageOrderByWithRelationInput
 }
 
@@ -252,6 +254,7 @@ export type ClubWhereUniqueInput = Prisma.AtLeast<{
   clubAdmin?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   posts?: Prisma.PostListRelationFilter
   tagsOnClubs?: Prisma.TagsOnClubListRelationFilter
+  clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
   clubLogo?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }, "id" | "clubNormalizedName" | "clubLogoId">
 
@@ -296,6 +299,7 @@ export type ClubCreateInput = {
   clubAdmin: Prisma.ProfileCreateNestedOneWithoutAdministeredClubsInput
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
   tagsOnClubs?: Prisma.TagsOnClubCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   clubLogo?: Prisma.ImageCreateNestedOneWithoutClubInput
 }
 
@@ -311,6 +315,7 @@ export type ClubUncheckedCreateInput = {
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutClubInput
   tagsOnClubs?: Prisma.TagsOnClubUncheckedCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
 }
 
 export type ClubUpdateInput = {
@@ -324,6 +329,7 @@ export type ClubUpdateInput = {
   clubAdmin?: Prisma.ProfileUpdateOneRequiredWithoutAdministeredClubsNestedInput
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
   tagsOnClubs?: Prisma.TagsOnClubUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   clubLogo?: Prisma.ImageUpdateOneWithoutClubNestedInput
 }
 
@@ -339,6 +345,7 @@ export type ClubUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutClubNestedInput
   tagsOnClubs?: Prisma.TagsOnClubUncheckedUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
 }
 
 export type ClubCreateManyInput = {
@@ -533,6 +540,20 @@ export type ClubUpdateOneRequiredWithoutTagsOnClubsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClubUpdateToOneWithWhereWithoutTagsOnClubsInput, Prisma.ClubUpdateWithoutTagsOnClubsInput>, Prisma.ClubUncheckedUpdateWithoutTagsOnClubsInput>
 }
 
+export type ClubCreateNestedOneWithoutClubJoinRequestsInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutClubJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutClubJoinRequestsInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutClubJoinRequestsInput
+  connect?: Prisma.ClubWhereUniqueInput
+}
+
+export type ClubUpdateOneRequiredWithoutClubJoinRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutClubJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutClubJoinRequestsInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutClubJoinRequestsInput
+  upsert?: Prisma.ClubUpsertWithoutClubJoinRequestsInput
+  connect?: Prisma.ClubWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClubUpdateToOneWithWhereWithoutClubJoinRequestsInput, Prisma.ClubUpdateWithoutClubJoinRequestsInput>, Prisma.ClubUncheckedUpdateWithoutClubJoinRequestsInput>
+}
+
 export type ClubCreateWithoutClubAdminInput = {
   id?: string
   clubName: string
@@ -543,6 +564,7 @@ export type ClubCreateWithoutClubAdminInput = {
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
   tagsOnClubs?: Prisma.TagsOnClubCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   clubLogo?: Prisma.ImageCreateNestedOneWithoutClubInput
 }
 
@@ -557,6 +579,7 @@ export type ClubUncheckedCreateWithoutClubAdminInput = {
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutClubInput
   tagsOnClubs?: Prisma.TagsOnClubUncheckedCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutClubAdminInput = {
@@ -610,6 +633,7 @@ export type ClubCreateWithoutPostsInput = {
   updatedAt?: Date | string
   clubAdmin: Prisma.ProfileCreateNestedOneWithoutAdministeredClubsInput
   tagsOnClubs?: Prisma.TagsOnClubCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   clubLogo?: Prisma.ImageCreateNestedOneWithoutClubInput
 }
 
@@ -624,6 +648,7 @@ export type ClubUncheckedCreateWithoutPostsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tagsOnClubs?: Prisma.TagsOnClubUncheckedCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutPostsInput = {
@@ -652,6 +677,7 @@ export type ClubUpdateWithoutPostsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubAdmin?: Prisma.ProfileUpdateOneRequiredWithoutAdministeredClubsNestedInput
   tagsOnClubs?: Prisma.TagsOnClubUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   clubLogo?: Prisma.ImageUpdateOneWithoutClubNestedInput
 }
 
@@ -666,6 +692,7 @@ export type ClubUncheckedUpdateWithoutPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tagsOnClubs?: Prisma.TagsOnClubUncheckedUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
 }
 
 export type ClubCreateWithoutClubLogoInput = {
@@ -679,6 +706,7 @@ export type ClubCreateWithoutClubLogoInput = {
   clubAdmin: Prisma.ProfileCreateNestedOneWithoutAdministeredClubsInput
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
   tagsOnClubs?: Prisma.TagsOnClubCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
 }
 
 export type ClubUncheckedCreateWithoutClubLogoInput = {
@@ -692,6 +720,7 @@ export type ClubUncheckedCreateWithoutClubLogoInput = {
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutClubInput
   tagsOnClubs?: Prisma.TagsOnClubUncheckedCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutClubLogoInput = {
@@ -721,6 +750,7 @@ export type ClubUpdateWithoutClubLogoInput = {
   clubAdmin?: Prisma.ProfileUpdateOneRequiredWithoutAdministeredClubsNestedInput
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
   tagsOnClubs?: Prisma.TagsOnClubUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateWithoutClubLogoInput = {
@@ -734,6 +764,7 @@ export type ClubUncheckedUpdateWithoutClubLogoInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutClubNestedInput
   tagsOnClubs?: Prisma.TagsOnClubUncheckedUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
 }
 
 export type ClubCreateWithoutTagsOnClubsInput = {
@@ -746,6 +777,7 @@ export type ClubCreateWithoutTagsOnClubsInput = {
   updatedAt?: Date | string
   clubAdmin: Prisma.ProfileCreateNestedOneWithoutAdministeredClubsInput
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   clubLogo?: Prisma.ImageCreateNestedOneWithoutClubInput
 }
 
@@ -760,6 +792,7 @@ export type ClubUncheckedCreateWithoutTagsOnClubsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutClubInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutTagsOnClubsInput = {
@@ -788,6 +821,7 @@ export type ClubUpdateWithoutTagsOnClubsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubAdmin?: Prisma.ProfileUpdateOneRequiredWithoutAdministeredClubsNestedInput
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   clubLogo?: Prisma.ImageUpdateOneWithoutClubNestedInput
 }
 
@@ -802,6 +836,79 @@ export type ClubUncheckedUpdateWithoutTagsOnClubsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
+}
+
+export type ClubCreateWithoutClubJoinRequestsInput = {
+  id?: string
+  clubName: string
+  clubNormalizedName: string
+  clubDescription: string
+  clubLogoUri?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  clubAdmin: Prisma.ProfileCreateNestedOneWithoutAdministeredClubsInput
+  posts?: Prisma.PostCreateNestedManyWithoutClubInput
+  tagsOnClubs?: Prisma.TagsOnClubCreateNestedManyWithoutClubInput
+  clubLogo?: Prisma.ImageCreateNestedOneWithoutClubInput
+}
+
+export type ClubUncheckedCreateWithoutClubJoinRequestsInput = {
+  id?: string
+  clubName: string
+  clubNormalizedName: string
+  clubDescription: string
+  clubLogoUri?: string | null
+  clubAdminId: string
+  clubLogoId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutClubInput
+  tagsOnClubs?: Prisma.TagsOnClubUncheckedCreateNestedManyWithoutClubInput
+}
+
+export type ClubCreateOrConnectWithoutClubJoinRequestsInput = {
+  where: Prisma.ClubWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClubCreateWithoutClubJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutClubJoinRequestsInput>
+}
+
+export type ClubUpsertWithoutClubJoinRequestsInput = {
+  update: Prisma.XOR<Prisma.ClubUpdateWithoutClubJoinRequestsInput, Prisma.ClubUncheckedUpdateWithoutClubJoinRequestsInput>
+  create: Prisma.XOR<Prisma.ClubCreateWithoutClubJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutClubJoinRequestsInput>
+  where?: Prisma.ClubWhereInput
+}
+
+export type ClubUpdateToOneWithWhereWithoutClubJoinRequestsInput = {
+  where?: Prisma.ClubWhereInput
+  data: Prisma.XOR<Prisma.ClubUpdateWithoutClubJoinRequestsInput, Prisma.ClubUncheckedUpdateWithoutClubJoinRequestsInput>
+}
+
+export type ClubUpdateWithoutClubJoinRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clubName?: Prisma.StringFieldUpdateOperationsInput | string
+  clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
+  clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clubAdmin?: Prisma.ProfileUpdateOneRequiredWithoutAdministeredClubsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutClubNestedInput
+  tagsOnClubs?: Prisma.TagsOnClubUpdateManyWithoutClubNestedInput
+  clubLogo?: Prisma.ImageUpdateOneWithoutClubNestedInput
+}
+
+export type ClubUncheckedUpdateWithoutClubJoinRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clubName?: Prisma.StringFieldUpdateOperationsInput | string
+  clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
+  clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
+  clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clubAdminId?: Prisma.StringFieldUpdateOperationsInput | string
+  clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutClubNestedInput
+  tagsOnClubs?: Prisma.TagsOnClubUncheckedUpdateManyWithoutClubNestedInput
 }
 
 export type ClubCreateManyClubAdminInput = {
@@ -825,6 +932,7 @@ export type ClubUpdateWithoutClubAdminInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
   tagsOnClubs?: Prisma.TagsOnClubUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   clubLogo?: Prisma.ImageUpdateOneWithoutClubNestedInput
 }
 
@@ -839,6 +947,7 @@ export type ClubUncheckedUpdateWithoutClubAdminInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutClubNestedInput
   tagsOnClubs?: Prisma.TagsOnClubUncheckedUpdateManyWithoutClubNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateManyWithoutClubAdminInput = {
@@ -860,11 +969,13 @@ export type ClubUncheckedUpdateManyWithoutClubAdminInput = {
 export type ClubCountOutputType = {
   posts: number
   tagsOnClubs: number
+  clubJoinRequests: number
 }
 
 export type ClubCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | ClubCountOutputTypeCountPostsArgs
   tagsOnClubs?: boolean | ClubCountOutputTypeCountTagsOnClubsArgs
+  clubJoinRequests?: boolean | ClubCountOutputTypeCountClubJoinRequestsArgs
 }
 
 /**
@@ -891,6 +1002,13 @@ export type ClubCountOutputTypeCountTagsOnClubsArgs<ExtArgs extends runtime.Type
   where?: Prisma.TagsOnClubWhereInput
 }
 
+/**
+ * ClubCountOutputType without action
+ */
+export type ClubCountOutputTypeCountClubJoinRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClubJoinRequestWhereInput
+}
+
 
 export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -905,6 +1023,7 @@ export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   clubAdmin?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   posts?: boolean | Prisma.Club$postsArgs<ExtArgs>
   tagsOnClubs?: boolean | Prisma.Club$tagsOnClubsArgs<ExtArgs>
+  clubJoinRequests?: boolean | Prisma.Club$clubJoinRequestsArgs<ExtArgs>
   clubLogo?: boolean | Prisma.Club$clubLogoArgs<ExtArgs>
   _count?: boolean | Prisma.ClubCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["club"]>
@@ -954,6 +1073,7 @@ export type ClubInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   clubAdmin?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   posts?: boolean | Prisma.Club$postsArgs<ExtArgs>
   tagsOnClubs?: boolean | Prisma.Club$tagsOnClubsArgs<ExtArgs>
+  clubJoinRequests?: boolean | Prisma.Club$clubJoinRequestsArgs<ExtArgs>
   clubLogo?: boolean | Prisma.Club$clubLogoArgs<ExtArgs>
   _count?: boolean | Prisma.ClubCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -972,6 +1092,7 @@ export type $ClubPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     clubAdmin: Prisma.$ProfilePayload<ExtArgs>
     posts: Prisma.$PostPayload<ExtArgs>[]
     tagsOnClubs: Prisma.$TagsOnClubPayload<ExtArgs>[]
+    clubJoinRequests: Prisma.$ClubJoinRequestPayload<ExtArgs>[]
     clubLogo: Prisma.$ImagePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1381,6 +1502,7 @@ export interface Prisma__ClubClient<T, Null = never, ExtArgs extends runtime.Typ
   clubAdmin<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   posts<T extends Prisma.Club$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tagsOnClubs<T extends Prisma.Club$tagsOnClubsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$tagsOnClubsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagsOnClubPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clubJoinRequests<T extends Prisma.Club$clubJoinRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$clubJoinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubJoinRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubLogo<T extends Prisma.Club$clubLogoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$clubLogoArgs<ExtArgs>>): Prisma.Prisma__ImageClient<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1866,6 +1988,30 @@ export type Club$tagsOnClubsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.TagsOnClubScalarFieldEnum | Prisma.TagsOnClubScalarFieldEnum[]
+}
+
+/**
+ * Club.clubJoinRequests
+ */
+export type Club$clubJoinRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClubJoinRequest
+   */
+  select?: Prisma.ClubJoinRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClubJoinRequest
+   */
+  omit?: Prisma.ClubJoinRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClubJoinRequestInclude<ExtArgs> | null
+  where?: Prisma.ClubJoinRequestWhereInput
+  orderBy?: Prisma.ClubJoinRequestOrderByWithRelationInput | Prisma.ClubJoinRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ClubJoinRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClubJoinRequestScalarFieldEnum | Prisma.ClubJoinRequestScalarFieldEnum[]
 }
 
 /**

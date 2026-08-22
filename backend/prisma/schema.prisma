@@ -19,6 +19,7 @@ model Profile {
   likes Like[]
   comments Comment[]
   posts Post[]
+  clubJoinRequests ClubJoinRequest[]
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -41,6 +42,7 @@ model Club {
 
   posts Post[]
   tagsOnClubs TagsOnClub[]
+  clubJoinRequests ClubJoinRequest[]
 
   clubLogo   Image?  @relation(fields: [clubLogoId], references: [id])
   clubLogoId String? @unique
@@ -141,3 +143,28 @@ model TagsOnClub {
 
   @@id([tagId, clubId])
 }
+
+
+model ClubJoinRequest {
+  id    String     @id @default(uuid()) 
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting ClubJoinRequest to Club
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting ClubJoinRequest to Profile
+
+  status JoinRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+enum JoinRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED 
+}
+
+
