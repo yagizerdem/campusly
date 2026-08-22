@@ -39,11 +39,18 @@ export async function sendClubJoinRequest(profileId: string, clubId: string) {
     });
   }
 
-  if (joinRequest && joinRequest.status === "APPROVED") {
+  const membership = await prisma.clubMember.findFirst({
+    where: {
+      profileId: profile.id,
+      clubId: club.id,
+    },
+  });
+
+  if (membership) {
     throw AppError.from({
-      machineCode: ErrorMachineCode.RESOURCE_ALREADY_EXISTS,
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
       message: "You are already a member of this club.",
-      statusCode: HttpStatusCode.CONFLICT,
+      statusCode: HttpStatusCode.FORBIDDEN,
       isOperational: true,
     });
   }
@@ -192,4 +199,118 @@ export async function ensureClubJoinRequestNotExist(
       isOperational: true,
     });
   }
+}
+
+export async function ensureUserIsClubMember(userId: string, clubId: string) {
+  const profile = await profileService.ensureProfileExistbyUid(userId);
+  const club = await clubService.ensureClubExistById(clubId);
+
+  const membership = await prisma.clubMember.findFirst({
+    where: {
+      profileId: profile.id,
+      clubId: club.id,
+    },
+  });
+
+  if (!membership) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "You are not a member of this club.",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  return membership;
+}
+
+export async function ensureUserIsNotClubMember(
+  userId: string,
+  clubId: string,
+) {
+  const profile = await profileService.ensureProfileExistbyUid(userId);
+  const club = await clubService.ensureClubExistById(clubId);
+
+  const membership = await prisma.clubMember.findFirst({
+    where: {
+      profileId: profile.id,
+      clubId: club.id,
+    },
+  });
+
+  if (membership) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "You are already a member of this club.",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+}
+
+export async function approveClubJoinRequest(
+  clubAdminId: string,
+  joinRequestId: string,
+) {
+  const joinRequest = await ensureClubJoinRequestExistById(joinRequestId);
+  await clubService.ensureUserIsClubAdmin(clubAdminId, joinRequest.clubId);
+
+  if (joinRequest.status !== "PENDING") {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "Only pending join requests can be approved.",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  const membership = await prisma.$transaction(async (tx) => {
+    await tx.clubJoinRequest.update({
+      where: {
+        id: joinRequest.id,
+      },
+      data: {
+        status: "APPROVED",
+      },
+    });
+
+    const membership = await tx.clubMember.create({
+      data: {
+        profileId: joinRequest.profileId,
+        clubId: joinRequest.clubId,
+      },
+    });
+
+    return membership;
+  });
+
+  return membership;
+}
+
+export async function rejectClubJoinRequest(
+  clubAdminId: string,
+  joinRequestId: string,
+) {
+  const joinRequest = await ensureClubJoinRequestExistById(joinRequestId);
+  await clubService.ensureUserIsClubAdmin(clubAdminId, joinRequest.clubId);
+
+  if (joinRequest.status !== "PENDING") {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
+      message: "Only pending join requests can be rejected.",
+      statusCode: HttpStatusCode.FORBIDDEN,
+      isOperational: true,
+    });
+  }
+
+  const updatedRequest = await prisma.clubJoinRequest.update({
+    where: {
+      id: joinRequest.id,
+    },
+    data: {
+      status: "REJECTED",
+    },
+  });
+
+  return updatedRequest;
 }

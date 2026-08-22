@@ -91,3 +91,8 @@ export type TagsOnClub = Prisma.TagsOnClubModel
  * 
  */
 export type ClubJoinRequest = Prisma.ClubJoinRequestModel
+/**
+ * Model ClubMember
+ * 
+ */
+export type ClubMember = Prisma.ClubMemberModel

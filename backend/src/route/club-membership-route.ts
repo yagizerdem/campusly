@@ -11,4 +11,16 @@ router.post(
   catchAsync(clubMembershipController.sendJoinClubRequest),
 );
 
+router.post(
+  "/approve-membership/:joinRequestId",
+  authGuard,
+  catchAsync(clubMembershipController.approveJoinClubRequest),
+);
+
+router.post(
+  "/reject-membership/:joinRequestId",
+  authGuard,
+  catchAsync(clubMembershipController.rejectJoinClubRequest),
+);
+
 export default router;
