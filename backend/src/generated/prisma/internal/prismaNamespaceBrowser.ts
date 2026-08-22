@@ -99,7 +99,6 @@ export const ClubScalarFieldEnum = {
   clubNormalizedName: 'clubNormalizedName',
   clubDescription: 'clubDescription',
   clubLogoUri: 'clubLogoUri',
-  clubAdminId: 'clubAdminId',
   clubLogoId: 'clubLogoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

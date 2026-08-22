@@ -11,15 +11,6 @@ export async function sendClubJoinRequest(profileId: string, clubId: string) {
   const profile = await profileService.ensureProfileExistbyUid(profileId);
   const club = await clubService.ensureClubExistById(clubId);
 
-  if (club.clubAdminId == profile.id) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
-      message: "You cannot send a join request to your own club.",
-      statusCode: HttpStatusCode.FORBIDDEN,
-      isOperational: true,
-    });
-  }
-
   const joinRequest = await prisma.clubJoinRequest.findFirst({
     where: {
       profileId,

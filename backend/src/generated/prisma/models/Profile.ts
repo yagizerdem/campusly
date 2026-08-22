@@ -198,7 +198,6 @@ export type ProfileWhereInput = {
   profileImageId?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
-  administeredClubs?: Prisma.ClubListRelationFilter
   likes?: Prisma.LikeListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   posts?: Prisma.PostListRelationFilter
@@ -215,7 +214,6 @@ export type ProfileOrderByWithRelationInput = {
   profileImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  administeredClubs?: Prisma.ClubOrderByRelationAggregateInput
   likes?: Prisma.LikeOrderByRelationAggregateInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
   posts?: Prisma.PostOrderByRelationAggregateInput
@@ -235,7 +233,6 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   telephoneNumber?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
-  administeredClubs?: Prisma.ClubListRelationFilter
   likes?: Prisma.LikeListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   posts?: Prisma.PostListRelationFilter
@@ -277,7 +274,6 @@ export type ProfileCreateInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -294,7 +290,6 @@ export type ProfileUncheckedCreateInput = {
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -309,7 +304,6 @@ export type ProfileUpdateInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -326,7 +320,6 @@ export type ProfileUncheckedUpdateInput = {
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -413,20 +406,6 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
-}
-
-export type ProfileCreateNestedOneWithoutAdministeredClubsInput = {
-  create?: Prisma.XOR<Prisma.ProfileCreateWithoutAdministeredClubsInput, Prisma.ProfileUncheckedCreateWithoutAdministeredClubsInput>
-  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutAdministeredClubsInput
-  connect?: Prisma.ProfileWhereUniqueInput
-}
-
-export type ProfileUpdateOneRequiredWithoutAdministeredClubsNestedInput = {
-  create?: Prisma.XOR<Prisma.ProfileCreateWithoutAdministeredClubsInput, Prisma.ProfileUncheckedCreateWithoutAdministeredClubsInput>
-  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutAdministeredClubsInput
-  upsert?: Prisma.ProfileUpsertWithoutAdministeredClubsInput
-  connect?: Prisma.ProfileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutAdministeredClubsInput, Prisma.ProfileUpdateWithoutAdministeredClubsInput>, Prisma.ProfileUncheckedUpdateWithoutAdministeredClubsInput>
 }
 
 export type ProfileCreateNestedOneWithoutPostsInput = {
@@ -531,82 +510,6 @@ export type ProfileUpdateOneRequiredWithoutClubMembershipsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutClubMembershipsInput, Prisma.ProfileUpdateWithoutClubMembershipsInput>, Prisma.ProfileUncheckedUpdateWithoutClubMembershipsInput>
 }
 
-export type ProfileCreateWithoutAdministeredClubsInput = {
-  id?: string
-  firstName: string
-  lastName: string
-  telephoneNumber?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
-  comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
-  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
-  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
-  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
-  profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
-}
-
-export type ProfileUncheckedCreateWithoutAdministeredClubsInput = {
-  id?: string
-  firstName: string
-  lastName: string
-  telephoneNumber?: string | null
-  profileImageId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
-  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
-  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
-  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
-  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
-}
-
-export type ProfileCreateOrConnectWithoutAdministeredClubsInput = {
-  where: Prisma.ProfileWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProfileCreateWithoutAdministeredClubsInput, Prisma.ProfileUncheckedCreateWithoutAdministeredClubsInput>
-}
-
-export type ProfileUpsertWithoutAdministeredClubsInput = {
-  update: Prisma.XOR<Prisma.ProfileUpdateWithoutAdministeredClubsInput, Prisma.ProfileUncheckedUpdateWithoutAdministeredClubsInput>
-  create: Prisma.XOR<Prisma.ProfileCreateWithoutAdministeredClubsInput, Prisma.ProfileUncheckedCreateWithoutAdministeredClubsInput>
-  where?: Prisma.ProfileWhereInput
-}
-
-export type ProfileUpdateToOneWithWhereWithoutAdministeredClubsInput = {
-  where?: Prisma.ProfileWhereInput
-  data: Prisma.XOR<Prisma.ProfileUpdateWithoutAdministeredClubsInput, Prisma.ProfileUncheckedUpdateWithoutAdministeredClubsInput>
-}
-
-export type ProfileUpdateWithoutAdministeredClubsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
-  comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
-  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
-  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
-  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
-  profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
-}
-
-export type ProfileUncheckedUpdateWithoutAdministeredClubsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
-  comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
-  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
-  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
-  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
-}
-
 export type ProfileCreateWithoutPostsInput = {
   id?: string
   firstName: string
@@ -614,7 +517,6 @@ export type ProfileCreateWithoutPostsInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
@@ -630,7 +532,6 @@ export type ProfileUncheckedCreateWithoutPostsInput = {
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
@@ -660,7 +561,6 @@ export type ProfileUpdateWithoutPostsInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
@@ -676,7 +576,6 @@ export type ProfileUncheckedUpdateWithoutPostsInput = {
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
@@ -690,7 +589,6 @@ export type ProfileCreateWithoutLikesInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubCreateNestedManyWithoutClubAdminInput
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
@@ -706,7 +604,6 @@ export type ProfileUncheckedCreateWithoutLikesInput = {
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
@@ -736,7 +633,6 @@ export type ProfileUpdateWithoutLikesInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUpdateManyWithoutClubAdminNestedInput
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
@@ -752,7 +648,6 @@ export type ProfileUncheckedUpdateWithoutLikesInput = {
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
@@ -766,7 +661,6 @@ export type ProfileCreateWithoutCommentsInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
@@ -782,7 +676,6 @@ export type ProfileUncheckedCreateWithoutCommentsInput = {
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
@@ -812,7 +705,6 @@ export type ProfileUpdateWithoutCommentsInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
@@ -828,7 +720,6 @@ export type ProfileUncheckedUpdateWithoutCommentsInput = {
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
@@ -842,7 +733,6 @@ export type ProfileCreateWithoutProfileImageInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -857,7 +747,6 @@ export type ProfileUncheckedCreateWithoutProfileImageInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -888,7 +777,6 @@ export type ProfileUpdateWithoutProfileImageInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -903,7 +791,6 @@ export type ProfileUncheckedUpdateWithoutProfileImageInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -918,7 +805,6 @@ export type ProfileCreateWithoutClubJoinRequestsInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -934,7 +820,6 @@ export type ProfileUncheckedCreateWithoutClubJoinRequestsInput = {
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -964,7 +849,6 @@ export type ProfileUpdateWithoutClubJoinRequestsInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -980,7 +864,6 @@ export type ProfileUncheckedUpdateWithoutClubJoinRequestsInput = {
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -994,7 +877,6 @@ export type ProfileCreateWithoutClubMembershipsInput = {
   telephoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -1010,7 +892,6 @@ export type ProfileUncheckedCreateWithoutClubMembershipsInput = {
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  administeredClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutClubAdminInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1040,7 +921,6 @@ export type ProfileUpdateWithoutClubMembershipsInput = {
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -1056,7 +936,6 @@ export type ProfileUncheckedUpdateWithoutClubMembershipsInput = {
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  administeredClubs?: Prisma.ClubUncheckedUpdateManyWithoutClubAdminNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1069,7 +948,6 @@ export type ProfileUncheckedUpdateWithoutClubMembershipsInput = {
  */
 
 export type ProfileCountOutputType = {
-  administeredClubs: number
   likes: number
   comments: number
   posts: number
@@ -1078,7 +956,6 @@ export type ProfileCountOutputType = {
 }
 
 export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  administeredClubs?: boolean | ProfileCountOutputTypeCountAdministeredClubsArgs
   likes?: boolean | ProfileCountOutputTypeCountLikesArgs
   comments?: boolean | ProfileCountOutputTypeCountCommentsArgs
   posts?: boolean | ProfileCountOutputTypeCountPostsArgs
@@ -1094,13 +971,6 @@ export type ProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
    * Select specific fields to fetch from the ProfileCountOutputType
    */
   select?: Prisma.ProfileCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * ProfileCountOutputType without action
- */
-export type ProfileCountOutputTypeCountAdministeredClubsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ClubWhereInput
 }
 
 /**
@@ -1147,7 +1017,6 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   profileImageId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  administeredClubs?: boolean | Prisma.Profile$administeredClubsArgs<ExtArgs>
   likes?: boolean | Prisma.Profile$likesArgs<ExtArgs>
   comments?: boolean | Prisma.Profile$commentsArgs<ExtArgs>
   posts?: boolean | Prisma.Profile$postsArgs<ExtArgs>
@@ -1191,7 +1060,6 @@ export type ProfileSelectScalar = {
 
 export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "telephoneNumber" | "profileImageId" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  administeredClubs?: boolean | Prisma.Profile$administeredClubsArgs<ExtArgs>
   likes?: boolean | Prisma.Profile$likesArgs<ExtArgs>
   comments?: boolean | Prisma.Profile$commentsArgs<ExtArgs>
   posts?: boolean | Prisma.Profile$postsArgs<ExtArgs>
@@ -1210,7 +1078,6 @@ export type ProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Profile"
   objects: {
-    administeredClubs: Prisma.$ClubPayload<ExtArgs>[]
     likes: Prisma.$LikePayload<ExtArgs>[]
     comments: Prisma.$CommentPayload<ExtArgs>[]
     posts: Prisma.$PostPayload<ExtArgs>[]
@@ -1620,7 +1487,6 @@ readonly fields: ProfileFieldRefs;
  */
 export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  administeredClubs<T extends Prisma.Profile$administeredClubsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$administeredClubsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.Profile$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.Profile$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posts<T extends Prisma.Profile$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2061,30 +1927,6 @@ export type ProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Profiles to delete.
    */
   limit?: number
-}
-
-/**
- * Profile.administeredClubs
- */
-export type Profile$administeredClubsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Club
-   */
-  select?: Prisma.ClubSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Club
-   */
-  omit?: Prisma.ClubOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClubInclude<ExtArgs> | null
-  where?: Prisma.ClubWhereInput
-  orderBy?: Prisma.ClubOrderByWithRelationInput | Prisma.ClubOrderByWithRelationInput[]
-  cursor?: Prisma.ClubWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ClubScalarFieldEnum | Prisma.ClubScalarFieldEnum[]
 }
 
 /**

@@ -15,7 +15,6 @@ model Profile {
   lastName String
   telephoneNumber String?
 
-  administeredClubs Club[]
   likes Like[]
   comments Comment[]
   posts Post[]
@@ -38,8 +37,6 @@ model Club {
   clubDescription String
   clubLogoUri String?
 
-  clubAdmin Profile @relation(fields: [clubAdminId], references: [id])
-  clubAdminId String  // Foreign key connecting Club to Profile
 
   posts Post[]
   tagsOnClubs TagsOnClub[]
