@@ -203,7 +203,7 @@ export type ProfileWhereInput = {
   posts?: Prisma.PostListRelationFilter
   clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
   clubMemberships?: Prisma.ClubMemberListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
+  auditLogs?: Prisma.AuditLogsListRelationFilter
   profileImage?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }
 
@@ -220,7 +220,7 @@ export type ProfileOrderByWithRelationInput = {
   posts?: Prisma.PostOrderByRelationAggregateInput
   clubJoinRequests?: Prisma.ClubJoinRequestOrderByRelationAggregateInput
   clubMemberships?: Prisma.ClubMemberOrderByRelationAggregateInput
-  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  auditLogs?: Prisma.AuditLogsOrderByRelationAggregateInput
   profileImage?: Prisma.ImageOrderByWithRelationInput
 }
 
@@ -240,7 +240,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   posts?: Prisma.PostListRelationFilter
   clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
   clubMemberships?: Prisma.ClubMemberListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
+  auditLogs?: Prisma.AuditLogsListRelationFilter
   profileImage?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }, "id" | "profileImageId">
 
@@ -282,7 +282,7 @@ export type ProfileCreateInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -299,7 +299,7 @@ export type ProfileUncheckedCreateInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ProfileUpdateInput = {
@@ -314,7 +314,7 @@ export type ProfileUpdateInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -331,7 +331,7 @@ export type ProfileUncheckedUpdateInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileCreateManyInput = {
@@ -544,7 +544,7 @@ export type ProfileCreateWithoutPostsInput = {
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -560,7 +560,7 @@ export type ProfileUncheckedCreateWithoutPostsInput = {
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ProfileCreateOrConnectWithoutPostsInput = {
@@ -590,7 +590,7 @@ export type ProfileUpdateWithoutPostsInput = {
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -606,7 +606,7 @@ export type ProfileUncheckedUpdateWithoutPostsInput = {
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileCreateWithoutLikesInput = {
@@ -620,7 +620,7 @@ export type ProfileCreateWithoutLikesInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -636,7 +636,7 @@ export type ProfileUncheckedCreateWithoutLikesInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ProfileCreateOrConnectWithoutLikesInput = {
@@ -666,7 +666,7 @@ export type ProfileUpdateWithoutLikesInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -682,7 +682,7 @@ export type ProfileUncheckedUpdateWithoutLikesInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileCreateWithoutCommentsInput = {
@@ -696,7 +696,7 @@ export type ProfileCreateWithoutCommentsInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -712,7 +712,7 @@ export type ProfileUncheckedCreateWithoutCommentsInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ProfileCreateOrConnectWithoutCommentsInput = {
@@ -742,7 +742,7 @@ export type ProfileUpdateWithoutCommentsInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -758,7 +758,7 @@ export type ProfileUncheckedUpdateWithoutCommentsInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileCreateWithoutProfileImageInput = {
@@ -773,7 +773,7 @@ export type ProfileCreateWithoutProfileImageInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
 }
 
 export type ProfileUncheckedCreateWithoutProfileImageInput = {
@@ -788,7 +788,7 @@ export type ProfileUncheckedCreateWithoutProfileImageInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ProfileCreateOrConnectWithoutProfileImageInput = {
@@ -819,7 +819,7 @@ export type ProfileUpdateWithoutProfileImageInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutProfileImageInput = {
@@ -834,7 +834,7 @@ export type ProfileUncheckedUpdateWithoutProfileImageInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileCreateWithoutClubJoinRequestsInput = {
@@ -848,7 +848,7 @@ export type ProfileCreateWithoutClubJoinRequestsInput = {
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -864,7 +864,7 @@ export type ProfileUncheckedCreateWithoutClubJoinRequestsInput = {
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ProfileCreateOrConnectWithoutClubJoinRequestsInput = {
@@ -894,7 +894,7 @@ export type ProfileUpdateWithoutClubJoinRequestsInput = {
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -910,7 +910,7 @@ export type ProfileUncheckedUpdateWithoutClubJoinRequestsInput = {
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileCreateWithoutClubMembershipsInput = {
@@ -924,7 +924,7 @@ export type ProfileCreateWithoutClubMembershipsInput = {
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -940,7 +940,7 @@ export type ProfileUncheckedCreateWithoutClubMembershipsInput = {
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ProfileCreateOrConnectWithoutClubMembershipsInput = {
@@ -970,7 +970,7 @@ export type ProfileUpdateWithoutClubMembershipsInput = {
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -986,7 +986,7 @@ export type ProfileUncheckedUpdateWithoutClubMembershipsInput = {
   comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ProfileCreateWithoutAuditLogsInput = {
@@ -1137,7 +1137,7 @@ export type ProfileCountOutputTypeCountClubMembershipsArgs<ExtArgs extends runti
  * ProfileCountOutputType without action
  */
 export type ProfileCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AuditLogWhereInput
+  where?: Prisma.AuditLogsWhereInput
 }
 
 
@@ -1217,7 +1217,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     posts: Prisma.$PostPayload<ExtArgs>[]
     clubJoinRequests: Prisma.$ClubJoinRequestPayload<ExtArgs>[]
     clubMemberships: Prisma.$ClubMemberPayload<ExtArgs>[]
-    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    auditLogs: Prisma.$AuditLogsPayload<ExtArgs>[]
     profileImage: Prisma.$ImagePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1627,7 +1627,7 @@ export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.
   posts<T extends Prisma.Profile$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubJoinRequests<T extends Prisma.Profile$clubJoinRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$clubJoinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubJoinRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubMemberships<T extends Prisma.Profile$clubMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$clubMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  auditLogs<T extends Prisma.Profile$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogs<T extends Prisma.Profile$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profileImage<T extends Prisma.Profile$profileImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$profileImageArgs<ExtArgs>>): Prisma.Prisma__ImageClient<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2190,23 +2190,23 @@ export type Profile$clubMembershipsArgs<ExtArgs extends runtime.Types.Extensions
  */
 export type Profile$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AuditLog
+   * Select specific fields to fetch from the AuditLogs
    */
-  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  select?: Prisma.AuditLogsSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AuditLog
+   * Omit specific fields from the AuditLogs
    */
-  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  omit?: Prisma.AuditLogsOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AuditLogInclude<ExtArgs> | null
-  where?: Prisma.AuditLogWhereInput
-  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
-  cursor?: Prisma.AuditLogWhereUniqueInput
+  include?: Prisma.AuditLogsInclude<ExtArgs> | null
+  where?: Prisma.AuditLogsWhereInput
+  orderBy?: Prisma.AuditLogsOrderByWithRelationInput | Prisma.AuditLogsOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogsWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+  distinct?: Prisma.AuditLogsScalarFieldEnum | Prisma.AuditLogsScalarFieldEnum[]
 }
 
 /**

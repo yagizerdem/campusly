@@ -62,7 +62,7 @@ export const ModelName = {
   TagsOnClub: 'TagsOnClub',
   ClubJoinRequest: 'ClubJoinRequest',
   ClubMember: 'ClubMember',
-  AuditLog: 'AuditLog'
+  AuditLogs: 'AuditLogs'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -206,7 +206,7 @@ export const ClubMemberScalarFieldEnum = {
 export type ClubMemberScalarFieldEnum = (typeof ClubMemberScalarFieldEnum)[keyof typeof ClubMemberScalarFieldEnum]
 
 
-export const AuditLogScalarFieldEnum = {
+export const AuditLogsScalarFieldEnum = {
   id: 'id',
   level: 'level',
   title: 'title',
@@ -216,7 +216,7 @@ export const AuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 } as const
 
-export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+export type AuditLogsScalarFieldEnum = (typeof AuditLogsScalarFieldEnum)[keyof typeof AuditLogsScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -20,7 +20,7 @@ model Profile {
   posts Post[]
   clubJoinRequests ClubJoinRequest[]
   clubMemberships ClubMember[]
-  auditLogs AuditLog[]
+  auditLogs AuditLogs[]
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -178,7 +178,7 @@ model ClubMember {
   @@unique([profileId, clubId])
 }
 
-model AuditLog {
+model AuditLogs {
   id    String     @id @default(uuid()) 
   level AuditLogLevel @default(INFO)
   title String

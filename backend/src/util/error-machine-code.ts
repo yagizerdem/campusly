@@ -62,4 +62,7 @@ export enum ErrorMachineCode {
   // Tag
   TAG_NOT_FOUND = "TAG_NOT_FOUND",
   TAG_ALREADY_EXISTS = "TAG_ALREADY_EXISTS",
+
+  // Audit
+  AUDIT_LOG_NOT_FOUND = "AUDIT_LOG_NOT_FOUND",
 }

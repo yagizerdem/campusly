@@ -11,6 +11,7 @@ import likeRoute from "@route/like-route.js";
 import commentRoute from "@route/comment-route.js";
 import tagRoute from "@route/tag-route.js";
 import clubMembershipRoute from "@route/club-membership-route.js";
+import auditRoute from "@route/audit-route.js";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api/like", likeRoute);
 app.use("/api/comment", commentRoute);
 app.use("/api/tag", tagRoute);
 app.use("/api/club-membership", clubMembershipRoute);
+app.use("/api/audit", auditRoute);
 
 app.use(globalErrorHandler);
 

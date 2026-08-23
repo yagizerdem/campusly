@@ -408,7 +408,7 @@ export const ModelName = {
   TagsOnClub: 'TagsOnClub',
   ClubJoinRequest: 'ClubJoinRequest',
   ClubMember: 'ClubMember',
-  AuditLog: 'AuditLog'
+  AuditLogs: 'AuditLogs'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "club" | "post" | "postImage" | "like" | "comment" | "image" | "tag" | "tagsOnClub" | "clubJoinRequest" | "clubMember" | "auditLog"
+    modelProps: "profile" | "club" | "post" | "postImage" | "like" | "comment" | "image" | "tag" | "tagsOnClub" | "clubJoinRequest" | "clubMember" | "auditLogs"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1242,77 +1242,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    AuditLog: {
-      payload: Prisma.$AuditLogPayload<ExtArgs>
-      fields: Prisma.AuditLogFieldRefs
+    AuditLogs: {
+      payload: Prisma.$AuditLogsPayload<ExtArgs>
+      fields: Prisma.AuditLogsFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.AuditLogFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          args: Prisma.AuditLogsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.AuditLogFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          args: Prisma.AuditLogsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>
         }
         findFirst: {
-          args: Prisma.AuditLogFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          args: Prisma.AuditLogsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.AuditLogFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          args: Prisma.AuditLogsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>
         }
         findMany: {
-          args: Prisma.AuditLogFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          args: Prisma.AuditLogsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>[]
         }
         create: {
-          args: Prisma.AuditLogCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          args: Prisma.AuditLogsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>
         }
         createMany: {
-          args: Prisma.AuditLogCreateManyArgs<ExtArgs>
+          args: Prisma.AuditLogsCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.AuditLogCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          args: Prisma.AuditLogsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>[]
         }
         delete: {
-          args: Prisma.AuditLogDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          args: Prisma.AuditLogsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>
         }
         update: {
-          args: Prisma.AuditLogUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          args: Prisma.AuditLogsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>
         }
         deleteMany: {
-          args: Prisma.AuditLogDeleteManyArgs<ExtArgs>
+          args: Prisma.AuditLogsDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.AuditLogUpdateManyArgs<ExtArgs>
+          args: Prisma.AuditLogsUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.AuditLogUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          args: Prisma.AuditLogsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>[]
         }
         upsert: {
-          args: Prisma.AuditLogUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          args: Prisma.AuditLogsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogsPayload>
         }
         aggregate: {
-          args: Prisma.AuditLogAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateAuditLog>
+          args: Prisma.AuditLogsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuditLogs>
         }
         groupBy: {
-          args: Prisma.AuditLogGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AuditLogGroupByOutputType>[]
+          args: Prisma.AuditLogsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditLogsGroupByOutputType>[]
         }
         count: {
-          args: Prisma.AuditLogCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AuditLogCountAggregateOutputType> | number
+          args: Prisma.AuditLogsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditLogsCountAggregateOutputType> | number
         }
       }
     }
@@ -1480,7 +1480,7 @@ export const ClubMemberScalarFieldEnum = {
 export type ClubMemberScalarFieldEnum = (typeof ClubMemberScalarFieldEnum)[keyof typeof ClubMemberScalarFieldEnum]
 
 
-export const AuditLogScalarFieldEnum = {
+export const AuditLogsScalarFieldEnum = {
   id: 'id',
   level: 'level',
   title: 'title',
@@ -1490,7 +1490,7 @@ export const AuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 } as const
 
-export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+export type AuditLogsScalarFieldEnum = (typeof AuditLogsScalarFieldEnum)[keyof typeof AuditLogsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1782,7 +1782,7 @@ export type GlobalOmitConfig = {
   tagsOnClub?: Prisma.TagsOnClubOmit
   clubJoinRequest?: Prisma.ClubJoinRequestOmit
   clubMember?: Prisma.ClubMemberOmit
-  auditLog?: Prisma.AuditLogOmit
+  auditLogs?: Prisma.AuditLogsOmit
 }
 
 /* Types for Logging */
