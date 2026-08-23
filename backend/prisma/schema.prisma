@@ -21,6 +21,9 @@ model Profile {
   clubJoinRequests ClubJoinRequest[]
   clubMemberships ClubMember[]
   auditLogs AuditLogs[]
+  stories Stories[]
+  surveySchemas SurveySchemas[]
+  surveySchemaResponses SurveySchemaResponses[]
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -43,6 +46,8 @@ model Club {
   tagsOnClubs TagsOnClub[]
   clubJoinRequests ClubJoinRequest[]
   clubMembers ClubMember[]
+  stories Stories[]
+  clubEvents ClubEvent[]
 
   clubLogo   Image?  @relation(fields: [clubLogoId], references: [id])
   clubLogoId String? @unique
@@ -121,6 +126,9 @@ model Image {
   profile    Profile?
   club       Club?
   posts      PostImage[]
+  stories    StoryImage[]
+  clubEvents ClubEventImage[]
+
 
   createdAt DateTime @default(now())
 }
@@ -190,6 +198,116 @@ model AuditLogs {
   createdAt DateTime @default(now())
 }
 
+
+model StoryImage {
+  storyId  String
+  imageId String
+
+  story  Stories  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  order Int @default(0)
+
+  @@id([storyId, imageId])
+}
+
+model Stories {
+  id    String     @id @default(uuid()) 
+  storyTitle String
+  storyContent String
+
+  author   Profile @relation(fields: [authorId], references: [id])
+  authorId String
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting Story to Club
+
+  images StoryImage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model ClubEvent {
+  id    String     @id @default(uuid()) 
+  eventTitle String
+  eventDescription String
+  eventDate DateTime
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting ClubEvent to Club
+
+  images ClubEventImage[]
+  clubEventForm ClubEventForm? 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model ClubEventImage {
+  clubEventId  String
+  imageId String
+
+  clubEvent  ClubEvent  @relation(fields: [clubEventId], references: [id], onDelete: Cascade)
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  order Int @default(0)
+
+  @@id([clubEventId, imageId])
+}
+
+model ClubEventForm {
+  id    String     @id @default(uuid()) 
+  formJson Json
+
+  clubEvent ClubEvent @relation(fields: [clubEventId], references: [id])
+  clubEventId String @unique
+
+  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id])
+  surveySchemaId String @unique
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SurveySchemas {
+  id    String     @id @default(uuid()) 
+  schemaJson Json
+
+  author   Profile @relation(fields: [authorId], references: [id])
+  authorId String
+
+  surveySchemaResponses SurveySchemaResponses[]
+  clubEventForms ClubEventForm[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+}
+
+
+model SurveySchemaResponses {
+  id    String     @id @default(uuid()) 
+  responseJson Json
+
+  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id])
+  surveySchemaId String
+
+  respondent   Profile @relation(fields: [respondentId], references: [id])
+  respondentId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+
+
 enum AuditLogLevel {
   INFO
   WARNING
@@ -208,5 +326,7 @@ enum ClubMemberRole {
   ADMIN
   MANAGER
 }
+
+
 
 

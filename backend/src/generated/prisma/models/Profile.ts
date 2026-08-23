@@ -204,6 +204,9 @@ export type ProfileWhereInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
   clubMemberships?: Prisma.ClubMemberListRelationFilter
   auditLogs?: Prisma.AuditLogsListRelationFilter
+  stories?: Prisma.StoriesListRelationFilter
+  surveySchemas?: Prisma.SurveySchemasListRelationFilter
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesListRelationFilter
   profileImage?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }
 
@@ -221,6 +224,9 @@ export type ProfileOrderByWithRelationInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestOrderByRelationAggregateInput
   clubMemberships?: Prisma.ClubMemberOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogsOrderByRelationAggregateInput
+  stories?: Prisma.StoriesOrderByRelationAggregateInput
+  surveySchemas?: Prisma.SurveySchemasOrderByRelationAggregateInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesOrderByRelationAggregateInput
   profileImage?: Prisma.ImageOrderByWithRelationInput
 }
 
@@ -241,6 +247,9 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
   clubMemberships?: Prisma.ClubMemberListRelationFilter
   auditLogs?: Prisma.AuditLogsListRelationFilter
+  stories?: Prisma.StoriesListRelationFilter
+  surveySchemas?: Prisma.SurveySchemasListRelationFilter
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesListRelationFilter
   profileImage?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }, "id" | "profileImageId">
 
@@ -283,6 +292,9 @@ export type ProfileCreateInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -300,6 +312,9 @@ export type ProfileUncheckedCreateInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileUpdateInput = {
@@ -315,6 +330,9 @@ export type ProfileUpdateInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -332,6 +350,9 @@ export type ProfileUncheckedUpdateInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileCreateManyInput = {
@@ -533,6 +554,48 @@ export type ProfileUpdateOneWithoutAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.ProfileUpdateWithoutAuditLogsInput>, Prisma.ProfileUncheckedUpdateWithoutAuditLogsInput>
 }
 
+export type ProfileCreateNestedOneWithoutStoriesInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutStoriesInput, Prisma.ProfileUncheckedCreateWithoutStoriesInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutStoriesInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutStoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutStoriesInput, Prisma.ProfileUncheckedCreateWithoutStoriesInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutStoriesInput
+  upsert?: Prisma.ProfileUpsertWithoutStoriesInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutStoriesInput, Prisma.ProfileUpdateWithoutStoriesInput>, Prisma.ProfileUncheckedUpdateWithoutStoriesInput>
+}
+
+export type ProfileCreateNestedOneWithoutSurveySchemasInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemasInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemasInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutSurveySchemasInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutSurveySchemasNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemasInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemasInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutSurveySchemasInput
+  upsert?: Prisma.ProfileUpsertWithoutSurveySchemasInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutSurveySchemasInput, Prisma.ProfileUpdateWithoutSurveySchemasInput>, Prisma.ProfileUncheckedUpdateWithoutSurveySchemasInput>
+}
+
+export type ProfileCreateNestedOneWithoutSurveySchemaResponsesInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemaResponsesInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemaResponsesInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutSurveySchemaResponsesInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutSurveySchemaResponsesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemaResponsesInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemaResponsesInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutSurveySchemaResponsesInput
+  upsert?: Prisma.ProfileUpsertWithoutSurveySchemaResponsesInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutSurveySchemaResponsesInput, Prisma.ProfileUpdateWithoutSurveySchemaResponsesInput>, Prisma.ProfileUncheckedUpdateWithoutSurveySchemaResponsesInput>
+}
+
 export type ProfileCreateWithoutPostsInput = {
   id?: string
   firstName: string
@@ -545,6 +608,9 @@ export type ProfileCreateWithoutPostsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -561,6 +627,9 @@ export type ProfileUncheckedCreateWithoutPostsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileCreateOrConnectWithoutPostsInput = {
@@ -591,6 +660,9 @@ export type ProfileUpdateWithoutPostsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -607,6 +679,9 @@ export type ProfileUncheckedUpdateWithoutPostsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileCreateWithoutLikesInput = {
@@ -621,6 +696,9 @@ export type ProfileCreateWithoutLikesInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -637,6 +715,9 @@ export type ProfileUncheckedCreateWithoutLikesInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileCreateOrConnectWithoutLikesInput = {
@@ -667,6 +748,9 @@ export type ProfileUpdateWithoutLikesInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -683,6 +767,9 @@ export type ProfileUncheckedUpdateWithoutLikesInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileCreateWithoutCommentsInput = {
@@ -697,6 +784,9 @@ export type ProfileCreateWithoutCommentsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -713,6 +803,9 @@ export type ProfileUncheckedCreateWithoutCommentsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileCreateOrConnectWithoutCommentsInput = {
@@ -743,6 +836,9 @@ export type ProfileUpdateWithoutCommentsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -759,6 +855,9 @@ export type ProfileUncheckedUpdateWithoutCommentsInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileCreateWithoutProfileImageInput = {
@@ -774,6 +873,9 @@ export type ProfileCreateWithoutProfileImageInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileUncheckedCreateWithoutProfileImageInput = {
@@ -789,6 +891,9 @@ export type ProfileUncheckedCreateWithoutProfileImageInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileCreateOrConnectWithoutProfileImageInput = {
@@ -820,6 +925,9 @@ export type ProfileUpdateWithoutProfileImageInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutProfileImageInput = {
@@ -835,6 +943,9 @@ export type ProfileUncheckedUpdateWithoutProfileImageInput = {
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileCreateWithoutClubJoinRequestsInput = {
@@ -849,6 +960,9 @@ export type ProfileCreateWithoutClubJoinRequestsInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -865,6 +979,9 @@ export type ProfileUncheckedCreateWithoutClubJoinRequestsInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileCreateOrConnectWithoutClubJoinRequestsInput = {
@@ -895,6 +1012,9 @@ export type ProfileUpdateWithoutClubJoinRequestsInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -911,6 +1031,9 @@ export type ProfileUncheckedUpdateWithoutClubJoinRequestsInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileCreateWithoutClubMembershipsInput = {
@@ -925,6 +1048,9 @@ export type ProfileCreateWithoutClubMembershipsInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -941,6 +1067,9 @@ export type ProfileUncheckedCreateWithoutClubMembershipsInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileCreateOrConnectWithoutClubMembershipsInput = {
@@ -971,6 +1100,9 @@ export type ProfileUpdateWithoutClubMembershipsInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -987,6 +1119,9 @@ export type ProfileUncheckedUpdateWithoutClubMembershipsInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
 }
 
 export type ProfileCreateWithoutAuditLogsInput = {
@@ -1001,6 +1136,9 @@ export type ProfileCreateWithoutAuditLogsInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
   profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
 }
 
@@ -1017,6 +1155,9 @@ export type ProfileUncheckedCreateWithoutAuditLogsInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
 }
 
 export type ProfileCreateOrConnectWithoutAuditLogsInput = {
@@ -1047,6 +1188,9 @@ export type ProfileUpdateWithoutAuditLogsInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
   profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
 }
 
@@ -1063,6 +1207,273 @@ export type ProfileUncheckedUpdateWithoutAuditLogsInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
+}
+
+export type ProfileCreateWithoutStoriesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  telephoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
+  profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
+}
+
+export type ProfileUncheckedCreateWithoutStoriesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  telephoneNumber?: string | null
+  profileImageId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
+}
+
+export type ProfileCreateOrConnectWithoutStoriesInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutStoriesInput, Prisma.ProfileUncheckedCreateWithoutStoriesInput>
+}
+
+export type ProfileUpsertWithoutStoriesInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutStoriesInput, Prisma.ProfileUncheckedUpdateWithoutStoriesInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutStoriesInput, Prisma.ProfileUncheckedCreateWithoutStoriesInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutStoriesInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutStoriesInput, Prisma.ProfileUncheckedUpdateWithoutStoriesInput>
+}
+
+export type ProfileUpdateWithoutStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
+  profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
+}
+
+export type ProfileCreateWithoutSurveySchemasInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  telephoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutRespondentInput
+  profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
+}
+
+export type ProfileUncheckedCreateWithoutSurveySchemasInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  telephoneNumber?: string | null
+  profileImageId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutRespondentInput
+}
+
+export type ProfileCreateOrConnectWithoutSurveySchemasInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemasInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemasInput>
+}
+
+export type ProfileUpsertWithoutSurveySchemasInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutSurveySchemasInput, Prisma.ProfileUncheckedUpdateWithoutSurveySchemasInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemasInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemasInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutSurveySchemasInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutSurveySchemasInput, Prisma.ProfileUncheckedUpdateWithoutSurveySchemasInput>
+}
+
+export type ProfileUpdateWithoutSurveySchemasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutRespondentNestedInput
+  profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutSurveySchemasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutRespondentNestedInput
+}
+
+export type ProfileCreateWithoutSurveySchemaResponsesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  telephoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutProfileInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutProfileInput
+  auditLogs?: Prisma.AuditLogsCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasCreateNestedManyWithoutAuthorInput
+  profileImage?: Prisma.ImageCreateNestedOneWithoutProfileInput
+}
+
+export type ProfileUncheckedCreateWithoutSurveySchemaResponsesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  telephoneNumber?: string | null
+  profileImageId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProfileInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutProfileInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutProfileInput
+  auditLogs?: Prisma.AuditLogsUncheckedCreateNestedManyWithoutActorInput
+  stories?: Prisma.StoriesUncheckedCreateNestedManyWithoutAuthorInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type ProfileCreateOrConnectWithoutSurveySchemaResponsesInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemaResponsesInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemaResponsesInput>
+}
+
+export type ProfileUpsertWithoutSurveySchemaResponsesInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutSurveySchemaResponsesInput, Prisma.ProfileUncheckedUpdateWithoutSurveySchemaResponsesInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemaResponsesInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemaResponsesInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutSurveySchemaResponsesInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutSurveySchemaResponsesInput, Prisma.ProfileUncheckedUpdateWithoutSurveySchemaResponsesInput>
+}
+
+export type ProfileUpdateWithoutSurveySchemaResponsesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutProfileNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutProfileNestedInput
+  auditLogs?: Prisma.AuditLogsUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUpdateManyWithoutAuthorNestedInput
+  profileImage?: Prisma.ImageUpdateOneWithoutProfileNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutSurveySchemaResponsesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProfileNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutProfileNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutProfileNestedInput
+  auditLogs?: Prisma.AuditLogsUncheckedUpdateManyWithoutActorNestedInput
+  stories?: Prisma.StoriesUncheckedUpdateManyWithoutAuthorNestedInput
+  surveySchemas?: Prisma.SurveySchemasUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 
@@ -1077,6 +1488,9 @@ export type ProfileCountOutputType = {
   clubJoinRequests: number
   clubMemberships: number
   auditLogs: number
+  stories: number
+  surveySchemas: number
+  surveySchemaResponses: number
 }
 
 export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1086,6 +1500,9 @@ export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   clubJoinRequests?: boolean | ProfileCountOutputTypeCountClubJoinRequestsArgs
   clubMemberships?: boolean | ProfileCountOutputTypeCountClubMembershipsArgs
   auditLogs?: boolean | ProfileCountOutputTypeCountAuditLogsArgs
+  stories?: boolean | ProfileCountOutputTypeCountStoriesArgs
+  surveySchemas?: boolean | ProfileCountOutputTypeCountSurveySchemasArgs
+  surveySchemaResponses?: boolean | ProfileCountOutputTypeCountSurveySchemaResponsesArgs
 }
 
 /**
@@ -1140,6 +1557,27 @@ export type ProfileCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.AuditLogsWhereInput
 }
 
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StoriesWhereInput
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountSurveySchemasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SurveySchemasWhereInput
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountSurveySchemaResponsesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SurveySchemaResponsesWhereInput
+}
+
 
 export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1155,6 +1593,9 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   clubJoinRequests?: boolean | Prisma.Profile$clubJoinRequestsArgs<ExtArgs>
   clubMemberships?: boolean | Prisma.Profile$clubMembershipsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Profile$auditLogsArgs<ExtArgs>
+  stories?: boolean | Prisma.Profile$storiesArgs<ExtArgs>
+  surveySchemas?: boolean | Prisma.Profile$surveySchemasArgs<ExtArgs>
+  surveySchemaResponses?: boolean | Prisma.Profile$surveySchemaResponsesArgs<ExtArgs>
   profileImage?: boolean | Prisma.Profile$profileImageArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
@@ -1199,6 +1640,9 @@ export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   clubJoinRequests?: boolean | Prisma.Profile$clubJoinRequestsArgs<ExtArgs>
   clubMemberships?: boolean | Prisma.Profile$clubMembershipsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Profile$auditLogsArgs<ExtArgs>
+  stories?: boolean | Prisma.Profile$storiesArgs<ExtArgs>
+  surveySchemas?: boolean | Prisma.Profile$surveySchemasArgs<ExtArgs>
+  surveySchemaResponses?: boolean | Prisma.Profile$surveySchemaResponsesArgs<ExtArgs>
   profileImage?: boolean | Prisma.Profile$profileImageArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1218,6 +1662,9 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     clubJoinRequests: Prisma.$ClubJoinRequestPayload<ExtArgs>[]
     clubMemberships: Prisma.$ClubMemberPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogsPayload<ExtArgs>[]
+    stories: Prisma.$StoriesPayload<ExtArgs>[]
+    surveySchemas: Prisma.$SurveySchemasPayload<ExtArgs>[]
+    surveySchemaResponses: Prisma.$SurveySchemaResponsesPayload<ExtArgs>[]
     profileImage: Prisma.$ImagePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1628,6 +2075,9 @@ export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.
   clubJoinRequests<T extends Prisma.Profile$clubJoinRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$clubJoinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubJoinRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubMemberships<T extends Prisma.Profile$clubMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$clubMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Profile$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stories<T extends Prisma.Profile$storiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$storiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  surveySchemas<T extends Prisma.Profile$surveySchemasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$surveySchemasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveySchemasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  surveySchemaResponses<T extends Prisma.Profile$surveySchemaResponsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$surveySchemaResponsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveySchemaResponsesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profileImage<T extends Prisma.Profile$profileImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$profileImageArgs<ExtArgs>>): Prisma.Prisma__ImageClient<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2207,6 +2657,78 @@ export type Profile$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogsScalarFieldEnum | Prisma.AuditLogsScalarFieldEnum[]
+}
+
+/**
+ * Profile.stories
+ */
+export type Profile$storiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Stories
+   */
+  select?: Prisma.StoriesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Stories
+   */
+  omit?: Prisma.StoriesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoriesInclude<ExtArgs> | null
+  where?: Prisma.StoriesWhereInput
+  orderBy?: Prisma.StoriesOrderByWithRelationInput | Prisma.StoriesOrderByWithRelationInput[]
+  cursor?: Prisma.StoriesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StoriesScalarFieldEnum | Prisma.StoriesScalarFieldEnum[]
+}
+
+/**
+ * Profile.surveySchemas
+ */
+export type Profile$surveySchemasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SurveySchemas
+   */
+  select?: Prisma.SurveySchemasSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SurveySchemas
+   */
+  omit?: Prisma.SurveySchemasOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SurveySchemasInclude<ExtArgs> | null
+  where?: Prisma.SurveySchemasWhereInput
+  orderBy?: Prisma.SurveySchemasOrderByWithRelationInput | Prisma.SurveySchemasOrderByWithRelationInput[]
+  cursor?: Prisma.SurveySchemasWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SurveySchemasScalarFieldEnum | Prisma.SurveySchemasScalarFieldEnum[]
+}
+
+/**
+ * Profile.surveySchemaResponses
+ */
+export type Profile$surveySchemaResponsesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SurveySchemaResponses
+   */
+  select?: Prisma.SurveySchemaResponsesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SurveySchemaResponses
+   */
+  omit?: Prisma.SurveySchemaResponsesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SurveySchemaResponsesInclude<ExtArgs> | null
+  where?: Prisma.SurveySchemaResponsesWhereInput
+  orderBy?: Prisma.SurveySchemaResponsesOrderByWithRelationInput | Prisma.SurveySchemaResponsesOrderByWithRelationInput[]
+  cursor?: Prisma.SurveySchemaResponsesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SurveySchemaResponsesScalarFieldEnum | Prisma.SurveySchemaResponsesScalarFieldEnum[]
 }
 
 /**

@@ -193,6 +193,8 @@ export type ImageWhereInput = {
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
   posts?: Prisma.PostImageListRelationFilter
+  stories?: Prisma.StoryImageListRelationFilter
+  clubEvents?: Prisma.ClubEventImageListRelationFilter
 }
 
 export type ImageOrderByWithRelationInput = {
@@ -205,6 +207,8 @@ export type ImageOrderByWithRelationInput = {
   profile?: Prisma.ProfileOrderByWithRelationInput
   club?: Prisma.ClubOrderByWithRelationInput
   posts?: Prisma.PostImageOrderByRelationAggregateInput
+  stories?: Prisma.StoryImageOrderByRelationAggregateInput
+  clubEvents?: Prisma.ClubEventImageOrderByRelationAggregateInput
 }
 
 export type ImageWhereUniqueInput = Prisma.AtLeast<{
@@ -220,6 +224,8 @@ export type ImageWhereUniqueInput = Prisma.AtLeast<{
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
   posts?: Prisma.PostImageListRelationFilter
+  stories?: Prisma.StoryImageListRelationFilter
+  clubEvents?: Prisma.ClubEventImageListRelationFilter
 }, "id">
 
 export type ImageOrderByWithAggregationInput = {
@@ -256,6 +262,8 @@ export type ImageCreateInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
   posts?: Prisma.PostImageCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageCreateNestedManyWithoutImageInput
 }
 
 export type ImageUncheckedCreateInput = {
@@ -268,6 +276,8 @@ export type ImageUncheckedCreateInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
   posts?: Prisma.PostImageUncheckedCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageUncheckedCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageUncheckedCreateNestedManyWithoutImageInput
 }
 
 export type ImageUpdateInput = {
@@ -280,6 +290,8 @@ export type ImageUpdateInput = {
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
   posts?: Prisma.PostImageUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUpdateManyWithoutImageNestedInput
 }
 
 export type ImageUncheckedUpdateInput = {
@@ -292,6 +304,8 @@ export type ImageUncheckedUpdateInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
   posts?: Prisma.PostImageUncheckedUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUncheckedUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUncheckedUpdateManyWithoutImageNestedInput
 }
 
 export type ImageCreateManyInput = {
@@ -404,6 +418,34 @@ export type ImageUpdateOneRequiredWithoutPostsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ImageUpdateToOneWithWhereWithoutPostsInput, Prisma.ImageUpdateWithoutPostsInput>, Prisma.ImageUncheckedUpdateWithoutPostsInput>
 }
 
+export type ImageCreateNestedOneWithoutStoriesInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutStoriesInput, Prisma.ImageUncheckedCreateWithoutStoriesInput>
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutStoriesInput
+  connect?: Prisma.ImageWhereUniqueInput
+}
+
+export type ImageUpdateOneRequiredWithoutStoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutStoriesInput, Prisma.ImageUncheckedCreateWithoutStoriesInput>
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutStoriesInput
+  upsert?: Prisma.ImageUpsertWithoutStoriesInput
+  connect?: Prisma.ImageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ImageUpdateToOneWithWhereWithoutStoriesInput, Prisma.ImageUpdateWithoutStoriesInput>, Prisma.ImageUncheckedUpdateWithoutStoriesInput>
+}
+
+export type ImageCreateNestedOneWithoutClubEventsInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutClubEventsInput, Prisma.ImageUncheckedCreateWithoutClubEventsInput>
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutClubEventsInput
+  connect?: Prisma.ImageWhereUniqueInput
+}
+
+export type ImageUpdateOneRequiredWithoutClubEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutClubEventsInput, Prisma.ImageUncheckedCreateWithoutClubEventsInput>
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutClubEventsInput
+  upsert?: Prisma.ImageUpsertWithoutClubEventsInput
+  connect?: Prisma.ImageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ImageUpdateToOneWithWhereWithoutClubEventsInput, Prisma.ImageUpdateWithoutClubEventsInput>, Prisma.ImageUncheckedUpdateWithoutClubEventsInput>
+}
+
 export type ImageCreateWithoutProfileInput = {
   id?: string
   imageUri: string
@@ -413,6 +455,8 @@ export type ImageCreateWithoutProfileInput = {
   createdAt?: Date | string
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
   posts?: Prisma.PostImageCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageCreateNestedManyWithoutImageInput
 }
 
 export type ImageUncheckedCreateWithoutProfileInput = {
@@ -424,6 +468,8 @@ export type ImageUncheckedCreateWithoutProfileInput = {
   createdAt?: Date | string
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
   posts?: Prisma.PostImageUncheckedCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageUncheckedCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageUncheckedCreateNestedManyWithoutImageInput
 }
 
 export type ImageCreateOrConnectWithoutProfileInput = {
@@ -451,6 +497,8 @@ export type ImageUpdateWithoutProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
   posts?: Prisma.PostImageUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUpdateManyWithoutImageNestedInput
 }
 
 export type ImageUncheckedUpdateWithoutProfileInput = {
@@ -462,6 +510,8 @@ export type ImageUncheckedUpdateWithoutProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
   posts?: Prisma.PostImageUncheckedUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUncheckedUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUncheckedUpdateManyWithoutImageNestedInput
 }
 
 export type ImageCreateWithoutClubInput = {
@@ -473,6 +523,8 @@ export type ImageCreateWithoutClubInput = {
   createdAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   posts?: Prisma.PostImageCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageCreateNestedManyWithoutImageInput
 }
 
 export type ImageUncheckedCreateWithoutClubInput = {
@@ -484,6 +536,8 @@ export type ImageUncheckedCreateWithoutClubInput = {
   createdAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   posts?: Prisma.PostImageUncheckedCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageUncheckedCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageUncheckedCreateNestedManyWithoutImageInput
 }
 
 export type ImageCreateOrConnectWithoutClubInput = {
@@ -511,6 +565,8 @@ export type ImageUpdateWithoutClubInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   posts?: Prisma.PostImageUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUpdateManyWithoutImageNestedInput
 }
 
 export type ImageUncheckedUpdateWithoutClubInput = {
@@ -522,6 +578,8 @@ export type ImageUncheckedUpdateWithoutClubInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   posts?: Prisma.PostImageUncheckedUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUncheckedUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUncheckedUpdateManyWithoutImageNestedInput
 }
 
 export type ImageCreateWithoutPostsInput = {
@@ -533,6 +591,8 @@ export type ImageCreateWithoutPostsInput = {
   createdAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
+  stories?: Prisma.StoryImageCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageCreateNestedManyWithoutImageInput
 }
 
 export type ImageUncheckedCreateWithoutPostsInput = {
@@ -544,6 +604,8 @@ export type ImageUncheckedCreateWithoutPostsInput = {
   createdAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
+  stories?: Prisma.StoryImageUncheckedCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageUncheckedCreateNestedManyWithoutImageInput
 }
 
 export type ImageCreateOrConnectWithoutPostsInput = {
@@ -571,6 +633,8 @@ export type ImageUpdateWithoutPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
+  stories?: Prisma.StoryImageUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUpdateManyWithoutImageNestedInput
 }
 
 export type ImageUncheckedUpdateWithoutPostsInput = {
@@ -582,6 +646,144 @@ export type ImageUncheckedUpdateWithoutPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
+  stories?: Prisma.StoryImageUncheckedUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUncheckedUpdateManyWithoutImageNestedInput
+}
+
+export type ImageCreateWithoutStoriesInput = {
+  id?: string
+  imageUri: string
+  fileName: string
+  bucketName: string
+  mimeType: string
+  createdAt?: Date | string
+  profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
+  club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
+  posts?: Prisma.PostImageCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageCreateNestedManyWithoutImageInput
+}
+
+export type ImageUncheckedCreateWithoutStoriesInput = {
+  id?: string
+  imageUri: string
+  fileName: string
+  bucketName: string
+  mimeType: string
+  createdAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
+  club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
+  posts?: Prisma.PostImageUncheckedCreateNestedManyWithoutImageInput
+  clubEvents?: Prisma.ClubEventImageUncheckedCreateNestedManyWithoutImageInput
+}
+
+export type ImageCreateOrConnectWithoutStoriesInput = {
+  where: Prisma.ImageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ImageCreateWithoutStoriesInput, Prisma.ImageUncheckedCreateWithoutStoriesInput>
+}
+
+export type ImageUpsertWithoutStoriesInput = {
+  update: Prisma.XOR<Prisma.ImageUpdateWithoutStoriesInput, Prisma.ImageUncheckedUpdateWithoutStoriesInput>
+  create: Prisma.XOR<Prisma.ImageCreateWithoutStoriesInput, Prisma.ImageUncheckedCreateWithoutStoriesInput>
+  where?: Prisma.ImageWhereInput
+}
+
+export type ImageUpdateToOneWithWhereWithoutStoriesInput = {
+  where?: Prisma.ImageWhereInput
+  data: Prisma.XOR<Prisma.ImageUpdateWithoutStoriesInput, Prisma.ImageUncheckedUpdateWithoutStoriesInput>
+}
+
+export type ImageUpdateWithoutStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
+  club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
+  posts?: Prisma.PostImageUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUpdateManyWithoutImageNestedInput
+}
+
+export type ImageUncheckedUpdateWithoutStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
+  club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
+  posts?: Prisma.PostImageUncheckedUpdateManyWithoutImageNestedInput
+  clubEvents?: Prisma.ClubEventImageUncheckedUpdateManyWithoutImageNestedInput
+}
+
+export type ImageCreateWithoutClubEventsInput = {
+  id?: string
+  imageUri: string
+  fileName: string
+  bucketName: string
+  mimeType: string
+  createdAt?: Date | string
+  profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
+  club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
+  posts?: Prisma.PostImageCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageCreateNestedManyWithoutImageInput
+}
+
+export type ImageUncheckedCreateWithoutClubEventsInput = {
+  id?: string
+  imageUri: string
+  fileName: string
+  bucketName: string
+  mimeType: string
+  createdAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
+  club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
+  posts?: Prisma.PostImageUncheckedCreateNestedManyWithoutImageInput
+  stories?: Prisma.StoryImageUncheckedCreateNestedManyWithoutImageInput
+}
+
+export type ImageCreateOrConnectWithoutClubEventsInput = {
+  where: Prisma.ImageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ImageCreateWithoutClubEventsInput, Prisma.ImageUncheckedCreateWithoutClubEventsInput>
+}
+
+export type ImageUpsertWithoutClubEventsInput = {
+  update: Prisma.XOR<Prisma.ImageUpdateWithoutClubEventsInput, Prisma.ImageUncheckedUpdateWithoutClubEventsInput>
+  create: Prisma.XOR<Prisma.ImageCreateWithoutClubEventsInput, Prisma.ImageUncheckedCreateWithoutClubEventsInput>
+  where?: Prisma.ImageWhereInput
+}
+
+export type ImageUpdateToOneWithWhereWithoutClubEventsInput = {
+  where?: Prisma.ImageWhereInput
+  data: Prisma.XOR<Prisma.ImageUpdateWithoutClubEventsInput, Prisma.ImageUncheckedUpdateWithoutClubEventsInput>
+}
+
+export type ImageUpdateWithoutClubEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
+  club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
+  posts?: Prisma.PostImageUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUpdateManyWithoutImageNestedInput
+}
+
+export type ImageUncheckedUpdateWithoutClubEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
+  club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
+  posts?: Prisma.PostImageUncheckedUpdateManyWithoutImageNestedInput
+  stories?: Prisma.StoryImageUncheckedUpdateManyWithoutImageNestedInput
 }
 
 
@@ -591,10 +793,14 @@ export type ImageUncheckedUpdateWithoutPostsInput = {
 
 export type ImageCountOutputType = {
   posts: number
+  stories: number
+  clubEvents: number
 }
 
 export type ImageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | ImageCountOutputTypeCountPostsArgs
+  stories?: boolean | ImageCountOutputTypeCountStoriesArgs
+  clubEvents?: boolean | ImageCountOutputTypeCountClubEventsArgs
 }
 
 /**
@@ -614,6 +820,20 @@ export type ImageCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.PostImageWhereInput
 }
 
+/**
+ * ImageCountOutputType without action
+ */
+export type ImageCountOutputTypeCountStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StoryImageWhereInput
+}
+
+/**
+ * ImageCountOutputType without action
+ */
+export type ImageCountOutputTypeCountClubEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClubEventImageWhereInput
+}
+
 
 export type ImageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -625,6 +845,8 @@ export type ImageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   profile?: boolean | Prisma.Image$profileArgs<ExtArgs>
   club?: boolean | Prisma.Image$clubArgs<ExtArgs>
   posts?: boolean | Prisma.Image$postsArgs<ExtArgs>
+  stories?: boolean | Prisma.Image$storiesArgs<ExtArgs>
+  clubEvents?: boolean | Prisma.Image$clubEventsArgs<ExtArgs>
   _count?: boolean | Prisma.ImageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["image"]>
 
@@ -660,6 +882,8 @@ export type ImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   profile?: boolean | Prisma.Image$profileArgs<ExtArgs>
   club?: boolean | Prisma.Image$clubArgs<ExtArgs>
   posts?: boolean | Prisma.Image$postsArgs<ExtArgs>
+  stories?: boolean | Prisma.Image$storiesArgs<ExtArgs>
+  clubEvents?: boolean | Prisma.Image$clubEventsArgs<ExtArgs>
   _count?: boolean | Prisma.ImageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ImageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -671,6 +895,8 @@ export type $ImagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     club: Prisma.$ClubPayload<ExtArgs> | null
     posts: Prisma.$PostImagePayload<ExtArgs>[]
+    stories: Prisma.$StoryImagePayload<ExtArgs>[]
+    clubEvents: Prisma.$ClubEventImagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1076,6 +1302,8 @@ export interface Prisma__ImageClient<T, Null = never, ExtArgs extends runtime.Ty
   profile<T extends Prisma.Image$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   club<T extends Prisma.Image$clubArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$clubArgs<ExtArgs>>): Prisma.Prisma__ClubClient<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   posts<T extends Prisma.Image$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stories<T extends Prisma.Image$storiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$storiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clubEvents<T extends Prisma.Image$clubEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$clubEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubEventImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1563,6 +1791,54 @@ export type Image$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.PostImageScalarFieldEnum | Prisma.PostImageScalarFieldEnum[]
+}
+
+/**
+ * Image.stories
+ */
+export type Image$storiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StoryImage
+   */
+  select?: Prisma.StoryImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StoryImage
+   */
+  omit?: Prisma.StoryImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoryImageInclude<ExtArgs> | null
+  where?: Prisma.StoryImageWhereInput
+  orderBy?: Prisma.StoryImageOrderByWithRelationInput | Prisma.StoryImageOrderByWithRelationInput[]
+  cursor?: Prisma.StoryImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StoryImageScalarFieldEnum | Prisma.StoryImageScalarFieldEnum[]
+}
+
+/**
+ * Image.clubEvents
+ */
+export type Image$clubEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClubEventImage
+   */
+  select?: Prisma.ClubEventImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClubEventImage
+   */
+  omit?: Prisma.ClubEventImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClubEventImageInclude<ExtArgs> | null
+  where?: Prisma.ClubEventImageWhereInput
+  orderBy?: Prisma.ClubEventImageOrderByWithRelationInput | Prisma.ClubEventImageOrderByWithRelationInput[]
+  cursor?: Prisma.ClubEventImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClubEventImageScalarFieldEnum | Prisma.ClubEventImageScalarFieldEnum[]
 }
 
 /**

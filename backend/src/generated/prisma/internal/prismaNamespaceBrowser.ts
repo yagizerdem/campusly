@@ -62,7 +62,14 @@ export const ModelName = {
   TagsOnClub: 'TagsOnClub',
   ClubJoinRequest: 'ClubJoinRequest',
   ClubMember: 'ClubMember',
-  AuditLogs: 'AuditLogs'
+  AuditLogs: 'AuditLogs',
+  StoryImage: 'StoryImage',
+  Stories: 'Stories',
+  ClubEvent: 'ClubEvent',
+  ClubEventImage: 'ClubEventImage',
+  ClubEventForm: 'ClubEventForm',
+  SurveySchemas: 'SurveySchemas',
+  SurveySchemaResponses: 'SurveySchemaResponses'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -219,12 +226,98 @@ export const AuditLogsScalarFieldEnum = {
 export type AuditLogsScalarFieldEnum = (typeof AuditLogsScalarFieldEnum)[keyof typeof AuditLogsScalarFieldEnum]
 
 
+export const StoryImageScalarFieldEnum = {
+  storyId: 'storyId',
+  imageId: 'imageId',
+  order: 'order'
+} as const
+
+export type StoryImageScalarFieldEnum = (typeof StoryImageScalarFieldEnum)[keyof typeof StoryImageScalarFieldEnum]
+
+
+export const StoriesScalarFieldEnum = {
+  id: 'id',
+  storyTitle: 'storyTitle',
+  storyContent: 'storyContent',
+  authorId: 'authorId',
+  clubId: 'clubId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StoriesScalarFieldEnum = (typeof StoriesScalarFieldEnum)[keyof typeof StoriesScalarFieldEnum]
+
+
+export const ClubEventScalarFieldEnum = {
+  id: 'id',
+  eventTitle: 'eventTitle',
+  eventDescription: 'eventDescription',
+  eventDate: 'eventDate',
+  clubId: 'clubId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClubEventScalarFieldEnum = (typeof ClubEventScalarFieldEnum)[keyof typeof ClubEventScalarFieldEnum]
+
+
+export const ClubEventImageScalarFieldEnum = {
+  clubEventId: 'clubEventId',
+  imageId: 'imageId',
+  order: 'order'
+} as const
+
+export type ClubEventImageScalarFieldEnum = (typeof ClubEventImageScalarFieldEnum)[keyof typeof ClubEventImageScalarFieldEnum]
+
+
+export const ClubEventFormScalarFieldEnum = {
+  id: 'id',
+  formJson: 'formJson',
+  clubEventId: 'clubEventId',
+  surveySchemaId: 'surveySchemaId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClubEventFormScalarFieldEnum = (typeof ClubEventFormScalarFieldEnum)[keyof typeof ClubEventFormScalarFieldEnum]
+
+
+export const SurveySchemasScalarFieldEnum = {
+  id: 'id',
+  schemaJson: 'schemaJson',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SurveySchemasScalarFieldEnum = (typeof SurveySchemasScalarFieldEnum)[keyof typeof SurveySchemasScalarFieldEnum]
+
+
+export const SurveySchemaResponsesScalarFieldEnum = {
+  id: 'id',
+  responseJson: 'responseJson',
+  surveySchemaId: 'surveySchemaId',
+  respondentId: 'respondentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SurveySchemaResponsesScalarFieldEnum = (typeof SurveySchemaResponsesScalarFieldEnum)[keyof typeof SurveySchemaResponsesScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -241,4 +334,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

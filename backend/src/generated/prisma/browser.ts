@@ -77,3 +77,38 @@ export type ClubMember = Prisma.ClubMemberModel
  * 
  */
 export type AuditLogs = Prisma.AuditLogsModel
+/**
+ * Model StoryImage
+ * 
+ */
+export type StoryImage = Prisma.StoryImageModel
+/**
+ * Model Stories
+ * 
+ */
+export type Stories = Prisma.StoriesModel
+/**
+ * Model ClubEvent
+ * 
+ */
+export type ClubEvent = Prisma.ClubEventModel
+/**
+ * Model ClubEventImage
+ * 
+ */
+export type ClubEventImage = Prisma.ClubEventImageModel
+/**
+ * Model ClubEventForm
+ * 
+ */
+export type ClubEventForm = Prisma.ClubEventFormModel
+/**
+ * Model SurveySchemas
+ * 
+ */
+export type SurveySchemas = Prisma.SurveySchemasModel
+/**
+ * Model SurveySchemaResponses
+ * 
+ */
+export type SurveySchemaResponses = Prisma.SurveySchemaResponsesModel
