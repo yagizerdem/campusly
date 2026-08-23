@@ -51,7 +51,7 @@ export async function unlikePost(req: Request, res: Response) {
   if (typeof likeId !== "string") {
     throw AppError.from({
       machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID must be a string",
+      message: "Like ID must be a string",
       statusCode: HttpStatusCode.BAD_REQUEST,
       isOperational: true,
     });

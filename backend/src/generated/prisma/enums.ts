@@ -9,7 +9,28 @@
 * 🟢 You can import this file directly.
 */
 
+export const AuditLogLevel = {
+  INFO: 'INFO',
+  WARNING: 'WARNING',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type AuditLogLevel = (typeof AuditLogLevel)[keyof typeof AuditLogLevel]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const JoinRequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type JoinRequestStatus = (typeof JoinRequestStatus)[keyof typeof JoinRequestStatus]
+
+
+export const ClubMemberRole = {
+  MEMBER: 'MEMBER',
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER'
+} as const
+
+export type ClubMemberRole = (typeof ClubMemberRole)[keyof typeof ClubMemberRole]

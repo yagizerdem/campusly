@@ -15,10 +15,12 @@ model Profile {
   lastName String
   telephoneNumber String?
 
-  administeredClubs Club[]
   likes Like[]
   comments Comment[]
   posts Post[]
+  clubJoinRequests ClubJoinRequest[]
+  clubMemberships ClubMember[]
+  auditLogs AuditLogs[]
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -36,10 +38,11 @@ model Club {
   clubDescription String
   clubLogoUri String?
 
-  clubAdmin Profile @relation(fields: [clubAdminId], references: [id])
-  clubAdminId String  // Foreign key connecting Club to Profile
 
   posts Post[]
+  tagsOnClubs TagsOnClub[]
+  clubJoinRequests ClubJoinRequest[]
+  clubMembers ClubMember[]
 
   clubLogo   Image?  @relation(fields: [clubLogoId], references: [id])
   clubLogoId String? @unique
@@ -103,7 +106,7 @@ model Comment {
   postId String  // Foreign key connecting Comment to Post
 
   profile Profile @relation(fields: [profileId], references: [id])
-  profileId String  // Foreign key connecting Like to Profile
+  profileId String  // Foreign key connecting Comment to Profile
 
   createdAt DateTime @default(now())
 }
@@ -121,3 +124,89 @@ model Image {
 
   createdAt DateTime @default(now())
 }
+
+model Tag {
+  id    String     @id @default(uuid()) 
+  tagName String @unique  
+  tagsOnClubs TagsOnClub[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TagsOnClub {
+  tag Tag @relation(fields: [tagId], references: [id])
+  tagId String
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String
+
+  @@id([tagId, clubId])
+}
+
+
+model ClubJoinRequest {
+  id    String     @id @default(uuid()) 
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting ClubJoinRequest to Club
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting ClubJoinRequest to Profile
+
+  status JoinRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ClubMember {
+  id    String     @id @default(uuid()) 
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting ClubMember to Club
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting ClubMember to Profile
+
+  role ClubMemberRole @default(MEMBER)
+  roleDescription String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([profileId, clubId])
+}
+
+model AuditLogs {
+  id    String     @id @default(uuid()) 
+  level AuditLogLevel @default(INFO)
+  title String
+  message String
+  details String?
+  actor Profile? @relation(fields: [actorId], references: [id])
+  actorId String?  // Foreign key connecting AuditLog to Profile
+
+  createdAt DateTime @default(now())
+}
+
+enum AuditLogLevel {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+
+enum JoinRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED 
+}
+
+enum ClubMemberRole {
+  MEMBER
+  ADMIN
+  MANAGER
+}
+
+

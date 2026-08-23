@@ -76,3 +76,28 @@ export type Comment = Prisma.CommentModel
  * 
  */
 export type Image = Prisma.ImageModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model TagsOnClub
+ * 
+ */
+export type TagsOnClub = Prisma.TagsOnClubModel
+/**
+ * Model ClubJoinRequest
+ * 
+ */
+export type ClubJoinRequest = Prisma.ClubJoinRequestModel
+/**
+ * Model ClubMember
+ * 
+ */
+export type ClubMember = Prisma.ClubMemberModel
+/**
+ * Model AuditLogs
+ * 
+ */
+export type AuditLogs = Prisma.AuditLogsModel

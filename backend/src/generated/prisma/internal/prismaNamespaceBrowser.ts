@@ -57,7 +57,12 @@ export const ModelName = {
   PostImage: 'PostImage',
   Like: 'Like',
   Comment: 'Comment',
-  Image: 'Image'
+  Image: 'Image',
+  Tag: 'Tag',
+  TagsOnClub: 'TagsOnClub',
+  ClubJoinRequest: 'ClubJoinRequest',
+  ClubMember: 'ClubMember',
+  AuditLogs: 'AuditLogs'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -95,7 +100,6 @@ export const ClubScalarFieldEnum = {
   clubNormalizedName: 'clubNormalizedName',
   clubDescription: 'clubDescription',
   clubLogoUri: 'clubLogoUri',
-  clubAdminId: 'clubAdminId',
   clubLogoId: 'clubLogoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -157,6 +161,62 @@ export const ImageScalarFieldEnum = {
 } as const
 
 export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  tagName: 'tagName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const TagsOnClubScalarFieldEnum = {
+  tagId: 'tagId',
+  clubId: 'clubId'
+} as const
+
+export type TagsOnClubScalarFieldEnum = (typeof TagsOnClubScalarFieldEnum)[keyof typeof TagsOnClubScalarFieldEnum]
+
+
+export const ClubJoinRequestScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  profileId: 'profileId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClubJoinRequestScalarFieldEnum = (typeof ClubJoinRequestScalarFieldEnum)[keyof typeof ClubJoinRequestScalarFieldEnum]
+
+
+export const ClubMemberScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  profileId: 'profileId',
+  role: 'role',
+  roleDescription: 'roleDescription',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClubMemberScalarFieldEnum = (typeof ClubMemberScalarFieldEnum)[keyof typeof ClubMemberScalarFieldEnum]
+
+
+export const AuditLogsScalarFieldEnum = {
+  id: 'id',
+  level: 'level',
+  title: 'title',
+  message: 'message',
+  details: 'details',
+  actorId: 'actorId',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogsScalarFieldEnum = (typeof AuditLogsScalarFieldEnum)[keyof typeof AuditLogsScalarFieldEnum]
 
 
 export const SortOrder = {

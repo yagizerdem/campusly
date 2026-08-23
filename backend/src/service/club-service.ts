@@ -130,14 +130,25 @@ export async function ensureClubExistByNormalizedName(clubName: string) {
 
 export async function ensureUserIsClubAdmin(userUid: string, clubId: string) {
   const club = await ensureClubExistById(clubId);
-  if (club.clubAdminId !== userUid) {
+  const profile = await profileService.ensureProfileExistbyUid(userUid);
+
+  const membershipFromDb = await prisma.clubMember.findFirst({
+    where: {
+      clubId: club.id,
+      profileId: profile.id,
+    },
+  });
+
+  if (!membershipFromDb || membershipFromDb.role !== "ADMIN") {
     throw AppError.from({
       machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
-      message: "User is not the club admin",
+      message: "User is not a club admin",
       statusCode: HttpStatusCode.FORBIDDEN,
       isOperational: true,
     });
   }
+
+  return membershipFromDb;
 }
 
 export async function uploadClubLogoImage(
