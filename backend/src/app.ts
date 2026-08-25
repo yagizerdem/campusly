@@ -12,6 +12,7 @@ import commentRoute from "@route/comment-route.js";
 import tagRoute from "@route/tag-route.js";
 import clubMembershipRoute from "@route/club-membership-route.js";
 import auditRoute from "@route/audit-route.js";
+import storyRoute from "@route/story-route.js";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/comment", commentRoute);
 app.use("/api/tag", tagRoute);
 app.use("/api/club-membership", clubMembershipRoute);
 app.use("/api/audit", auditRoute);
+app.use("/api/story", storyRoute);
 
 app.use(globalErrorHandler);
 
