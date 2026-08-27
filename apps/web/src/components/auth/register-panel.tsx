@@ -110,6 +110,7 @@ export default function RegisterPanel(props: RegisterPanelProps) {
             variant="link"
             className="cursor-pointer"
             onClick={props.onSwitchLogin}
+            disabled={isPending}
           >
             Login
           </Button>
