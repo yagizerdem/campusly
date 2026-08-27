@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2022", // Target modern JavaScript
+    "lib": ["ES2022"], // Include type definitions for modern JS
+
+    /* Emit */
+    "outDir": "./dist", // Redirect output structure to the directory
+    "sourceMap": true, // Create source map files for debugging
+    "declaration": true, // Generate corresponding '.d.ts' files
+
+    /* Interop Constraints */
+    "esModuleInterop": true, // Emit additional JavaScript to ease importing CommonJS modules
+    "forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports
+
+    /* Type Checking */
+    "strict": true, // Enable all strict type-checking options
+    "noUnusedLocals": true, // Report errors on unused locals
+    "noUnusedParameters": true, // Report errors on unused parameters
+    "noImplicitReturns": true, // Report error when not all code paths in function return a value
+
+    /* Completeness */
+    "skipLibCheck": true // Skip type checking of declaration files
+  }
+}

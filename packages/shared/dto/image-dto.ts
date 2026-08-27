@@ -1,4 +1,4 @@
-import { mime, z } from "zod";
+import { z } from "zod";
 
 const mimeTypeRegex = /^[\w-]+\/[\w-]+(?:;\s*[\w-]+=[\w-]+)*$/;
 
