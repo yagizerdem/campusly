@@ -13,7 +13,8 @@
       "@components/*": ["./src/components/*"],
       "@provider/*": ["./src/provider/*"],
       "@store/*": ["./src/store/*"],
-      "@packages/shared/*": ["../node_modules/@campusly/shared/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@lib/*": ["./src/lib/*"]
     },
 
     /* Bundler mode */
@@ -30,5 +31,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "lib/firebase-app.ts"]
+  "include": ["src", "src/lib/firebase-app.ts"]
 }

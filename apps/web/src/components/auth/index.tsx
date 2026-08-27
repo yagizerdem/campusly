@@ -1,3 +1,3 @@
-export function Auth() {
+export default function Page() {
   return <div>authPanel</div>;
 }
