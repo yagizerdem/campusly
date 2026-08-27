@@ -1,16 +1,15 @@
-import { FirebaseAppError } from "firebase-admin";
 import { firebaseApp } from "@src/firebase.js";
 
 import type { Request, Response, NextFunction } from "express";
 import { FirebaseAuthError, getAuth } from "firebase-admin/auth";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import { firebaseAuthErrorMapper } from "@/src/lib/firebase/auth-error-mapper.js";
 import { AppRoles } from "@util/app-roles.js";
 
 export async function authGuard(
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) {
   try {

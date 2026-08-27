@@ -18,7 +18,7 @@ async function seedAuditLogs() {
   }
 
   for (const auditLog of auditLogs) {
-    await prisma.auditLog.upsert({
+    await prisma.auditLogs.upsert({
       where: { id: auditLog.id },
       update: {
         title: auditLog.title,

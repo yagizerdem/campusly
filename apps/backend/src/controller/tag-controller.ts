@@ -7,7 +7,7 @@ import {
   RemoveAssignedTagValidator,
 } from "@campusly/shared/dto/tag-dto.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import * as tagService from "@service/tag-service.js";
 
 export async function assignTag(req: Request, res: Response) {

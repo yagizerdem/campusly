@@ -3,7 +3,7 @@ import { prisma } from "@lib/prisma.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import {
   CreateProfileValidator,
   UpdateProfileMetaDataValidator,

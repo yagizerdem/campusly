@@ -9,7 +9,7 @@ import { prisma } from "@lib/prisma.js";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
 import { firebaseApp } from "@src/firebase.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 
 export async function createPost(

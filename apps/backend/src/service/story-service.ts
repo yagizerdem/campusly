@@ -10,7 +10,7 @@ import * as clubMembershipService from "@service/club-membership-service.js";
 import * as imageService from "@service/image-service.js";
 import * as profileService from "@service/profile-service.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 
 const storyInclude = {

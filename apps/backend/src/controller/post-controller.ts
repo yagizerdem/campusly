@@ -9,7 +9,7 @@ import {
   UpdatePostValidator,
 } from "@campusly/shared/dto/post-dto.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 
 export async function createPost(req: Request, res: Response) {
   try {

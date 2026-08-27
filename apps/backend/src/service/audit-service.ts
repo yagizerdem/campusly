@@ -2,7 +2,7 @@ import { PrismaAPIFeatures } from "@common/prisma-api-features.js";
 import { AppError } from "@common/app-error.js";
 import { prisma } from "@lib/prisma.js";
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 
 export async function getAuditLogsOfUser(
   userId: string,

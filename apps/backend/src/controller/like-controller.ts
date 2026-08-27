@@ -4,7 +4,7 @@ import { ApiResponse } from "@common/api-response.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import * as likeService from "@service/like-service.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 
 export async function likePost(req: Request, res: Response) {
   throwIfUidNotExist(req);

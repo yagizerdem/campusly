@@ -1,6 +1,6 @@
 import type { FirebaseAppError } from "firebase-admin";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 
 export function firebaseAuthErrorMapper(error: FirebaseAppError): AppError {

@@ -3,7 +3,7 @@ import * as profileService from "@service/profile-service.js";
 import * as postService from "@service/post-service.js";
 import { AppError } from "@common/app-error.js";
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 
 export async function createLike(profileId: string, postId: string) {
   const profile = await profileService.ensureProfileExistbyUid(profileId);

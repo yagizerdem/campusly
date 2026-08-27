@@ -1,7 +1,7 @@
 import type { Request } from "express";
 import { AppError } from "./app-error.js";
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 
 export function throwIfUidNotExist(req: Request) {
   if (!req.uid) {

@@ -1,5 +1,5 @@
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
-import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 
 export type ErrorStatus = "fail" | "error";
 
@@ -40,6 +40,10 @@ export class AppError extends Error {
     Object.setPrototypeOf(this, new.target.prototype);
 
     Error.captureStackTrace?.(this, new.target);
+  }
+
+  public hasDiagnostic(): boolean {
+    return this.diagnostic !== undefined;
   }
 
   // create app-error from object destruction syntax

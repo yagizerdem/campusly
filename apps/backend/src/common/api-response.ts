@@ -1,13 +1,15 @@
 import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
-import { ErrorMachineCode } from "@/src/util/error-machine-code.js";
+import type IApiResponse from "@campusly/shared/util/api-response.js";
+import type { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 
-export class ApiResponse<T> {
+export class ApiResponse<T> implements IApiResponse<T> {
   public readonly success: boolean;
   public readonly data: T | null;
   public readonly message: string | null;
   public readonly machineCode: ErrorMachineCode | null;
   public readonly statusCode: HttpStatusCode;
   public readonly timestamp: string;
+  public readonly diagnostics?: string[] | undefined;
 
   private constructor(
     success: boolean,
@@ -15,6 +17,7 @@ export class ApiResponse<T> {
     data: T | null,
     message: string | null,
     machineCode: ErrorMachineCode | null,
+    diagnostics?: string[] | undefined,
   ) {
     this.success = success;
     this.statusCode = statusCode;
@@ -22,6 +25,7 @@ export class ApiResponse<T> {
     this.message = message;
     this.machineCode = machineCode;
     this.timestamp = new Date().toISOString();
+    this.diagnostics = diagnostics;
   }
 
   public static from<T>({
@@ -30,14 +34,23 @@ export class ApiResponse<T> {
     data,
     message,
     machineCode,
+    diagnostics,
   }: {
     success: boolean;
     statusCode: HttpStatusCode;
     data: T | null;
     message: string | null;
     machineCode: ErrorMachineCode | null;
+    diagnostics?: string[] | undefined;
   }): ApiResponse<T> {
-    return new ApiResponse<T>(success, statusCode, data, message, machineCode);
+    return new ApiResponse<T>(
+      success,
+      statusCode,
+      data,
+      message,
+      machineCode,
+      diagnostics,
+    );
   }
 
   public static success<T>(
@@ -81,8 +94,16 @@ export class ApiResponse<T> {
     statusCode: HttpStatusCode,
     machineCode: ErrorMachineCode,
     message: string,
+    diagnostics?: string[] | undefined,
   ): ApiResponse<T> {
-    return new ApiResponse<T>(false, statusCode, null, message, machineCode);
+    return new ApiResponse<T>(
+      false,
+      statusCode,
+      null,
+      message,
+      machineCode,
+      diagnostics,
+    );
   }
 
   public static badRequest(

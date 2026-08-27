@@ -4,7 +4,7 @@ import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 import { AppError } from "@common/app-error.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import * as storyService from "@service/story-service.js";
 import {
   CreateStoryValidator,

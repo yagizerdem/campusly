@@ -11,7 +11,7 @@ import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { cn } from "@lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import axiosWrapper from "@/src/lib/axios-wrapper";
@@ -19,7 +19,10 @@ import {
   type RegisterDto,
   RegisterValidator,
 } from "@campusly/shared/dto/auth-dto";
+import type IApiResponse from "@campusly/shared/util/api-response";
+
 import axios from "axios";
+import { toast } from "@components/ui/toast";
 
 interface RegisterPanelProps {
   className?: string;
@@ -35,27 +38,62 @@ interface RegisterPanelProps {
 export default function RegisterPanel(props: RegisterPanelProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
+  const [diagnostics, setDiagnostics] = useState<Dispatch<string[]> | string[]>(
+    [],
+  );
 
   const { data, error, isError, isSuccess, isPending, mutate } = useMutation({
     mutationFn: register,
   });
 
   async function register() {
-    const response = await axiosWrapper.post("/api/auth/register", {
-      email: props.registerEmail,
-      password: props.registerPassword,
-    } as RegisterDto);
+    setDiagnostics([]); // clear error messsasges
+
+    const apiResponse: IApiResponse<unknown> = (
+      await axiosWrapper.post("/api/auth/register", {
+        email: props.registerEmail,
+        password: props.registerPassword,
+      } as RegisterDto)
+    ).data;
   }
 
   useEffect(() => {
     if (!isError) return;
 
     if (axios.isAxiosError(error)) {
-      const apiResponse = error.response?.data;
+      const apiResponse: IApiResponse<unknown> = error.response?.data;
 
-      console.log(apiResponse);
+      if (apiResponse.diagnostics && apiResponse.diagnostics?.length > 0) {
+        setDiagnostics(apiResponse.diagnostics);
+      }
+
+      if (apiResponse.message) {
+        setDiagnostics((prev: string[]) => [apiResponse.message, ...prev]);
+      }
+
+      toast.add({
+        type: "error",
+        title: "Error occurred while registering",
+        description: apiResponse?.message ?? "An unexpected error occurred.",
+      });
+    } else {
+      toast.add({
+        type: "error",
+        title: "Error occurred while registering",
+        description: "An unexpected error occurred.",
+      });
     }
   }, [isError, error]);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    toast.add({
+      type: "success",
+      title: "Account created successfully",
+      description: "You can now log in with your new account.",
+    });
+  }, [isSuccess, data]);
 
   return (
     <Card className={cn("w-full max-w-sm", props.className)}>
@@ -169,10 +207,22 @@ export default function RegisterPanel(props: RegisterPanelProps) {
               </div>
             </div>
           </div>
+
+          {diagnostics.length > 0 &&
+            typeof diagnostics !== "function" &&
+            diagnostics.map((diagnostic: string, index: number) => (
+              <Label key={index} className="text-sm text-red-500 mt-2">
+                {diagnostic}
+              </Label>
+            ))}
         </CardContent>
 
         <CardFooter className="mt-6">
-          <Button className="w-full cursor-pointer" onMouseUp={() => mutate()}>
+          <Button
+            className="w-full cursor-pointer"
+            onMouseUp={() => mutate()}
+            disabled={isPending}
+          >
             Create Account
           </Button>
         </CardFooter>

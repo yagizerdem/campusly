@@ -42,43 +42,41 @@ export default function Page() {
   });
 
   return (
-    <DefaultLayout
-      props={{
-        className: "flex items-center justify-center",
-      }}
-    >
-      {showRegisterPanel ? (
-        <RegisterPanel
-          onSwitchLogin={() => setShowRegisterPanel(false)}
-          registerEmail={panelState.registerEmail}
-          registerPassword={panelState.registerPassword}
-          registerPasswordRepeat={panelState.registerPasswordRepeat}
-          setRegisterEmail={(email) =>
-            dispatch({ type: "set/register-email", payload: email })
-          }
-          setRegisterPassword={(password) =>
-            dispatch({ type: "set/register-password", payload: password })
-          }
-          setRegisterPasswordRepeat={(password) =>
-            dispatch({
-              type: "set/register-password-repeat",
-              payload: password,
-            })
-          }
-        />
-      ) : (
-        <LoginPanel
-          onSwitchRegister={() => setShowRegisterPanel(true)}
-          loginEmail={panelState.loginEmail}
-          loginPassword={panelState.loginPassword}
-          setLoginEmail={(email) =>
-            dispatch({ type: "set/login-email", payload: email })
-          }
-          setLoginPassword={(password) =>
-            dispatch({ type: "set/login-password", payload: password })
-          }
-        />
-      )}
+    <DefaultLayout>
+      <div className="flex flex-col items-center justify-center min-h-screen py-2 overflow-y-auto py-10">
+        {showRegisterPanel ? (
+          <RegisterPanel
+            onSwitchLogin={() => setShowRegisterPanel(false)}
+            registerEmail={panelState.registerEmail}
+            registerPassword={panelState.registerPassword}
+            registerPasswordRepeat={panelState.registerPasswordRepeat}
+            setRegisterEmail={(email) =>
+              dispatch({ type: "set/register-email", payload: email })
+            }
+            setRegisterPassword={(password) =>
+              dispatch({ type: "set/register-password", payload: password })
+            }
+            setRegisterPasswordRepeat={(password) =>
+              dispatch({
+                type: "set/register-password-repeat",
+                payload: password,
+              })
+            }
+          />
+        ) : (
+          <LoginPanel
+            onSwitchRegister={() => setShowRegisterPanel(true)}
+            loginEmail={panelState.loginEmail}
+            loginPassword={panelState.loginPassword}
+            setLoginEmail={(email) =>
+              dispatch({ type: "set/login-email", payload: email })
+            }
+            setLoginPassword={(password) =>
+              dispatch({ type: "set/login-password", payload: password })
+            }
+          />
+        )}
+      </div>
     </DefaultLayout>
   );
 }

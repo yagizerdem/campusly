@@ -7,7 +7,7 @@ import {
   UpdateClubValidator,
 } from "@campusly/shared/dto/club-dto.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
 import * as clubService from "@service/club-service.js";
 import { uploadDir } from "../lib/multer/upload.js";
 import path from "path";
