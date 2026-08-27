@@ -11,8 +11,15 @@ import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { cn } from "@lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import axiosWrapper from "@/src/lib/axios-wrapper";
+import {
+  type RegisterDto,
+  RegisterValidator,
+} from "@campusly/shared/dto/auth-dto";
+import axios from "axios";
 
 interface RegisterPanelProps {
   className?: string;
@@ -29,7 +36,26 @@ export default function RegisterPanel(props: RegisterPanelProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
-  async function register() {}
+  const { data, error, isError, isSuccess, isPending, mutate } = useMutation({
+    mutationFn: register,
+  });
+
+  async function register() {
+    const response = await axiosWrapper.post("/api/auth/register", {
+      email: props.registerEmail,
+      password: props.registerPassword,
+    } as RegisterDto);
+  }
+
+  useEffect(() => {
+    if (!isError) return;
+
+    if (axios.isAxiosError(error)) {
+      const apiResponse = error.response?.data;
+
+      console.log(apiResponse);
+    }
+  }, [isError, error]);
 
   return (
     <Card className={cn("w-full max-w-sm", props.className)}>
@@ -146,11 +172,7 @@ export default function RegisterPanel(props: RegisterPanelProps) {
         </CardContent>
 
         <CardFooter className="mt-6">
-          <Button
-            type="submit"
-            className="w-full cursor-pointer"
-            onMouseUp={() => register()}
-          >
+          <Button className="w-full cursor-pointer" onMouseUp={() => mutate()}>
             Create Account
           </Button>
         </CardFooter>

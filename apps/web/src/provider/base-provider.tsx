@@ -2,6 +2,9 @@ import { createContext, useContext } from "react";
 import { ThemeProvider } from "./theme-provider";
 import { Provider } from "react-redux";
 import { store } from "@store/app-store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 type BaseProviderProps = {
   children: React.ReactNode;
@@ -15,7 +18,9 @@ export function BaseProvider({ children }: BaseProviderProps) {
   return (
     <BaseProviderContext.Provider value={initialState}>
       <ThemeProvider>
-        <Provider store={store}>{children}</Provider>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>{children}</Provider>
+        </QueryClientProvider>
       </ThemeProvider>
     </BaseProviderContext.Provider>
   );
