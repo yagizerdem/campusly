@@ -17,12 +17,14 @@ import { useMutation } from "@tanstack/react-query";
 import axiosWrapper from "@/src/lib/axios-wrapper";
 import {
   type RegisterDto,
-  RegisterValidator,
+  // RegisterValidator,
 } from "@campusly/shared/dto/auth-dto";
 import type IApiResponse from "@campusly/shared/util/api-response";
 
 import axios from "axios";
 import { toast } from "@components/ui/toast";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "@store/slice/loader-slice";
 
 interface RegisterPanelProps {
   className?: string;
@@ -41,7 +43,7 @@ export default function RegisterPanel(props: RegisterPanelProps) {
   const [diagnostics, setDiagnostics] = useState<Dispatch<string[]> | string[]>(
     [],
   );
-
+  const dispatch = useDispatch();
   const { data, error, isError, isSuccess, isPending, mutate } = useMutation({
     mutationFn: register,
   });
@@ -49,6 +51,7 @@ export default function RegisterPanel(props: RegisterPanelProps) {
   async function register() {
     setDiagnostics([]); // clear error messsasges
 
+    //@ts-ignore
     const apiResponse: IApiResponse<unknown> = (
       await axiosWrapper.post("/api/auth/register", {
         email: props.registerEmail,
@@ -93,6 +96,21 @@ export default function RegisterPanel(props: RegisterPanelProps) {
       title: "Account created successfully",
       description: "You can now log in with your new account.",
     });
+
+    async function redirectToLogin() {
+      dispatch(setIsLoading(true));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast.add({
+        type: "info",
+        title: "Redirecting to login",
+        description: "You will be redirected to the login panel shortly.",
+      });
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      props.onSwitchLogin();
+      dispatch(setIsLoading(false));
+    }
+
+    redirectToLogin();
   }, [isSuccess, data]);
 
   return (
