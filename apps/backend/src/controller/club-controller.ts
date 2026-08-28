@@ -9,7 +9,7 @@ import {
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import * as clubService from "@service/club-service.js";
-import { uploadDir } from "../lib/multer/upload.js";
+import { uploadDir } from "@lib/multer/upload.js";
 import path from "path";
 import fs from "fs/promises";
 
