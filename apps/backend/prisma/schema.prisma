@@ -118,10 +118,15 @@ model Comment {
 
 model Image {
   id    String     @id @default(uuid()) 
-  imageUri String
-  fileName String
-  bucketName String
+  
+  // firebase related
+  imageUri String // the image uri in the network -> URI of image
+  fileName String // the file name insdie bucket -> uuidv4().extension
+  bucketName String // dest bucket -> default-bucket/custom-bucket
+  objectKey String // generate signed URL based ont this key -> refers to relative path of the image in the bucket
+
   mimeType String
+  sizeInBytes Int?
 
   profile    Profile?
   club       Club?

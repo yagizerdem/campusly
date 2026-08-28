@@ -11,6 +11,8 @@ export function createImageEntity(dto: CreateImageDto) {
       fileName: dto.fileName,
       bucketName: dto.bucketName,
       mimeType: dto.mimeType,
+      objectKey: dto.objectKey,
+      sizeInBytes: dto.sizeInBytes ?? null,
     },
   });
 

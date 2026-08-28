@@ -163,7 +163,9 @@ export const ImageScalarFieldEnum = {
   imageUri: 'imageUri',
   fileName: 'fileName',
   bucketName: 'bucketName',
+  objectKey: 'objectKey',
   mimeType: 'mimeType',
+  sizeInBytes: 'sizeInBytes',
   createdAt: 'createdAt'
 } as const
 

@@ -13,6 +13,8 @@ import { firebaseApp } from "@src/firebase.js";
 import * as imageService from "@service/image-service.js";
 import fs from "fs/promises";
 
+const BUCKET_UPLOAD_DIR = "profile-images";
+
 export async function createProfile(uid: string, dto: CreateProfileDto) {
   await ensureProfileNotExistbyUid(uid);
 
@@ -105,6 +107,7 @@ export async function uploadProfileImage(
   multerFile: Express.Multer.File,
 ): Promise<string> {
   const mimeType = multerFile.mimetype;
+  const sizeInBytes = multerFile.size;
   const profileImageName = multerFile.filename;
   imageService.throwIfNotAllowedImageMimeType(mimeType);
   const profile = await ensureProfileExistbyUid(profileUid);
@@ -120,7 +123,9 @@ export async function uploadProfileImage(
 
   if (imageEntityFromDb) {
     // delete img from firebase storage
-    const file = bucket.file(`profile-images/${imageEntityFromDb.fileName}`);
+    const file = bucket.file(
+      `${BUCKET_UPLOAD_DIR}/${imageEntityFromDb.fileName}`,
+    );
     await file.delete();
 
     // delete img from db
@@ -128,10 +133,13 @@ export async function uploadProfileImage(
   }
 
   // upload new img to firebase storage
+
+  const objectKey = `${BUCKET_UPLOAD_DIR}/${profileImageName}`;
+
   const [uploadedFile] = await bucket.upload(
     path.resolve(uploadDir, profileImageName),
     {
-      destination: `profile-images/${profileImageName}`,
+      destination: objectKey,
       metadata: {
         contentType: mimeType,
       },
@@ -145,6 +153,8 @@ export async function uploadProfileImage(
     bucketName: bucket.name,
     fileName: profileImageName,
     imageUri: downloadURL,
+    objectKey: objectKey,
+    sizeInBytes: sizeInBytes,
     mimeType,
   });
 
@@ -175,7 +185,9 @@ export async function deleteProfileImage(profileUid: string): Promise<void> {
     return;
   }
   // delete img from firebase storage
-  const file = bucket.file(`profile-images/${imageEntityFromDb.fileName}`);
+  const file = bucket.file(
+    `${BUCKET_UPLOAD_DIR}/${imageEntityFromDb.fileName}`,
+  );
   await file.delete();
 
   // delete img from db

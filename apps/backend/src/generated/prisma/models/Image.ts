@@ -20,8 +20,18 @@ export type ImageModel = runtime.Types.Result.DefaultSelection<Prisma.$ImagePayl
 
 export type AggregateImage = {
   _count: ImageCountAggregateOutputType | null
+  _avg: ImageAvgAggregateOutputType | null
+  _sum: ImageSumAggregateOutputType | null
   _min: ImageMinAggregateOutputType | null
   _max: ImageMaxAggregateOutputType | null
+}
+
+export type ImageAvgAggregateOutputType = {
+  sizeInBytes: number | null
+}
+
+export type ImageSumAggregateOutputType = {
+  sizeInBytes: number | null
 }
 
 export type ImageMinAggregateOutputType = {
@@ -29,7 +39,9 @@ export type ImageMinAggregateOutputType = {
   imageUri: string | null
   fileName: string | null
   bucketName: string | null
+  objectKey: string | null
   mimeType: string | null
+  sizeInBytes: number | null
   createdAt: Date | null
 }
 
@@ -38,7 +50,9 @@ export type ImageMaxAggregateOutputType = {
   imageUri: string | null
   fileName: string | null
   bucketName: string | null
+  objectKey: string | null
   mimeType: string | null
+  sizeInBytes: number | null
   createdAt: Date | null
 }
 
@@ -47,18 +61,30 @@ export type ImageCountAggregateOutputType = {
   imageUri: number
   fileName: number
   bucketName: number
+  objectKey: number
   mimeType: number
+  sizeInBytes: number
   createdAt: number
   _all: number
 }
 
+
+export type ImageAvgAggregateInputType = {
+  sizeInBytes?: true
+}
+
+export type ImageSumAggregateInputType = {
+  sizeInBytes?: true
+}
 
 export type ImageMinAggregateInputType = {
   id?: true
   imageUri?: true
   fileName?: true
   bucketName?: true
+  objectKey?: true
   mimeType?: true
+  sizeInBytes?: true
   createdAt?: true
 }
 
@@ -67,7 +93,9 @@ export type ImageMaxAggregateInputType = {
   imageUri?: true
   fileName?: true
   bucketName?: true
+  objectKey?: true
   mimeType?: true
+  sizeInBytes?: true
   createdAt?: true
 }
 
@@ -76,7 +104,9 @@ export type ImageCountAggregateInputType = {
   imageUri?: true
   fileName?: true
   bucketName?: true
+  objectKey?: true
   mimeType?: true
+  sizeInBytes?: true
   createdAt?: true
   _all?: true
 }
@@ -119,6 +149,18 @@ export type ImageAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ImageAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ImageSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ImageMinAggregateInputType
@@ -149,6 +191,8 @@ export type ImageGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: ImageCountAggregateInputType | true
+  _avg?: ImageAvgAggregateInputType
+  _sum?: ImageSumAggregateInputType
   _min?: ImageMinAggregateInputType
   _max?: ImageMaxAggregateInputType
 }
@@ -158,9 +202,13 @@ export type ImageGroupByOutputType = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes: number | null
   createdAt: Date
   _count: ImageCountAggregateOutputType | null
+  _avg: ImageAvgAggregateOutputType | null
+  _sum: ImageSumAggregateOutputType | null
   _min: ImageMinAggregateOutputType | null
   _max: ImageMaxAggregateOutputType | null
 }
@@ -188,7 +236,9 @@ export type ImageWhereInput = {
   imageUri?: Prisma.StringFilter<"Image"> | string
   fileName?: Prisma.StringFilter<"Image"> | string
   bucketName?: Prisma.StringFilter<"Image"> | string
+  objectKey?: Prisma.StringFilter<"Image"> | string
   mimeType?: Prisma.StringFilter<"Image"> | string
+  sizeInBytes?: Prisma.IntNullableFilter<"Image"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Image"> | Date | string
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
@@ -202,7 +252,9 @@ export type ImageOrderByWithRelationInput = {
   imageUri?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   bucketName?: Prisma.SortOrder
+  objectKey?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
+  sizeInBytes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   profile?: Prisma.ProfileOrderByWithRelationInput
   club?: Prisma.ClubOrderByWithRelationInput
@@ -219,7 +271,9 @@ export type ImageWhereUniqueInput = Prisma.AtLeast<{
   imageUri?: Prisma.StringFilter<"Image"> | string
   fileName?: Prisma.StringFilter<"Image"> | string
   bucketName?: Prisma.StringFilter<"Image"> | string
+  objectKey?: Prisma.StringFilter<"Image"> | string
   mimeType?: Prisma.StringFilter<"Image"> | string
+  sizeInBytes?: Prisma.IntNullableFilter<"Image"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Image"> | Date | string
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
@@ -233,11 +287,15 @@ export type ImageOrderByWithAggregationInput = {
   imageUri?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   bucketName?: Prisma.SortOrder
+  objectKey?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
+  sizeInBytes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ImageCountOrderByAggregateInput
+  _avg?: Prisma.ImageAvgOrderByAggregateInput
   _max?: Prisma.ImageMaxOrderByAggregateInput
   _min?: Prisma.ImageMinOrderByAggregateInput
+  _sum?: Prisma.ImageSumOrderByAggregateInput
 }
 
 export type ImageScalarWhereWithAggregatesInput = {
@@ -248,7 +306,9 @@ export type ImageScalarWhereWithAggregatesInput = {
   imageUri?: Prisma.StringWithAggregatesFilter<"Image"> | string
   fileName?: Prisma.StringWithAggregatesFilter<"Image"> | string
   bucketName?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  objectKey?: Prisma.StringWithAggregatesFilter<"Image"> | string
   mimeType?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  sizeInBytes?: Prisma.IntNullableWithAggregatesFilter<"Image"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Image"> | Date | string
 }
 
@@ -257,7 +317,9 @@ export type ImageCreateInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
@@ -271,7 +333,9 @@ export type ImageUncheckedCreateInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
@@ -285,7 +349,9 @@ export type ImageUpdateInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
@@ -299,7 +365,9 @@ export type ImageUncheckedUpdateInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
@@ -313,7 +381,9 @@ export type ImageCreateManyInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
 }
 
@@ -322,7 +392,9 @@ export type ImageUpdateManyMutationInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -331,7 +403,9 @@ export type ImageUncheckedUpdateManyInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -350,8 +424,14 @@ export type ImageCountOrderByAggregateInput = {
   imageUri?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   bucketName?: Prisma.SortOrder
+  objectKey?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
+  sizeInBytes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type ImageAvgOrderByAggregateInput = {
+  sizeInBytes?: Prisma.SortOrder
 }
 
 export type ImageMaxOrderByAggregateInput = {
@@ -359,7 +439,9 @@ export type ImageMaxOrderByAggregateInput = {
   imageUri?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   bucketName?: Prisma.SortOrder
+  objectKey?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
+  sizeInBytes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -368,8 +450,14 @@ export type ImageMinOrderByAggregateInput = {
   imageUri?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   bucketName?: Prisma.SortOrder
+  objectKey?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
+  sizeInBytes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type ImageSumOrderByAggregateInput = {
+  sizeInBytes?: Prisma.SortOrder
 }
 
 export type ImageCreateNestedOneWithoutProfileInput = {
@@ -418,6 +506,14 @@ export type ImageUpdateOneRequiredWithoutPostsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ImageUpdateToOneWithWhereWithoutPostsInput, Prisma.ImageUpdateWithoutPostsInput>, Prisma.ImageUncheckedUpdateWithoutPostsInput>
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ImageCreateNestedOneWithoutStoriesInput = {
   create?: Prisma.XOR<Prisma.ImageCreateWithoutStoriesInput, Prisma.ImageUncheckedCreateWithoutStoriesInput>
   connectOrCreate?: Prisma.ImageCreateOrConnectWithoutStoriesInput
@@ -451,7 +547,9 @@ export type ImageCreateWithoutProfileInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
   posts?: Prisma.PostImageCreateNestedManyWithoutImageInput
@@ -464,7 +562,9 @@ export type ImageUncheckedCreateWithoutProfileInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
   posts?: Prisma.PostImageUncheckedCreateNestedManyWithoutImageInput
@@ -493,7 +593,9 @@ export type ImageUpdateWithoutProfileInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
   posts?: Prisma.PostImageUpdateManyWithoutImageNestedInput
@@ -506,7 +608,9 @@ export type ImageUncheckedUpdateWithoutProfileInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
   posts?: Prisma.PostImageUncheckedUpdateManyWithoutImageNestedInput
@@ -519,7 +623,9 @@ export type ImageCreateWithoutClubInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   posts?: Prisma.PostImageCreateNestedManyWithoutImageInput
@@ -532,7 +638,9 @@ export type ImageUncheckedCreateWithoutClubInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   posts?: Prisma.PostImageUncheckedCreateNestedManyWithoutImageInput
@@ -561,7 +669,9 @@ export type ImageUpdateWithoutClubInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   posts?: Prisma.PostImageUpdateManyWithoutImageNestedInput
@@ -574,7 +684,9 @@ export type ImageUncheckedUpdateWithoutClubInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   posts?: Prisma.PostImageUncheckedUpdateManyWithoutImageNestedInput
@@ -587,7 +699,9 @@ export type ImageCreateWithoutPostsInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
@@ -600,7 +714,9 @@ export type ImageUncheckedCreateWithoutPostsInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
@@ -629,7 +745,9 @@ export type ImageUpdateWithoutPostsInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
@@ -642,7 +760,9 @@ export type ImageUncheckedUpdateWithoutPostsInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
@@ -655,7 +775,9 @@ export type ImageCreateWithoutStoriesInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
@@ -668,7 +790,9 @@ export type ImageUncheckedCreateWithoutStoriesInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
@@ -697,7 +821,9 @@ export type ImageUpdateWithoutStoriesInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
@@ -710,7 +836,9 @@ export type ImageUncheckedUpdateWithoutStoriesInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
@@ -723,7 +851,9 @@ export type ImageCreateWithoutClubEventsInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubCreateNestedOneWithoutClubLogoInput
@@ -736,7 +866,9 @@ export type ImageUncheckedCreateWithoutClubEventsInput = {
   imageUri: string
   fileName: string
   bucketName: string
+  objectKey: string
   mimeType: string
+  sizeInBytes?: number | null
   createdAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutProfileImageInput
   club?: Prisma.ClubUncheckedCreateNestedOneWithoutClubLogoInput
@@ -765,7 +897,9 @@ export type ImageUpdateWithoutClubEventsInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUpdateOneWithoutClubLogoNestedInput
@@ -778,7 +912,9 @@ export type ImageUncheckedUpdateWithoutClubEventsInput = {
   imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   bucketName?: Prisma.StringFieldUpdateOperationsInput | string
+  objectKey?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  sizeInBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutProfileImageNestedInput
   club?: Prisma.ClubUncheckedUpdateOneWithoutClubLogoNestedInput
@@ -840,7 +976,9 @@ export type ImageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   imageUri?: boolean
   fileName?: boolean
   bucketName?: boolean
+  objectKey?: boolean
   mimeType?: boolean
+  sizeInBytes?: boolean
   createdAt?: boolean
   profile?: boolean | Prisma.Image$profileArgs<ExtArgs>
   club?: boolean | Prisma.Image$clubArgs<ExtArgs>
@@ -855,7 +993,9 @@ export type ImageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   imageUri?: boolean
   fileName?: boolean
   bucketName?: boolean
+  objectKey?: boolean
   mimeType?: boolean
+  sizeInBytes?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["image"]>
 
@@ -864,7 +1004,9 @@ export type ImageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   imageUri?: boolean
   fileName?: boolean
   bucketName?: boolean
+  objectKey?: boolean
   mimeType?: boolean
+  sizeInBytes?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["image"]>
 
@@ -873,11 +1015,13 @@ export type ImageSelectScalar = {
   imageUri?: boolean
   fileName?: boolean
   bucketName?: boolean
+  objectKey?: boolean
   mimeType?: boolean
+  sizeInBytes?: boolean
   createdAt?: boolean
 }
 
-export type ImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "imageUri" | "fileName" | "bucketName" | "mimeType" | "createdAt", ExtArgs["result"]["image"]>
+export type ImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "imageUri" | "fileName" | "bucketName" | "objectKey" | "mimeType" | "sizeInBytes" | "createdAt", ExtArgs["result"]["image"]>
 export type ImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   profile?: boolean | Prisma.Image$profileArgs<ExtArgs>
   club?: boolean | Prisma.Image$clubArgs<ExtArgs>
@@ -903,7 +1047,9 @@ export type $ImagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     imageUri: string
     fileName: string
     bucketName: string
+    objectKey: string
     mimeType: string
+    sizeInBytes: number | null
     createdAt: Date
   }, ExtArgs["result"]["image"]>
   composites: {}
@@ -1337,7 +1483,9 @@ export interface ImageFieldRefs {
   readonly imageUri: Prisma.FieldRef<"Image", 'String'>
   readonly fileName: Prisma.FieldRef<"Image", 'String'>
   readonly bucketName: Prisma.FieldRef<"Image", 'String'>
+  readonly objectKey: Prisma.FieldRef<"Image", 'String'>
   readonly mimeType: Prisma.FieldRef<"Image", 'String'>
+  readonly sizeInBytes: Prisma.FieldRef<"Image", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Image", 'DateTime'>
 }
     
