@@ -1,0 +1,335 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+model Profile { 
+  id    String     @id @default(uuid()) 
+  firstName String
+  lastName String
+  telephoneNumber String?
+
+  likes Like[]
+  comments Comment[]
+  posts Post[]
+  clubJoinRequests ClubJoinRequest[]
+  clubMemberships ClubMember[]
+  auditLogs AuditLogs[]
+  stories Stories[]
+  surveySchemas SurveySchemas[]
+  surveySchemaResponses SurveySchemaResponses[]
+
+  profileImage Image? @relation(fields: [profileImageId], references: [id])
+  profileImageId String? @unique
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Club { 
+  id    String     @id @default(uuid()) 
+  clubName String
+  clubNormalizedName String @unique
+  clubDescription String
+  clubLogoUri String?
+
+
+  posts Post[]
+  tagsOnClubs TagsOnClub[]
+  clubJoinRequests ClubJoinRequest[]
+  clubMembers ClubMember[]
+  stories Stories[]
+  clubEvents ClubEvent[]
+
+  clubLogo   Image?  @relation(fields: [clubLogoId], references: [id])
+  clubLogoId String? @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Post {
+  id    String     @id @default(uuid()) 
+  postTitle String
+  postContent String
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting Post to Club
+
+  author   Profile @relation(fields: [authorId], references: [id])
+  authorId String
+
+  likes Like[]
+  comments Comment[]
+  images PostImage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostImage {
+  postId  String
+  imageId String
+
+  post  Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  order Int @default(0)
+
+  @@id([postId, imageId])
+}
+
+
+model Like {
+  id    String     @id @default(uuid()) 
+
+  post Post @relation(fields: [postId], references: [id])
+  postId String  // Foreign key connecting Like to Post
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting Like to Profile
+
+  createdAt DateTime @default(now())
+
+  @@unique([postId, profileId]) // Ensures a user can like a post only once
+}
+
+model Comment {
+  id    String     @id @default(uuid()) 
+  commentContent String
+
+  post Post @relation(fields: [postId], references: [id])
+  postId String  // Foreign key connecting Comment to Post
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting Comment to Profile
+
+  createdAt DateTime @default(now())
+}
+
+model Image {
+  id    String     @id @default(uuid()) 
+  
+  // firebase related
+  imageUri String // the image uri in the network -> URI of image
+  fileName String // the file name insdie bucket -> uuidv4().extension
+  bucketName String // dest bucket -> default-bucket/custom-bucket
+  objectKey String // generate signed URL based ont this key -> refers to relative path of the image in the bucket
+
+  mimeType String
+  sizeInBytes Int?
+
+  profile    Profile?
+  club       Club?
+  posts      PostImage[]
+  stories    StoryImage[]
+  clubEvents ClubEventImage[]
+
+
+  createdAt DateTime @default(now())
+}
+
+model Tag {
+  id    String     @id @default(uuid()) 
+  tagName String @unique  
+  tagsOnClubs TagsOnClub[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TagsOnClub {
+  tag Tag @relation(fields: [tagId], references: [id])
+  tagId String
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String
+
+  @@id([tagId, clubId])
+}
+
+
+model ClubJoinRequest {
+  id    String     @id @default(uuid()) 
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting ClubJoinRequest to Club
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting ClubJoinRequest to Profile
+
+  status JoinRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ClubMember {
+  id    String     @id @default(uuid()) 
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting ClubMember to Club
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String  // Foreign key connecting ClubMember to Profile
+
+  role ClubMemberRole @default(MEMBER)
+  roleDescription String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([profileId, clubId])
+}
+
+model AuditLogs {
+  id    String     @id @default(uuid()) 
+  level AuditLogLevel @default(INFO)
+  title String
+  message String
+  details String?
+  actor Profile? @relation(fields: [actorId], references: [id])
+  actorId String?  // Foreign key connecting AuditLog to Profile
+
+  createdAt DateTime @default(now())
+}
+
+
+model StoryImage {
+  storyId  String
+  imageId String
+
+  story  Stories  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  order Int @default(0)
+
+  @@id([storyId, imageId])
+}
+
+model Stories {
+  id    String     @id @default(uuid()) 
+  storyTitle String
+  storyContent String
+
+  author   Profile @relation(fields: [authorId], references: [id])
+  authorId String
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting Story to Club
+
+  images StoryImage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model ClubEvent {
+  id    String     @id @default(uuid()) 
+  eventTitle String
+  eventDescription String
+  eventDate DateTime
+
+  club Club @relation(fields: [clubId], references: [id])
+  clubId String  // Foreign key connecting ClubEvent to Club
+
+  images ClubEventImage[]
+  clubEventForm ClubEventForm? 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model ClubEventImage {
+  clubEventId  String
+  imageId String
+
+  clubEvent  ClubEvent  @relation(fields: [clubEventId], references: [id], onDelete: Cascade)
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  order Int @default(0)
+
+  @@id([clubEventId, imageId])
+}
+
+model ClubEventForm {
+  id    String     @id @default(uuid()) 
+  formJson Json
+
+  clubEvent ClubEvent @relation(fields: [clubEventId], references: [id])
+  clubEventId String @unique
+
+  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id])
+  surveySchemaId String @unique
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SurveySchemas {
+  id    String     @id @default(uuid()) 
+  schemaJson Json
+
+  author   Profile @relation(fields: [authorId], references: [id])
+  authorId String
+
+  surveySchemaResponses SurveySchemaResponses[]
+  clubEventForms ClubEventForm[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model SurveySchemaResponses {
+  id    String     @id @default(uuid()) 
+  responseJson Json
+
+  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id])
+  surveySchemaId String
+
+  respondent   Profile @relation(fields: [respondentId], references: [id])
+  respondentId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+
+
+enum AuditLogLevel {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+
+enum JoinRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED 
+}
+
+enum ClubMemberRole {
+  MEMBER
+  ADMIN
+  MANAGER
+}
+
+
+
+
