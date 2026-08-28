@@ -3,6 +3,9 @@ import { prisma } from "@lib/prisma.js";
 import { AppError } from "@common/app-error.js";
 import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
+import { getStorage } from "firebase-admin/storage";
+import { firebaseApp } from "../firebase.js";
+import { add } from "date-fns";
 
 export function createImageEntity(dto: CreateImageDto) {
   const response = prisma.image.create({
@@ -64,6 +67,35 @@ export function throwIfNotAllowedImageMimeType(mimeType: string): void {
       machineCode: ErrorMachineCode.INVALID_IMAGE_MIME_TYPE,
       message: "Invalid image MIME type",
       statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+}
+
+export async function generateSignedUrl(
+  imgId: string,
+  expiresInSeconds: number,
+): Promise<string> {
+  try {
+    const imageEntityFromDb = await ensureImageExistById(imgId);
+
+    const bucket = getStorage(firebaseApp).bucket();
+
+    const file = bucket.file(imageEntityFromDb.objectKey);
+    const [signedUrl] = await file.getSignedUrl({
+      action: "read",
+      expires: add(Date.now(), {
+        seconds: expiresInSeconds,
+      }),
+    });
+
+    return signedUrl;
+  } catch (err) {
+    console.error("Error generating signed URL:", err);
+    throw AppError.from({
+      machineCode: ErrorMachineCode.FAILED_TO_GENERATE_SIGNED_URL,
+      message: "Failed to generate signed URL",
+      statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
       isOperational: true,
     });
   }

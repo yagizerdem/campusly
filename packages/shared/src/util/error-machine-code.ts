@@ -65,4 +65,7 @@ export enum ErrorMachineCode {
 
   // Audit
   AUDIT_LOG_NOT_FOUND = "AUDIT_LOG_NOT_FOUND",
+
+  // Signed URL
+  FAILED_TO_GENERATE_SIGNED_URL = "FAILED_TO_GENERATE_SIGNED_URL",
 }
