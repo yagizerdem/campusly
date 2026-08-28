@@ -1,4 +1,5 @@
 import type { AppRoles } from "@/src/util/app-roles.ts";
+import type { Profile } from "@src/generated/prisma/client.js";
 
 export {};
 
@@ -9,6 +10,7 @@ declare global {
       email?: string;
       emailVerified?: boolean;
       role?: AppRoles;
+      profile?: Profile;
     }
   }
 }
