@@ -6,6 +6,7 @@ import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.j
 import { getStorage } from "firebase-admin/storage";
 import { firebaseApp } from "../firebase.js";
 import { add } from "date-fns";
+import type { Image } from "../generated/prisma/client.js";
 
 export function createImageEntity(dto: CreateImageDto) {
   const response = prisma.image.create({
@@ -72,16 +73,26 @@ export function throwIfNotAllowedImageMimeType(mimeType: string): void {
   }
 }
 
-export async function generateSignedUrl(
+export async function generateSignedUrlByImageId(
   imgId: string,
   expiresInSeconds: number,
 ): Promise<string> {
-  try {
-    const imageEntityFromDb = await ensureImageExistById(imgId);
+  const imageEntityFromDb = await ensureImageExistById(imgId);
+  const signedUrl = await generateSignedUrl(
+    imageEntityFromDb,
+    expiresInSeconds,
+  );
+  return signedUrl;
+}
 
+export async function generateSignedUrl(
+  image: Image,
+  expiresInSeconds: number,
+): Promise<string> {
+  try {
     const bucket = getStorage(firebaseApp).bucket();
 
-    const file = bucket.file(imageEntityFromDb.objectKey);
+    const file = bucket.file(image.objectKey);
     const [signedUrl] = await file.getSignedUrl({
       action: "read",
       expires: add(Date.now(), {

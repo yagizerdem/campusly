@@ -37,4 +37,10 @@ router.post(
   catchAsync(profileController.deleteProfileImage),
 );
 
+router.get(
+  "/get-profile-image-signed-url/:imageId",
+  authGuard,
+  catchAsync(profileController.getProfileImageSignedUrl),
+);
+
 export default router;

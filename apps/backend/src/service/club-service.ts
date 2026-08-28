@@ -14,8 +14,8 @@ import * as profileService from "@service/profile-service.js";
 import { uploadDir } from "@lib/multer/upload.js";
 import path from "path";
 import type { ClubMemberRole } from "../generated/prisma/enums.js";
-import { withRetry } from "../lib/retry.js";
-import type { Image } from "../generated/prisma/client.js";
+import { withRetry } from "@lib/retry.js";
+import type { Image } from "@src/generated/prisma/client.js";
 
 export function normalizeClubName(name: string) {
   return name.trim().replace(/\s+/g, " ").toLowerCase();
