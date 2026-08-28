@@ -14,10 +14,13 @@ import * as profileService from "@service/profile-service.js";
 import { uploadDir } from "@lib/multer/upload.js";
 import path from "path";
 import type { ClubMemberRole } from "../generated/prisma/enums.js";
+import { withRetry } from "../lib/retry.js";
+import type { Image } from "../generated/prisma/client.js";
 
 export function normalizeClubName(name: string) {
   return name.trim().replace(/\s+/g, " ").toLowerCase();
 }
+const BUCKET_UPLOAD_DIR = "club-logo-images";
 
 export async function createClub(adminUid: string, dto: CreateClubDto) {
   await ensureClubNotExistByNormalizedName(dto.clubName);
@@ -153,7 +156,9 @@ export async function uploadClubLogoImage(
 
   if (imageEntityFromDb) {
     // delete img from firebase storage
-    const file = bucket.file(`club-logo-images/${imageEntityFromDb.fileName}`);
+    const file = bucket.file(
+      `${BUCKET_UPLOAD_DIR}/${imageEntityFromDb.fileName}`,
+    );
     await file.delete();
 
     // delete img from db
@@ -164,7 +169,7 @@ export async function uploadClubLogoImage(
   const [uploadedFile] = await bucket.upload(
     path.resolve(uploadDir, clubLogoImageName),
     {
-      destination: `club-logo-images/${clubLogoImageName}`,
+      destination: `${BUCKET_UPLOAD_DIR}/${clubLogoImageName}`,
       metadata: {
         contentType: mimeType,
       },
@@ -178,6 +183,7 @@ export async function uploadClubLogoImage(
     bucketName: bucket.name,
     fileName: clubLogoImageName,
     imageUri: downloadURL,
+    objectKey: `${BUCKET_UPLOAD_DIR}/${clubLogoImageName}`,
     mimeType,
   });
 
@@ -213,12 +219,61 @@ export async function deleteClubLogoImage(
   if (!imageEntityFromDb) {
     return;
   }
-  // delete img from firebase storage
-  const file = bucket.file(`club-logo-images/${imageEntityFromDb.fileName}`);
-  await file.delete();
 
-  // delete img from db
-  await imageService.removeImageById(imageEntityFromDb.id);
+  try {
+    const clubLogoImageFromDb: Image = await prisma.$transaction(async (tx) => {
+      await tx.club.update({
+        where: { id: clubId },
+        data: {
+          clubLogoId: null,
+        },
+      });
+
+      // delete img from db
+      return await tx.image.delete({
+        where: {
+          id: imageEntityFromDb.id,
+        },
+      });
+    });
+
+    try {
+      await withRetry(
+        async () => {
+          // delete img from firebase storage
+          const file = bucket.file(
+            `${BUCKET_UPLOAD_DIR}/${imageEntityFromDb.fileName}`,
+          );
+          await file.delete();
+        },
+        {
+          baseMs: 100,
+          maxAttempts: 3,
+          capMs: 30_000,
+        },
+      );
+    } catch (error) {
+      // add backgrond job to clearn from firebase storage
+    }
+
+    return clubLogoImageFromDb;
+  } catch (error) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INTERNAL_ERROR,
+      message: "Failed to delete club logo image",
+      statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+      isOperational: true,
+      diagnostic: {
+        path: "service/club-service.ts",
+        details: [
+          {
+            machineCode: ErrorMachineCode.INTERNAL_ERROR,
+            message: error instanceof Error ? error.message : String(error),
+          },
+        ],
+      },
+    });
+  }
 }
 
 export async function ensureUserIsClubMember(userUid: string, clubId: string) {

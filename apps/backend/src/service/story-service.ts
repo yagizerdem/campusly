@@ -12,6 +12,9 @@ import * as profileService from "@service/profile-service.js";
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
+import { withRetry } from "../lib/retry.js";
+
+const BUCKET_UPLOAD_DIR = "story-images";
 
 const storyInclude = {
   author: true,
@@ -39,7 +42,7 @@ export async function createStory(
   const uploadedFiles = await Promise.all(
     files.map(async (file) => {
       const [uploadedFile] = await bucket.upload(file.path, {
-        destination: `story-images/${file.filename}`,
+        destination: `${BUCKET_UPLOAD_DIR}/${file.filename}`,
         metadata: { contentType: file.mimetype },
       });
 
@@ -47,6 +50,7 @@ export async function createStory(
         uploadedFile,
         source: file,
         imageUri: await getDownloadURL(uploadedFile),
+        sizeInBytes: file.size,
       };
     }),
   );
@@ -69,6 +73,8 @@ export async function createStory(
             fileName: uploaded.source.filename,
             bucketName: bucket.name,
             mimeType: uploaded.source.mimetype,
+            objectKey: `${BUCKET_UPLOAD_DIR}/${uploaded.source.filename}`,
+            sizeInBytes: uploaded.sizeInBytes,
           },
         });
 
@@ -135,7 +141,7 @@ export async function updateStory(
 ) {
   const profile = await profileService.ensureProfileExistbyUid(profileUid);
   const story = await ensureStoryExistsById(storyId);
-  ensureUserIsStoryAuthor(profile.id, story.authorId);
+  ensureProfileAndAuthorMatch(profile.id, story.authorId);
 
   return prisma.stories.update({
     where: { id: story.id },
@@ -150,26 +156,60 @@ export async function updateStory(
 export async function deleteStory(profileUid: string, storyId: string) {
   const profile = await profileService.ensureProfileExistbyUid(profileUid);
   const story = await ensureStoryExistsById(storyId);
-  ensureUserIsStoryAuthor(profile.id, story.authorId);
+  ensureProfileAndAuthorMatch(profile.id, story.authorId);
 
-  const bucket = getStorage(firebaseApp).bucket();
-  await Promise.all(
-    story.images.map(({ image }) =>
-      bucket
-        .file(`story-images/${image.fileName}`)
-        .delete({ ignoreNotFound: true }),
-    ),
-  );
-
-  await prisma.$transaction(async (tx) => {
-    await tx.stories.delete({ where: { id: story.id } });
-    await tx.image.deleteMany({
-      where: { id: { in: story.images.map(({ image }) => image.id) } },
+  try {
+    await prisma.$transaction(async (tx) => {
+      await tx.stories.delete({ where: { id: story.id } });
+      await tx.image.deleteMany({
+        where: { id: { in: story.images.map(({ image }) => image.id) } },
+      });
     });
-  });
+
+    const bucket = getStorage(firebaseApp).bucket();
+
+    try {
+      withRetry(
+        async () => {
+          await Promise.allSettled(
+            story.images.map(({ image }) =>
+              bucket
+                .file(`${BUCKET_UPLOAD_DIR}/${image.fileName}`)
+                .delete({ ignoreNotFound: true }),
+            ),
+          );
+        },
+        {
+          baseMs: 100,
+          capMs: 30_000,
+          maxAttempts: 3,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+      // add backgorund job to clean from firebase storage
+    }
+  } catch (error) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.INTERNAL_ERROR,
+      message: "Failed to delete story.",
+      statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+      isOperational: false,
+      cause: error,
+      diagnostic: {
+        path: "service/story-service.ts",
+        details: [
+          {
+            machineCode: ErrorMachineCode.INTERNAL_ERROR,
+            message: error instanceof Error ? error.message : String(error),
+          },
+        ],
+      },
+    });
+  }
 }
 
-function ensureUserIsStoryAuthor(profileId: string, authorId: string) {
+function ensureProfileAndAuthorMatch(profileId: string, authorId: string) {
   if (profileId !== authorId) {
     throw AppError.from({
       machineCode: ErrorMachineCode.INSUFFICIENT_PERMISSIONS,
