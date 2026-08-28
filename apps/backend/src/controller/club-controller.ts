@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import {
   CreateClubValidator,
   UpdateClubValidator,
-} from "@campusly/shared/dto/club-dto.js";
+} from "@campusly/shared/src/dto/club-dto.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import * as clubService from "@service/club-service.js";
 import { uploadDir } from "../lib/multer/upload.js";
 import path from "path";

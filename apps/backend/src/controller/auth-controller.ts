@@ -1,11 +1,11 @@
 import type { Request, Response } from "express";
 //@ts-ignore
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
-import { RegisterValidator } from "@campusly/shared/dto/auth-dto.js";
+import { RegisterValidator } from "@campusly/shared/src/dto/auth-dto.js";
 // import { RegisterValidator } from "@packages/shared/dto/auth-dto.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import { firebaseApp } from "@/src/firebase.js";
 import { FirebaseAuthError, getAuth, UserRecord } from "firebase-admin/auth";
 import { firebaseAuthErrorMapper } from "@lib/firebase/auth-error-mapper.js";

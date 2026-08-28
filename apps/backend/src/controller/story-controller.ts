@@ -1,15 +1,15 @@
 import type { Request, Response } from "express";
 import fs from "fs/promises";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 import { AppError } from "@common/app-error.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import * as storyService from "@service/story-service.js";
 import {
   CreateStoryValidator,
   UpdateStoryValidator,
-} from "@campusly/shared/dto/story-dto.js";
+} from "@campusly/shared/src/dto/story-dto.js";
 
 function getRequiredRouteParam(
   value: string | string[] | undefined,

@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
 import { prisma } from "@lib/prisma.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import {
   CreateProfileValidator,
   UpdateProfileMetaDataValidator,
-} from "@campusly/shared/dto/profile-dto.js";
+} from "@campusly/shared/src/dto/profile-dto.js";
 import { AppError } from "@common/app-error.js";
 import * as profileService from "@service/profile-service.js";
 import path from "path";

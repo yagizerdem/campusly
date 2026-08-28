@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import {
   AssignTagValidator,
   RemoveAssignedTagValidator,
-} from "@campusly/shared/dto/tag-dto.js";
+} from "@campusly/shared/src/dto/tag-dto.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import * as tagService from "@service/tag-service.js";
 
 export async function assignTag(req: Request, res: Response) {

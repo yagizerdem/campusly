@@ -1,4 +1,4 @@
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import type { Request, Response } from "express";
 import { ApiResponse } from "@common/api-response.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";

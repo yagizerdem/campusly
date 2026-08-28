@@ -1,15 +1,15 @@
 import type { Request, Response } from "express";
 import fs from "fs/promises";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import * as postService from "@service/post-service.js";
 import {
   CreatePostValidator,
   UpdatePostValidator,
-} from "@campusly/shared/dto/post-dto.js";
+} from "@campusly/shared/src/dto/post-dto.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 
 export async function createPost(req: Request, res: Response) {
   try {

@@ -18,8 +18,8 @@ import axiosWrapper from "@/src/lib/axios-wrapper";
 import {
   type RegisterDto,
   // RegisterValidator,
-} from "@campusly/shared/dto/auth-dto";
-import type IApiResponse from "@campusly/shared/util/api-response";
+} from "@campusly/shared/src/dto/auth-dto";
+import type IApiResponse from "@campusly/shared/src/util/api-response";
 
 import axios from "axios";
 import { toast } from "@components/ui/toast";

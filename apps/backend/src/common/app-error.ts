@@ -1,5 +1,5 @@
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 
 export type ErrorStatus = "fail" | "error";
 

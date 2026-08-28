@@ -2,8 +2,8 @@ import type { Request, Response } from "express";
 import * as joinClubReqService from "@/src/service/club-membership-service.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 
 export async function sendJoinClubRequest(req: Request, res: Response) {

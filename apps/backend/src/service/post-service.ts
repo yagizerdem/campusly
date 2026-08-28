@@ -1,7 +1,7 @@
 import type {
   CreatePostDto,
   UpdatePostDto,
-} from "@campusly/shared/dto/post-dto.js";
+} from "@campusly/shared/src/dto/post-dto.js";
 import * as profileService from "@service/profile-service.js";
 import * as clubService from "@service/club-service.js";
 import * as imageService from "@service/image-service.js";
@@ -9,8 +9,8 @@ import { prisma } from "@lib/prisma.js";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
 import { firebaseApp } from "@src/firebase.js";
 import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 
 export async function createPost(
   profileUid: string,

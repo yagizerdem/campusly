@@ -1,8 +1,8 @@
 import type { Response } from "express";
 import { Prisma } from "@/src/generated/prisma/client.js";
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@/src/common/api-response.js";
-import { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 
 export function handlePrismaKnownRequestError(
   error: Prisma.PrismaClientKnownRequestError,

@@ -1,6 +1,6 @@
-import HttpStatusCode from "@campusly/shared/util/http-status-code.js";
-import type IApiResponse from "@campusly/shared/util/api-response.js";
-import type { ErrorMachineCode } from "@campusly/shared/util/error-machine-code.js";
+import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
+import type IApiResponse from "@campusly/shared/src/util/api-response.js";
+import type { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 
 export class ApiResponse<T> implements IApiResponse<T> {
   public readonly success: boolean;

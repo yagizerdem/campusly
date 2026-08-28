@@ -22,5 +22,16 @@ services:
     ports:
       - "8080:8080"
 
+  # backend:
+  #   build:
+  #     context: ./apps/backend
+  #     dockerfile: Dockerfile.dev
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+
 volumes:
   pgdata:

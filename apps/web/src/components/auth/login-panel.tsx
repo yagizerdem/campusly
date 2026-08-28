@@ -11,8 +11,19 @@ import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { cn } from "@lib/utils";
-import { useState } from "react";
+import { useState, type Dispatch } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseApp } from "@/src/lib/firebase-app";
+import {
+  LoginValidator,
+  type LoginDto,
+} from "@campusly/shared/src/dto/auth-dto";
+import { toast } from "@components/ui/toast";
+import { FirebaseError } from "firebase/app";
+import authCodeToMessage from "@campusly/shared/src/auth/firebase/client-auth-error-message";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "@/src/store/slice/loader-slice";
 
 interface LoginPanelProps {
   className?: string;
@@ -25,9 +36,74 @@ interface LoginPanelProps {
 
 export default function LoginPanel(props: LoginPanelProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const [diagnostics, setDiagnostics] = useState<Dispatch<string[]> | string[]>(
+    [],
+  );
+  const dispatch = useDispatch();
 
   async function login() {
-    console.log(props.loginEmail, props.loginPassword);
+    try {
+      dispatch(setIsLoading(true));
+      setDiagnostics([]); // clear error messages
+      if (!props.loginEmail || !props.loginPassword) {
+        toast.add({
+          type: "destructive",
+          title: "Login failed",
+          description: "Please check your email and password.",
+        });
+        setDiagnostics(["Email and password must be provided."]);
+        return;
+      }
+
+      const parseResult = await LoginValidator.safeParseAsync({
+        email: props.loginEmail,
+        password: props.loginPassword,
+      } as LoginDto);
+
+      if (!parseResult.success) {
+        setDiagnostics(
+          parseResult.error.issues.flatMap((issue) => issue.message),
+        );
+        toast.add({
+          type: "destructive",
+          title: "Login failed",
+          description: "Please check your email and password.",
+        });
+        return;
+      }
+
+      const auth = getAuth(firebaseApp);
+      await signInWithEmailAndPassword(
+        auth,
+        props.loginEmail ?? "",
+        props.loginPassword ?? "",
+      );
+
+      toast.add({
+        type: "success",
+        title: "Login successful",
+        description: `Login successfull`,
+      });
+    } catch (err: any) {
+      console.error(err);
+
+      if (err instanceof FirebaseError) {
+        const message = authCodeToMessage(err.code);
+        toast.add({
+          type: "destructive",
+          title: "Login failed",
+          description: message,
+        });
+      } else {
+        toast.add({
+          type: "destructive",
+          title: "Login failed",
+          description: "Unexpected error occurred. Please try again later.",
+        });
+      }
+    } finally {
+      dispatch(setIsLoading(false));
+    }
   }
 
   return (
@@ -103,14 +179,17 @@ export default function LoginPanel(props: LoginPanelProps) {
               </div>
             </div>
           </div>
+          {diagnostics.length > 0 &&
+            typeof diagnostics !== "function" &&
+            diagnostics.map((diagnostic: string, index: number) => (
+              <Label key={index} className="text-sm text-red-500 mt-2">
+                {diagnostic}
+              </Label>
+            ))}
         </CardContent>
 
         <CardFooter className="mt-6 flex-col gap-2">
-          <Button
-            type="submit"
-            className="w-full cursor-pointer"
-            onMouseUp={() => login()}
-          >
+          <Button className="w-full cursor-pointer" onMouseUp={() => login()}>
             Login
           </Button>
 
