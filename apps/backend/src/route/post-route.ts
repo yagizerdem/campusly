@@ -19,4 +19,7 @@ router.post(
   catchAsync(postController.deletePost),
 );
 
+// public route
+router.get("/get-posts", catchAsync(postController.fetchFeedPosts));
+
 export default router;

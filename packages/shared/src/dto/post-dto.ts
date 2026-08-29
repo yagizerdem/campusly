@@ -37,3 +37,20 @@ export const UpdatePostValidator = z.object({
 });
 
 export type UpdatePostDto = z.infer<typeof UpdatePostValidator>;
+
+export type FetchPostFeedResponse = {
+  postId: string;
+  postTitle: string;
+  postContent: string;
+  clubId: string;
+  authorId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  coverImageSignedUrl: string | null;
+  likesCount: number;
+  commentCount: number;
+  images: {
+    order: number;
+    imageId: string;
+  }[];
+}[];

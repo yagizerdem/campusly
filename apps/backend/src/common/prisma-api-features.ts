@@ -1,4 +1,4 @@
-type QueryString = Record<string, string | undefined>;
+export type QueryString = Record<string, string | undefined>;
 
 export class PrismaAPIFeatures {
   private queryString: QueryString;
@@ -14,7 +14,7 @@ export class PrismaAPIFeatures {
   }
 
   filter() {
-    const excludedFields = ["page", "sort", "limit", "fields"];
+    const excludedFields = ["skip", "sort", "limit", "fields"];
 
     for (const [key, value] of Object.entries(this.queryString)) {
       if (!value || excludedFields.includes(key)) {
@@ -80,13 +80,14 @@ export class PrismaAPIFeatures {
   }
 
   paginate() {
-    const page = Number.parseInt(this.queryString.page ?? "1", 10);
+    const skip = Number.parseInt(this.queryString.skip ?? "0", 10);
     const limit = Number.parseInt(this.queryString.limit ?? "100", 10);
 
-    const safePage = Number.isNaN(page) || page < 1 ? 1 : page;
-    const safeLimit = Number.isNaN(limit) || limit < 1 ? 100 : limit;
+    const safeSkip = Number.isNaN(skip) || skip < 0 ? 0 : skip;
+    const safeLimit =
+      Number.isNaN(limit) || limit < 1 ? 100 : Math.min(limit, 100);
 
-    this.skip = (safePage - 1) * safeLimit;
+    this.skip = safeSkip;
     this.take = safeLimit;
 
     return this;
