@@ -1,4 +1,5 @@
 import type {
+  ClubEventIdCoverImageSignedUrlMap,
   CreateClubEventDto,
   ImageIdSignedUrlMap,
   UpdateClubEventDto,
@@ -273,7 +274,7 @@ export async function fetchClubEventsForFeed(queryObject: QueryString) {
     },
   });
 
-  const coverImageSignedUrls: Record<string, string> = {}; // clubEventId - coverImage uri
+  const coverImageSignedUrls: ClubEventIdCoverImageSignedUrlMap = {};
 
   await Promise.allSettled(
     clubEvents.map(async (clubEvent) => {
@@ -290,7 +291,7 @@ export async function fetchClubEventsForFeed(queryObject: QueryString) {
     }),
   );
 
-  return [posts, coverImageSignedUrls];
+  return [clubEvents, coverImageSignedUrls] as const;
 }
 
 export async function fetchClubEventImages(clubEventId: string) {

@@ -20,21 +20,28 @@ router.get(
 );
 
 router.get(
-  "/:clubEventId",
+  "/event/:clubEventId",
   authGuard,
   catchAsync(clubEventController.getClubEventById),
 );
 
-router.patch(
+router.post(
   "/update/:clubEventId",
   authGuard,
   catchAsync(clubEventController.updateClubEvent),
 );
 
-router.delete(
+router.post(
   "/delete/:clubEventId",
   authGuard,
   catchAsync(clubEventController.deleteClubEvent),
+);
+
+router.get("/feed", catchAsync(clubEventController.fetchClubEventsForFeed));
+
+router.get(
+  "/images/:clubEventId",
+  catchAsync(clubEventController.fetchClubEventImages),
 );
 
 export default router;

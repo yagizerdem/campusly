@@ -32,3 +32,23 @@ export const UpdateClubEventValidator = z.object({
 });
 
 export type UpdateClubEventDto = z.infer<typeof UpdateClubEventValidator>;
+
+export type ImageIdSignedUrlMap = Record<string, string>; // image-id - signed-url
+export type ClubEventIdCoverImageSignedUrlMap = Record<string, string>; // club-event-id - cover-image-signed-url
+
+export type ClubEventFeedResponse = {
+  id: string;
+  eventTitle: string;
+  eventDescription: string;
+  eventDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  clubId: string;
+  club: {
+    clubDescription: string | null;
+    clubName: string;
+    id: string;
+    clubLogoId: string | null;
+  };
+  coverImageSignedUrl?: string | null; // optional, may not exist
+}[];
