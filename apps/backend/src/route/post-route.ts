@@ -22,4 +22,9 @@ router.post(
 // public route
 router.get("/get-posts", catchAsync(postController.fetchFeedPosts));
 
+router.get(
+  "/get-post-gallery/:postId",
+  catchAsync(postController.fetchPostGalleryImages),
+);
+
 export default router;

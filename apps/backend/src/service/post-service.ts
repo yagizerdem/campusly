@@ -373,3 +373,39 @@ export async function fetchPostsForFeed(queryObject: QueryString) {
 
   return [posts, coverImageSignedUrls];
 }
+
+export async function fetchPostGalleryImages(postId: string) {
+  const post = await ensurePostExistById(postId);
+
+  const postImages = await prisma.postImage.findMany({
+    where: {
+      postId: post.id,
+    },
+    orderBy: {
+      order: "asc",
+    },
+    select: {
+      postId: true,
+      order: true,
+      image: true,
+    },
+  });
+
+  const result: Record<string, string[]> = {}; // image-id - signed-urls
+
+  await Promise.allSettled(
+    postImages.map(async (postImage) => {
+      const signedUrl = await imageService.generateSignedUrl(
+        postImage.image,
+        minutesToSeconds(15), // 15 minutes
+      );
+
+      if (!result[postId]) {
+        result[postId] = [];
+      }
+
+      result[postId].push(signedUrl);
+    }),
+  );
+  return result;
+}

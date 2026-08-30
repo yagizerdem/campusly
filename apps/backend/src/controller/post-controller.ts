@@ -170,3 +170,31 @@ export async function fetchFeedPosts(req: Request, res: Response) {
     .status(HttpStatusCode.OK)
     .json(ApiResponse.ok("Posts retrieved successfully", fetchedPosts));
 }
+
+export async function fetchPostGalleryImages(req: Request, res: Response) {
+  const postId = req.params.postId;
+
+  if (!postId) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.VALIDATION_ERROR,
+      message: "Post ID is required",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+
+  if (typeof postId !== "string") {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.VALIDATION_ERROR,
+      message: "Post ID must be a string",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+
+  const images = await postService.fetchPostGalleryImages(postId);
+
+  return res
+    .status(HttpStatusCode.OK)
+    .json(ApiResponse.ok("Post gallery images retrieved successfully", images));
+}
