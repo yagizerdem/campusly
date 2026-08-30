@@ -7,7 +7,7 @@ import { extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { v5 as uuidv5 } from "uuid";
 
-const BUCKET_UPLOAD_DIR = "post-images/seed";
+const BUCKET_UPLOAD_DIR = "seed/post-images";
 const SEED_IMAGE_DIR = fileURLToPath(
   new URL("../../../assets/seed-post-images/", import.meta.url),
 );
