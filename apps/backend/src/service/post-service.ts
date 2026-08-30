@@ -13,6 +13,11 @@ import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.j
 import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import type { Image, Post } from "@src/generated/prisma/client.js";
 import { withRetry } from "@lib/retry.js";
+import {
+  PrismaAPIFeatures,
+  type QueryString,
+} from "@common/prisma-api-features.js";
+import { minutesToSeconds } from "date-fns";
 
 const BUCKET_UPLOAD_DIR = "post-images";
 
@@ -312,4 +317,95 @@ export async function updatePost(userUid: string, dto: UpdatePostDto) {
   });
 
   return postFromDb;
+}
+
+export async function fetchPostsForFeed(queryObject: QueryString) {
+  const apiFeatures = new PrismaAPIFeatures(queryObject);
+
+  const builtQuery = apiFeatures.paginate().sort().filter().build();
+
+  const { select: _unusedSelect, ...prismaQuery } = builtQuery;
+
+  const posts = await prisma.post.findMany({
+    ...prismaQuery,
+
+    select: {
+      id: true,
+      authorId: true,
+      postTitle: true,
+      postContent: true,
+      clubId: true,
+      createdAt: true,
+      updatedAt: true,
+      _count: {
+        select: {
+          likes: true,
+          comments: true,
+        },
+      },
+
+      images: {
+        orderBy: {
+          order: "asc",
+        },
+        select: {
+          imageId: true,
+          order: true,
+        },
+      },
+    },
+  });
+
+  const coverImageSignedUrls: Record<string, string> = {}; // post-id - cover-img uri
+
+  await Promise.allSettled(
+    posts.map(async (post) => {
+      if (post?.images && post.images.length > 0) {
+        const coverImageId = post.images[0]!.imageId;
+        const signedUrl = await imageService.generateSignedUrlByImageId(
+          coverImageId,
+          minutesToSeconds(15), // 15 minutes
+        );
+        coverImageSignedUrls[post.id] = signedUrl;
+      }
+    }),
+  );
+
+  return [posts, coverImageSignedUrls];
+}
+
+export async function fetchPostGalleryImages(postId: string) {
+  const post = await ensurePostExistById(postId);
+
+  const postImages = await prisma.postImage.findMany({
+    where: {
+      postId: post.id,
+    },
+    orderBy: {
+      order: "asc",
+    },
+    select: {
+      postId: true,
+      order: true,
+      image: true,
+    },
+  });
+
+  const result: Record<string, string[]> = {}; // image-id - signed-urls
+
+  await Promise.allSettled(
+    postImages.map(async (postImage) => {
+      const signedUrl = await imageService.generateSignedUrl(
+        postImage.image,
+        minutesToSeconds(15), // 15 minutes
+      );
+
+      if (!result[postId]) {
+        result[postId] = [];
+      }
+
+      result[postId].push(signedUrl);
+    }),
+  );
+  return result;
 }

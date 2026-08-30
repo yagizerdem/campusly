@@ -12,6 +12,7 @@ import { uploadDir } from "@lib/multer/upload.js";
 import { firebaseApp } from "@src/firebase.js";
 import * as imageService from "@service/image-service.js";
 import fs from "fs/promises";
+import type { Image } from "@src/generated/prisma/client.js";
 
 const BUCKET_UPLOAD_DIR = "profile-images";
 
@@ -105,7 +106,7 @@ export async function throwIfProfileImgNotExistInUploadsFolder(
 export async function uploadProfileImage(
   profileUid: string,
   multerFile: Express.Multer.File,
-): Promise<string> {
+): Promise<Image> {
   const mimeType = multerFile.mimetype;
   const sizeInBytes = multerFile.size;
   const profileImageName = multerFile.filename;
@@ -167,7 +168,7 @@ export async function uploadProfileImage(
     },
   });
 
-  return downloadURL;
+  return imageEntity;
 }
 
 export async function deleteProfileImage(profileUid: string): Promise<void> {
@@ -192,4 +193,17 @@ export async function deleteProfileImage(profileUid: string): Promise<void> {
 
   // delete img from db
   await imageService.removeImageById(imageEntityFromDb.id);
+}
+
+export async function getProfileImageSignedUrl(
+  imageId: string,
+  reqSenderProfileId: string,
+  expiresInSeconds: number,
+): Promise<string> {
+  // authanticate here
+
+  return await imageService.generateSignedUrlByImageId(
+    imageId,
+    expiresInSeconds,
+  );
 }

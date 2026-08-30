@@ -13,6 +13,8 @@ import * as profileService from "@service/profile-service.js";
 import path from "path";
 import { uploadDir } from "@lib/multer/upload.js";
 import fs from "fs/promises";
+import * as imageService from "@service/image-service.js";
+import { minutesToSeconds } from "date-fns";
 
 export async function isProfileExist(req: Request, res: Response) {
   const uid = req.uid!;
@@ -118,18 +120,20 @@ export async function uploadProfileImage(req: Request, res: Response) {
       });
     }
 
-    const profileImageUri = await profileService.uploadProfileImage(
+    const profileImageEntity = await profileService.uploadProfileImage(
       uid,
       diskFile,
+    );
+
+    const signedUrl = await imageService.generateSignedUrl(
+      profileImageEntity,
+      minutesToSeconds(15),
     );
 
     return res
       .status(HttpStatusCode.OK)
       .json(
-        ApiResponse.success(
-          profileImageUri,
-          "Profile image uploaded successfully.",
-        ),
+        ApiResponse.success(signedUrl, "Profile image uploaded successfully."),
       );
   } finally {
     // Clean up the uploaded file from the server's disk storage
@@ -154,4 +158,43 @@ export async function deleteProfileImage(req: Request, res: Response) {
   return res
     .status(HttpStatusCode.OK)
     .json(ApiResponse.success(null, "Profile image deleted successfully."));
+}
+
+export async function getProfileImageSignedUrl(req: Request, res: Response) {
+  const uid = req.uid!;
+  throwIfUidNotExist(req);
+
+  const imageId = req.params.imageId;
+
+  if (!imageId) {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.VALIDATION_ERROR,
+      message: "Image ID is required",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+
+  if (typeof imageId !== "string") {
+    throw AppError.from({
+      machineCode: ErrorMachineCode.VALIDATION_ERROR,
+      message: "Image ID must be a string",
+      statusCode: HttpStatusCode.BAD_REQUEST,
+      isOperational: true,
+    });
+  }
+
+  const signedUrl = await profileService.getProfileImageSignedUrl(
+    imageId,
+    uid,
+    minutesToSeconds(15),
+  );
+  return res
+    .status(HttpStatusCode.OK)
+    .json(
+      ApiResponse.success(
+        signedUrl,
+        "Profile image signed URL generated successfully.",
+      ),
+    );
 }

@@ -12,7 +12,7 @@ import * as profileService from "@service/profile-service.js";
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
-import { withRetry } from "../lib/retry.js";
+import { withRetry } from "@lib/retry.js";
 
 const BUCKET_UPLOAD_DIR = "story-images";
 
