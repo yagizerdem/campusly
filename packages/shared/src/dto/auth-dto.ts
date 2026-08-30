@@ -13,19 +13,22 @@ const strongPasswordRegxp =
 $   
    */
 
+const emailValidator = z.string().email("Invalid email address");
+const passwordValidator = z.string().min(8).max(32).regex(strongPasswordRegxp, {
+  message:
+    "Password must contain at least 1 uppercase letters (A-Z), 1 lowercase letters (a-z),  1 digit (0-9), and 1 special character (!@#$&*).",
+});
+
 export const RegisterValidator = z.object({
-  email: z.string().email(),
-  password: z.string().min(8).max(32).regex(strongPasswordRegxp, {
-    message:
-      "Password must contain at least 1 uppercase letters (A-Z), 1 lowercase letters (a-z),  1 digit (0-9), and 1 special character (!@#$&*).",
-  }),
+  email: emailValidator,
+  password: passwordValidator,
 });
 
 export type RegisterDto = z.infer<typeof RegisterValidator>;
 
 export const LoginValidator = z.object({
-  email: z.string().email(),
-  password: z.string().min(8).max(32),
+  email: emailValidator,
+  password: z.string().min(8).max(32), // do not validate password strength on login, only on registration
 });
 
 export type LoginDto = z.infer<typeof LoginValidator>;
