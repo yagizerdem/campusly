@@ -15,6 +15,10 @@ import { uploadDir } from "@lib/multer/upload.js";
 import fs from "fs/promises";
 import * as imageService from "@service/image-service.js";
 import { minutesToSeconds } from "date-fns";
+import {
+  throwValidationError,
+  getRequiredRouteParam,
+} from "@common/route-validation.js";
 
 export async function isProfileExist(req: Request, res: Response) {
   const uid = req.uid!;
@@ -83,19 +87,7 @@ export async function updateProfileMetaData(req: Request, res: Response) {
     await UpdateProfileMetaDataValidator.safeParseAsync(body);
 
   if (!success) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Validation error",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-      diagnostic: {
-        path: req.path,
-        details: error.issues.map((issue) => ({
-          machineCode: ErrorMachineCode.VALIDATION_ERROR,
-          message: `${issue.path.join(".")}: ${issue.message}`,
-        })),
-      },
-    });
+    throwValidationError(req, error.issues);
   }
   const profile = await profileService.updateProfileMetaData(uid, data);
 
@@ -163,26 +155,7 @@ export async function deleteProfileImage(req: Request, res: Response) {
 export async function getProfileImageSignedUrl(req: Request, res: Response) {
   const uid = req.uid!;
   throwIfUidNotExist(req);
-
-  const imageId = req.params.imageId;
-
-  if (!imageId) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Image ID is required",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
-  if (typeof imageId !== "string") {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Image ID must be a string",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
+  const imageId = getRequiredRouteParam(req.params.imageId, "imageId");
 
   const signedUrl = await profileService.getProfileImageSignedUrl(
     imageId,

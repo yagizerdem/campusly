@@ -42,7 +42,6 @@ export type ClubEventFormMaxAggregateOutputType = {
 
 export type ClubEventFormCountAggregateOutputType = {
   id: number
-  formJson: number
   clubEventId: number
   surveySchemaId: number
   createdAt: number
@@ -69,7 +68,6 @@ export type ClubEventFormMaxAggregateInputType = {
 
 export type ClubEventFormCountAggregateInputType = {
   id?: true
-  formJson?: true
   clubEventId?: true
   surveySchemaId?: true
   createdAt?: true
@@ -151,7 +149,6 @@ export type ClubEventFormGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 
 export type ClubEventFormGroupByOutputType = {
   id: string
-  formJson: runtime.JsonValue
   clubEventId: string
   surveySchemaId: string
   createdAt: Date
@@ -181,7 +178,6 @@ export type ClubEventFormWhereInput = {
   OR?: Prisma.ClubEventFormWhereInput[]
   NOT?: Prisma.ClubEventFormWhereInput | Prisma.ClubEventFormWhereInput[]
   id?: Prisma.StringFilter<"ClubEventForm"> | string
-  formJson?: Prisma.JsonFilter<"ClubEventForm">
   clubEventId?: Prisma.StringFilter<"ClubEventForm"> | string
   surveySchemaId?: Prisma.StringFilter<"ClubEventForm"> | string
   createdAt?: Prisma.DateTimeFilter<"ClubEventForm"> | Date | string
@@ -192,7 +188,6 @@ export type ClubEventFormWhereInput = {
 
 export type ClubEventFormOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  formJson?: Prisma.SortOrder
   clubEventId?: Prisma.SortOrder
   surveySchemaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -208,7 +203,6 @@ export type ClubEventFormWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ClubEventFormWhereInput | Prisma.ClubEventFormWhereInput[]
   OR?: Prisma.ClubEventFormWhereInput[]
   NOT?: Prisma.ClubEventFormWhereInput | Prisma.ClubEventFormWhereInput[]
-  formJson?: Prisma.JsonFilter<"ClubEventForm">
   createdAt?: Prisma.DateTimeFilter<"ClubEventForm"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubEventForm"> | Date | string
   clubEvent?: Prisma.XOR<Prisma.ClubEventScalarRelationFilter, Prisma.ClubEventWhereInput>
@@ -217,7 +211,6 @@ export type ClubEventFormWhereUniqueInput = Prisma.AtLeast<{
 
 export type ClubEventFormOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  formJson?: Prisma.SortOrder
   clubEventId?: Prisma.SortOrder
   surveySchemaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -232,7 +225,6 @@ export type ClubEventFormScalarWhereWithAggregatesInput = {
   OR?: Prisma.ClubEventFormScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ClubEventFormScalarWhereWithAggregatesInput | Prisma.ClubEventFormScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"ClubEventForm"> | string
-  formJson?: Prisma.JsonWithAggregatesFilter<"ClubEventForm">
   clubEventId?: Prisma.StringWithAggregatesFilter<"ClubEventForm"> | string
   surveySchemaId?: Prisma.StringWithAggregatesFilter<"ClubEventForm"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClubEventForm"> | Date | string
@@ -241,7 +233,6 @@ export type ClubEventFormScalarWhereWithAggregatesInput = {
 
 export type ClubEventFormCreateInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   clubEvent: Prisma.ClubEventCreateNestedOneWithoutClubEventFormInput
@@ -250,7 +241,6 @@ export type ClubEventFormCreateInput = {
 
 export type ClubEventFormUncheckedCreateInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId: string
   surveySchemaId: string
   createdAt?: Date | string
@@ -259,7 +249,6 @@ export type ClubEventFormUncheckedCreateInput = {
 
 export type ClubEventFormUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubEvent?: Prisma.ClubEventUpdateOneRequiredWithoutClubEventFormNestedInput
@@ -268,7 +257,6 @@ export type ClubEventFormUpdateInput = {
 
 export type ClubEventFormUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId?: Prisma.StringFieldUpdateOperationsInput | string
   surveySchemaId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -277,7 +265,6 @@ export type ClubEventFormUncheckedUpdateInput = {
 
 export type ClubEventFormCreateManyInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId: string
   surveySchemaId: string
   createdAt?: Date | string
@@ -286,14 +273,12 @@ export type ClubEventFormCreateManyInput = {
 
 export type ClubEventFormUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClubEventFormUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId?: Prisma.StringFieldUpdateOperationsInput | string
   surveySchemaId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -307,7 +292,6 @@ export type ClubEventFormNullableScalarRelationFilter = {
 
 export type ClubEventFormCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  formJson?: Prisma.SortOrder
   clubEventId?: Prisma.SortOrder
   surveySchemaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -416,7 +400,6 @@ export type ClubEventFormUncheckedUpdateManyWithoutSurveySchemaNestedInput = {
 
 export type ClubEventFormCreateWithoutClubEventInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   surveySchema: Prisma.SurveySchemasCreateNestedOneWithoutClubEventFormsInput
@@ -424,7 +407,6 @@ export type ClubEventFormCreateWithoutClubEventInput = {
 
 export type ClubEventFormUncheckedCreateWithoutClubEventInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   surveySchemaId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -448,7 +430,6 @@ export type ClubEventFormUpdateToOneWithWhereWithoutClubEventInput = {
 
 export type ClubEventFormUpdateWithoutClubEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   surveySchema?: Prisma.SurveySchemasUpdateOneRequiredWithoutClubEventFormsNestedInput
@@ -456,7 +437,6 @@ export type ClubEventFormUpdateWithoutClubEventInput = {
 
 export type ClubEventFormUncheckedUpdateWithoutClubEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   surveySchemaId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -464,7 +444,6 @@ export type ClubEventFormUncheckedUpdateWithoutClubEventInput = {
 
 export type ClubEventFormCreateWithoutSurveySchemaInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   clubEvent: Prisma.ClubEventCreateNestedOneWithoutClubEventFormInput
@@ -472,7 +451,6 @@ export type ClubEventFormCreateWithoutSurveySchemaInput = {
 
 export type ClubEventFormUncheckedCreateWithoutSurveySchemaInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -509,7 +487,6 @@ export type ClubEventFormScalarWhereInput = {
   OR?: Prisma.ClubEventFormScalarWhereInput[]
   NOT?: Prisma.ClubEventFormScalarWhereInput | Prisma.ClubEventFormScalarWhereInput[]
   id?: Prisma.StringFilter<"ClubEventForm"> | string
-  formJson?: Prisma.JsonFilter<"ClubEventForm">
   clubEventId?: Prisma.StringFilter<"ClubEventForm"> | string
   surveySchemaId?: Prisma.StringFilter<"ClubEventForm"> | string
   createdAt?: Prisma.DateTimeFilter<"ClubEventForm"> | Date | string
@@ -518,7 +495,6 @@ export type ClubEventFormScalarWhereInput = {
 
 export type ClubEventFormCreateManySurveySchemaInput = {
   id?: string
-  formJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -526,7 +502,6 @@ export type ClubEventFormCreateManySurveySchemaInput = {
 
 export type ClubEventFormUpdateWithoutSurveySchemaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubEvent?: Prisma.ClubEventUpdateOneRequiredWithoutClubEventFormNestedInput
@@ -534,7 +509,6 @@ export type ClubEventFormUpdateWithoutSurveySchemaInput = {
 
 export type ClubEventFormUncheckedUpdateWithoutSurveySchemaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -542,7 +516,6 @@ export type ClubEventFormUncheckedUpdateWithoutSurveySchemaInput = {
 
 export type ClubEventFormUncheckedUpdateManyWithoutSurveySchemaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  formJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   clubEventId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -552,7 +525,6 @@ export type ClubEventFormUncheckedUpdateManyWithoutSurveySchemaInput = {
 
 export type ClubEventFormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  formJson?: boolean
   clubEventId?: boolean
   surveySchemaId?: boolean
   createdAt?: boolean
@@ -563,7 +535,6 @@ export type ClubEventFormSelect<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type ClubEventFormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  formJson?: boolean
   clubEventId?: boolean
   surveySchemaId?: boolean
   createdAt?: boolean
@@ -574,7 +545,6 @@ export type ClubEventFormSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 
 export type ClubEventFormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  formJson?: boolean
   clubEventId?: boolean
   surveySchemaId?: boolean
   createdAt?: boolean
@@ -585,14 +555,13 @@ export type ClubEventFormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 
 export type ClubEventFormSelectScalar = {
   id?: boolean
-  formJson?: boolean
   clubEventId?: boolean
   surveySchemaId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ClubEventFormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "formJson" | "clubEventId" | "surveySchemaId" | "createdAt" | "updatedAt", ExtArgs["result"]["clubEventForm"]>
+export type ClubEventFormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clubEventId" | "surveySchemaId" | "createdAt" | "updatedAt", ExtArgs["result"]["clubEventForm"]>
 export type ClubEventFormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   clubEvent?: boolean | Prisma.ClubEventDefaultArgs<ExtArgs>
   surveySchema?: boolean | Prisma.SurveySchemasDefaultArgs<ExtArgs>
@@ -614,7 +583,6 @@ export type $ClubEventFormPayload<ExtArgs extends runtime.Types.Extensions.Inter
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    formJson: runtime.JsonValue
     clubEventId: string
     surveySchemaId: string
     createdAt: Date
@@ -1045,7 +1013,6 @@ export interface Prisma__ClubEventFormClient<T, Null = never, ExtArgs extends ru
  */
 export interface ClubEventFormFieldRefs {
   readonly id: Prisma.FieldRef<"ClubEventForm", 'String'>
-  readonly formJson: Prisma.FieldRef<"ClubEventForm", 'Json'>
   readonly clubEventId: Prisma.FieldRef<"ClubEventForm", 'String'>
   readonly surveySchemaId: Prisma.FieldRef<"ClubEventForm", 'String'>
   readonly createdAt: Prisma.FieldRef<"ClubEventForm", 'DateTime'>

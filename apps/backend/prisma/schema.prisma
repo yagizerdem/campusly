@@ -265,7 +265,6 @@ model ClubEventImage {
 
 model ClubEventForm {
   id    String     @id @default(uuid()) 
-  formJson Json
 
   clubEvent ClubEvent @relation(fields: [clubEventId], references: [id])
   clubEventId String @unique

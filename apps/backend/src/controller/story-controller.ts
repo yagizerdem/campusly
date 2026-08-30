@@ -2,49 +2,16 @@ import type { Request, Response } from "express";
 import fs from "fs/promises";
 import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
-import { AppError } from "@common/app-error.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
-import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import * as storyService from "@service/story-service.js";
 import {
   CreateStoryValidator,
   UpdateStoryValidator,
 } from "@campusly/shared/src/dto/story-dto.js";
-
-function getRequiredRouteParam(
-  value: string | string[] | undefined,
-  name: string,
-) {
-  if (typeof value !== "string" || value.length === 0) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: `${name} is required and must be a string.`,
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
-  return value;
-}
-
-function throwValidationError(
-  req: Request,
-  issues: { path: PropertyKey[]; message: string }[],
-): never {
-  throw AppError.from({
-    machineCode: ErrorMachineCode.VALIDATION_ERROR,
-    message: "Validation error",
-    statusCode: HttpStatusCode.BAD_REQUEST,
-    isOperational: true,
-    diagnostic: {
-      path: req.path,
-      details: issues.map((issue) => ({
-        machineCode: ErrorMachineCode.VALIDATION_ERROR,
-        message: `${issue.path.join(".")}: ${issue.message}`,
-      })),
-    },
-  });
-}
+import {
+  throwValidationError,
+  getRequiredRouteParam,
+} from "@common/route-validation.js";
 
 export async function createStory(req: Request, res: Response) {
   try {
@@ -77,7 +44,7 @@ export async function createStory(req: Request, res: Response) {
 
 export async function getStoryById(req: Request, res: Response) {
   throwIfUidNotExist(req);
-  const storyId = getRequiredRouteParam(req.params.storyId, "Story ID");
+  const storyId = getRequiredRouteParam(req.params.storyId, "storyId");
   const story = await storyService.getStoryById(storyId);
 
   return res.status(HttpStatusCode.OK).json(ApiResponse.success(story));
@@ -85,7 +52,7 @@ export async function getStoryById(req: Request, res: Response) {
 
 export async function getStoriesByClubId(req: Request, res: Response) {
   throwIfUidNotExist(req);
-  const clubId = getRequiredRouteParam(req.params.clubId, "Club ID");
+  const clubId = getRequiredRouteParam(req.params.clubId, "clubId");
   const stories = await storyService.getStoriesByClubId(clubId);
 
   return res.status(HttpStatusCode.OK).json(ApiResponse.success(stories));
@@ -93,7 +60,7 @@ export async function getStoriesByClubId(req: Request, res: Response) {
 
 export async function updateStory(req: Request, res: Response) {
   throwIfUidNotExist(req);
-  const storyId = getRequiredRouteParam(req.params.storyId, "Story ID");
+  const storyId = getRequiredRouteParam(req.params.storyId, "storyId");
 
   const result = await UpdateStoryValidator.safeParseAsync(req.body);
   if (!result.success) {
@@ -109,7 +76,7 @@ export async function updateStory(req: Request, res: Response) {
 
 export async function deleteStory(req: Request, res: Response) {
   throwIfUidNotExist(req);
-  const storyId = getRequiredRouteParam(req.params.storyId, "Story ID");
+  const storyId = getRequiredRouteParam(req.params.storyId, "storyId");
   await storyService.deleteStory(req.uid!, storyId);
 
   return res

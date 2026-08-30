@@ -13,6 +13,7 @@ import tagRoute from "@route/tag-route.js";
 import clubMembershipRoute from "@route/club-membership-route.js";
 import auditRoute from "@route/audit-route.js";
 import storyRoute from "@route/story-route.js";
+import clubEventRoute from "@route/club-event-route.js";
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/api/tag", tagRoute);
 app.use("/api/club-membership", clubMembershipRoute);
 app.use("/api/audit", auditRoute);
 app.use("/api/story", storyRoute);
+app.use("/api/club-event", clubEventRoute);
 
 app.use(globalErrorHandler);
 

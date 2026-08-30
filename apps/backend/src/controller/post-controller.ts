@@ -9,13 +9,16 @@ import {
   UpdatePostValidator,
   type FetchPostFeedResponse,
 } from "@campusly/shared/src/dto/post-dto.js";
-import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import type { QueryString } from "@common/prisma-api-features.js";
+import {
+  throwValidationError,
+  getRequiredRouteParam,
+} from "@common/route-validation.js";
 
 export async function createPost(req: Request, res: Response) {
   try {
     const adminUid = req.uid!;
+
     throwIfUidNotExist(req);
 
     const { success, data, error } = await CreatePostValidator.safeParseAsync(
@@ -23,20 +26,7 @@ export async function createPost(req: Request, res: Response) {
     );
 
     if (!success) {
-      console.error("Validation error:", error.issues);
-      throw AppError.from({
-        machineCode: ErrorMachineCode.VALIDATION_ERROR,
-        message: "Validation error",
-        statusCode: HttpStatusCode.BAD_REQUEST,
-        isOperational: true,
-        diagnostic: {
-          path: req.path,
-          details: error.issues.map((issue) => ({
-            machineCode: ErrorMachineCode.VALIDATION_ERROR,
-            message: `${issue.path.join(".")}: ${issue.message}`,
-          })),
-        },
-      });
+      throwValidationError(req, error.issues);
     }
 
     const files = req.files as Express.Multer.File[];
@@ -63,25 +53,7 @@ export async function createPost(req: Request, res: Response) {
 export async function deletePost(req: Request, res: Response) {
   const adminUid = req.uid!;
   throwIfUidNotExist(req);
-
-  const postId = req.params.postId;
-  if (!postId) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID is required",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
-  if (typeof postId !== "string") {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID must be a string",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
+  const postId = getRequiredRouteParam(req.params.postId, "postId");
 
   await postService.deletePostById(adminUid, postId);
 
@@ -99,20 +71,7 @@ export async function updatePost(req: Request, res: Response) {
   );
 
   if (!success) {
-    console.error("Validation error:", error.issues);
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Validation error",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-      diagnostic: {
-        path: req.path,
-        details: error.issues.map((issue) => ({
-          machineCode: ErrorMachineCode.VALIDATION_ERROR,
-          message: `${issue.path.join(".")}: ${issue.message}`,
-        })),
-      },
-    });
+    throwValidationError(req, error.issues);
   }
 
   const postFromDb = await postService.updatePost(adminUid, data);
@@ -172,26 +131,7 @@ export async function fetchFeedPosts(req: Request, res: Response) {
 }
 
 export async function fetchPostGalleryImages(req: Request, res: Response) {
-  const postId = req.params.postId;
-
-  if (!postId) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID is required",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
-  if (typeof postId !== "string") {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID must be a string",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
+  const postId = getRequiredRouteParam(req.params.postId, "postId");
   const images = await postService.fetchPostGalleryImages(postId);
 
   return res

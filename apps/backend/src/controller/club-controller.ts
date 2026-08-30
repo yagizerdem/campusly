@@ -12,6 +12,10 @@ import * as clubService from "@service/club-service.js";
 import { uploadDir } from "@lib/multer/upload.js";
 import path from "path";
 import fs from "fs/promises";
+import {
+  throwValidationError,
+  getRequiredRouteParam,
+} from "@common/route-validation.js";
 
 export async function updateClub(req: Request, res: Response) {
   const adminUid = req.uid!;
@@ -22,19 +26,7 @@ export async function updateClub(req: Request, res: Response) {
   );
 
   if (!success) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Validation error",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-      diagnostic: {
-        path: req.path,
-        details: error.issues.map((issue) => ({
-          machineCode: ErrorMachineCode.VALIDATION_ERROR,
-          message: `${issue.path.join(".")}: ${issue.message}`,
-        })),
-      },
-    });
+    throwValidationError(req, error.issues);
   }
 
   const club = await clubService.updateClub(adminUid, data);
@@ -53,19 +45,7 @@ export async function createClub(req: Request, res: Response) {
   );
 
   if (!success) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Validation error",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-      diagnostic: {
-        path: req.path,
-        details: error.issues.map((issue) => ({
-          machineCode: ErrorMachineCode.VALIDATION_ERROR,
-          message: `${issue.path.join(".")}: ${issue.message}`,
-        })),
-      },
-    });
+    throwValidationError(req, error.issues);
   }
 
   const club = await clubService.createClub(adminUid, data);
@@ -80,15 +60,7 @@ export async function uploadLogo(req: Request, res: Response) {
     const uid = req.uid!;
     throwIfUidNotExist(req);
 
-    const clubId = req.params.clubId as string;
-    if (!clubId) {
-      throw AppError.from({
-        machineCode: ErrorMachineCode.CLUB_ID_NOT_PROVIDED,
-        message: "Club ID not provided",
-        statusCode: HttpStatusCode.BAD_REQUEST,
-        isOperational: true,
-      });
-    }
+    const clubId = getRequiredRouteParam(req.params.clubId, "clubId");
 
     const diskFile = req.file;
     if (!diskFile) {
@@ -132,15 +104,7 @@ export async function deleteLogo(req: Request, res: Response) {
   const uid = req.uid!;
   throwIfUidNotExist(req);
 
-  const clubId = req.params.clubId as string;
-  if (!clubId) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.CLUB_ID_NOT_PROVIDED,
-      message: "Club ID not provided",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
+  const clubId = getRequiredRouteParam(req.params.clubId, "clubId");
 
   await clubService.deleteClubLogoImage(uid, clubId);
 
