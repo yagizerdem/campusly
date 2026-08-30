@@ -1,5 +1,6 @@
 import type {
   CreateClubEventDto,
+  ImageIdSignedUrlMap,
   UpdateClubEventDto,
 } from "@campusly/shared/src/dto/club-event-dto.js";
 import { AppError } from "@common/app-error.js";
@@ -12,6 +13,11 @@ import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.j
 import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { getDownloadURL, getStorage } from "firebase-admin/storage";
 import type { ClubMemberRole } from "@src/generated/prisma/enums.js";
+import { minutesToSeconds } from "date-fns";
+import {
+  PrismaAPIFeatures,
+  type QueryString,
+} from "@common/prisma-api-features.js";
 
 const BUCKET_UPLOAD_DIR = "club-event-images";
 const CLUB_EVENT_EDITOR_ROLES = ["ADMIN", "MANAGER"] as ClubMemberRole[];
@@ -227,6 +233,82 @@ export async function deleteClubEvent(profileUid: string, clubEventId: string) {
       },
     });
   }
+}
+
+export async function fetchClubEventsForFeed(queryObject: QueryString) {
+  const apiFeatures = new PrismaAPIFeatures(queryObject);
+
+  const builtQuery = apiFeatures.paginate().sort().filter().build();
+
+  const { select: _unusedSelect, ...prismaQuery } = builtQuery;
+
+  const clubEvents = await prisma.clubEvent.findMany({
+    ...prismaQuery,
+
+    select: {
+      id: true,
+      eventTitle: true,
+      eventDescription: true,
+      eventDate: true,
+      createdAt: true,
+      updatedAt: true,
+      clubId: true,
+      club: {
+        select: {
+          clubDescription: true,
+          clubName: true,
+          id: true,
+          clubLogoId: true,
+        },
+      },
+      images: {
+        orderBy: {
+          order: "asc",
+        },
+        take: 1, // only take cover image
+        select: {
+          imageId: true,
+        },
+      },
+    },
+  });
+
+  const coverImageSignedUrls: Record<string, string> = {}; // clubEventId - coverImage uri
+
+  await Promise.allSettled(
+    clubEvents.map(async (clubEvent) => {
+      if (clubEvent?.images && clubEvent.images.length > 0) {
+        const coverImageId = clubEvent.images[0]?.imageId;
+        if (coverImageId) {
+          const signedUrl = await imageService.generateSignedUrlByImageId(
+            coverImageId,
+            minutesToSeconds(15), // 15 minutes
+          );
+          coverImageSignedUrls[clubEvent.id] = signedUrl;
+        }
+      }
+    }),
+  );
+
+  return [posts, coverImageSignedUrls];
+}
+
+export async function fetchClubEventImages(clubEventId: string) {
+  const clubEvent = await ensureClubEventExistsById(clubEventId);
+
+  const result: ImageIdSignedUrlMap = {}; // image-id - signed-urls
+
+  await Promise.allSettled(
+    clubEvent.images.map(async (clubEventImage) => {
+      const signedUrl = await imageService.generateSignedUrl(
+        clubEventImage.image,
+        minutesToSeconds(15), // 15 minutes
+      );
+
+      result[clubEventImage.image.id] = signedUrl;
+    }),
+  );
+  return result;
 }
 
 function ensureUserCanManageClubEvents(profileUid: string, clubId: string) {

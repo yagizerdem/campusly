@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import {
   CreateClubEventValidator,
   UpdateClubEventValidator,
+  type ImageIdSignedUrlMap,
 } from "@campusly/shared/src/dto/club-event-dto.js";
 import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
@@ -99,4 +100,17 @@ export async function deleteClubEvent(req: Request, res: Response) {
   return res
     .status(HttpStatusCode.OK)
     .json(ApiResponse.ok("Club event deleted successfully"));
+}
+
+export async function fetchClubEventImages(req: Request, res: Response) {
+  throwIfUidNotExist(req);
+  const clubEventId = getRequiredRouteParam(
+    req.params.clubEventId,
+    "clubEventId",
+  );
+
+  const images: ImageIdSignedUrlMap =
+    await clubEventService.fetchClubEventImages(clubEventId);
+
+  return res.status(HttpStatusCode.OK).json(ApiResponse.success(images));
 }
