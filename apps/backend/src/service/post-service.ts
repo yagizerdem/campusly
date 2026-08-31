@@ -1,6 +1,7 @@
 import type {
   CreatePostDto,
   UpdatePostDto,
+  PostIdWithCoverImageSignedUrl,
 } from "@campusly/shared/src/dto/post-dto.js";
 import * as profileService from "@service/profile-service.js";
 import * as clubService from "@service/club-service.js";
@@ -369,7 +370,16 @@ export async function fetchPostsForFeed(queryObject: QueryString) {
           comments: true,
         },
       },
-
+      author: {
+        select: {
+          profileImageId: true,
+        },
+      },
+      club: {
+        select: {
+          clubLogoId: true,
+        },
+      },
       images: {
         orderBy: {
           order: "asc",
@@ -382,7 +392,7 @@ export async function fetchPostsForFeed(queryObject: QueryString) {
     },
   });
 
-  const coverImageSignedUrls: Record<string, string> = {}; // post-id - cover-img uri
+  const coverImageSignedUrls: PostIdWithCoverImageSignedUrl = {}; // post-id - cover-img uri
 
   await Promise.allSettled(
     posts.map(async (post) => {

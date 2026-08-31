@@ -1,0 +1,40 @@
+{
+  "version": "0.0.1",
+
+  "configurations": [
+    {
+      "name": "backend",
+      "type": "node",
+      "request": "launch",
+      // İlgili app dizininde çalışması için cwd kritik:
+      "cwd": "${workspaceFolder}/apps/backend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "experimentalNetworking": "off",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "web",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/apps/web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "env": {
+        "NODE_OPTIONS": "--inspect"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "all",
+      "configurations": ["backend", "web"],
+      "stopAll": true
+    }
+  ]
+}

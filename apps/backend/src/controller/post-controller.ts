@@ -4,6 +4,7 @@ import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import * as postService from "@service/post-service.js";
+import * as imageService from "@service/image-service.js";
 import {
   CreatePostValidator,
   UpdatePostValidator,
@@ -124,6 +125,14 @@ export async function fetchFeedPosts(req: Request, res: Response) {
       }),
     };
   });
+
+  await Promise.allSettled(
+    posts.map((post) => {
+      // if club has logo fetch signed url
+      if (post.clubId) {
+      }
+    }),
+  );
 
   return res
     .status(HttpStatusCode.OK)

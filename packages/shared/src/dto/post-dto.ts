@@ -44,8 +44,12 @@ export type FetchPostFeedResponse = {
   coverImageSignedUrl: string | null;
   likesCount: number;
   commentCount: number;
+  clubLogoSignedUrl?: string | null;
+  profileImageSignedUrl?: string | null;
   images: {
     order: number;
     imageId: string;
   }[];
 }[];
+
+export type PostIdWithCoverImageSignedUrl = Record<string, string | null>; // postId -> coverImageSignedUrl

@@ -47,9 +47,9 @@ export default function AppTopBar() {
   return (
     <div
       className="flex items-center justify-between gap-1 pr-10  
-    justify-end w-full h-10 px-4 bg-stitch-surface-container-low text-primary rounded-b-lg"
+    justify-end w-full h-10 px-4 bg-stitch-surface-container-low text-primary rounded-b-lg select-none"
     >
-      <div className="flex items-center space-x-4 w-20">
+      <div className="flex items-center space-x-4 w-20 select-none">
         <DropdownMenu>
           <DropdownMenuTrigger
             render={<Button variant="outline">Open</Button>}
@@ -72,7 +72,7 @@ export default function AppTopBar() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="flex items-center space-x-4 ">
+      <div className="flex items-center space-x-4 select-none ">
         <Tooltip>
           <TooltipTrigger
             render={

@@ -26,7 +26,7 @@ export async function profileGuard(allowAnonymous: boolean = false) {
 
     if (!profile) {
       throw AppError.unauthorized(
-        ErrorMachineCode.UNAUTHORIZED,
+        ErrorMachineCode.PROFILE_NOT_FOUND,
         "User profile not found.",
       );
     }

@@ -1,3 +1,4 @@
+import { cn } from "@/src/lib/utils";
 import CampuslyLogo from "@assets/campusly-logo2.png";
 import { Button } from "@components/ui/button";
 import {
@@ -21,17 +22,27 @@ const SIDE_BAR_NAVIGATION_ITEMS = [
   { label: "profile", icon: <UserIcon />, path: "/profile" },
 ];
 
-export default function AppSideBar() {
+interface AppSideBarProps {
+  className?: string;
+  props?: any;
+}
+
+export default function AppSideBar({ className, props }: AppSideBarProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="w-64 h-full bg-stitch-surface-container-low border-r-stitch-surface-container-high border-r-3">
+    <div
+      className={cn(
+        "h-full w-64 shrink-0 bg-stitch-surface-container-low border-r-stitch-surface-container-high border-r-3",
+        className,
+      )}
+    >
       <div className="flex flex-row h-16 ">
         <span className="block h-full flex items-center justify-center w-16 pb-5 font-bold text-xl ">
           <img
             src={CampuslyLogo}
             alt="Campusly Logo"
-            className="w-12 h-12 rounded-md"
+            className="w-12 h-12 rounded-md select-none"
           />
         </span>
         <div className="flex flex-col">
