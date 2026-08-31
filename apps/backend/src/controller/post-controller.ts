@@ -10,6 +10,7 @@ import {
   UpdatePostValidator,
   type FetchPostFeedItem,
   type FetchPostFeedResponse,
+  type OrderedPostImage,
 } from "@campusly/shared/src/dto/post-dto.js";
 import type { QueryString } from "@common/prisma-api-features.js";
 import {
@@ -90,7 +91,7 @@ export async function fetchFeedPosts(req: Request, res: Response) {
 
   const queryObject: QueryString = req.query as QueryString;
 
-  const [posts, coverImageSignedUrls] =
+  const [posts, postImageSignedUrls] =
     await postService.fetchPostsForFeed(queryObject);
 
   // map to dto
@@ -104,7 +105,6 @@ export async function fetchFeedPosts(req: Request, res: Response) {
   const fetchedPosts: FetchPostFeedResponse = (
     await Promise.allSettled(
       posts.map(async (post) => {
-        console.log(post.club);
         // if club has logo fetch signed url
         let signedUrl = null;
         if (post.clubId && post.club?.clubLogoId) {
@@ -129,19 +129,14 @@ export async function fetchFeedPosts(req: Request, res: Response) {
           postTitle: post.postTitle,
           commentCount: post._count.comments,
           likesCount: post._count.likes,
-          coverImageSignedUrl: !Array.isArray(coverImageSignedUrls)
-            ? ((coverImageSignedUrls as Record<string, string | null>)[
-                post.id
-              ] ?? null)
-            : null,
           images: post.images.map((img) => {
             return {
-              order: img.order,
               imageId: img.imageId,
-            } as {
-              order: number;
-              imageId: string;
-            };
+              order: img.order,
+              signedUrl: postImageSignedUrls[post.id]?.find(
+                (urlObj) => urlObj.imageId === img.imageId,
+              )?.signedUrl,
+            } as OrderedPostImage;
           }),
         } as FetchPostFeedItem;
 

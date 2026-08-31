@@ -24,7 +24,6 @@ async function seedPosts() {
       skip: randomIndex,
       select: {
         id: true,
-        clubAdminId: true,
       },
     });
 
@@ -34,18 +33,33 @@ async function seedPosts() {
       );
     }
 
+    // get club admin
+
+    const clubAdmin = await prisma.clubMember.findFirst({
+      where: {
+        role: "ADMIN",
+        clubId: club.id,
+      },
+    });
+
+    if (!clubAdmin) {
+      throw new Error(
+        `Seed posts requires at least one club admin for club ${club.id}.`,
+      );
+    }
+
     await prisma.post.upsert({
       where: { id: post.id },
       update: {
         postTitle: post.postTitle,
         postContent: post.postContent,
         clubId: club.id,
-        authorId: club.clubAdminId,
+        authorId: clubAdmin.profileId,
       },
       create: {
         ...post,
         clubId: club.id,
-        authorId: club.clubAdminId,
+        authorId: clubAdmin.profileId,
       },
     });
   }

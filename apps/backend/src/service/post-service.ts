@@ -1,7 +1,7 @@
 import type {
   CreatePostDto,
   UpdatePostDto,
-  PostIdWithCoverImageSignedUrl,
+  PostIdWithImageSignedUrl,
 } from "@campusly/shared/src/dto/post-dto.js";
 import * as profileService from "@service/profile-service.js";
 import * as clubService from "@service/club-service.js";
@@ -392,22 +392,30 @@ export async function fetchPostsForFeed(queryObject: QueryString) {
     },
   });
 
-  const coverImageSignedUrls: PostIdWithCoverImageSignedUrl = {}; // post-id - cover-img uri
+  const postImageSignedUrls: PostIdWithImageSignedUrl = {};
 
-  await Promise.allSettled(
-    posts.map(async (post) => {
-      if (post?.images && post.images.length > 0) {
-        const coverImageId = post.images[0]!.imageId;
-        const signedUrl = await imageService.generateSignedUrlByImageId(
-          coverImageId,
-          minutesToSeconds(15), // 15 minutes
-        );
-        coverImageSignedUrls[post.id] = signedUrl;
-      }
-    }),
-  );
+  // generate signed urls for post images parallelly and store them in postImageSignedUrls
+  const promises = posts.flatMap((post) => {
+    if (!post?.images || post.images.length === 0) return [];
 
-  return [posts, coverImageSignedUrls];
+    postImageSignedUrls[post.id] = [];
+
+    return post.images.map(async (image) => {
+      const signedUrl = await imageService.generateSignedUrlByImageId(
+        image.imageId,
+        minutesToSeconds(15),
+      );
+      postImageSignedUrls[post.id]!.push({
+        signedUrl,
+        imageId: image.imageId,
+        order: image.order,
+      });
+    });
+  });
+
+  await Promise.allSettled(promises);
+
+  return [posts, postImageSignedUrls] as const;
 }
 
 export async function fetchPostGalleryImages(postId: string) {

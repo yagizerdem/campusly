@@ -178,10 +178,10 @@ model ClubJoinRequest {
 model ClubMember {
   id    String     @id @default(uuid()) 
 
-  club Club @relation(fields: [clubId], references: [id])
+  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId String  // Foreign key connecting ClubMember to Club
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting ClubMember to Profile
 
   role ClubMemberRole @default(MEMBER)

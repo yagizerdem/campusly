@@ -41,17 +41,19 @@ export type FetchPostFeedItem = {
   authorId: string;
   createdAt: Date;
   updatedAt: Date;
-  coverImageSignedUrl: string | null;
   likesCount: number;
   commentCount: number;
   clubLogoSignedUrl?: string | null;
   profileImageSignedUrl?: string | null;
-  images: {
-    order: number;
-    imageId: string;
-  }[];
+  images: OrderedPostImage[];
+};
+
+export type OrderedPostImage = {
+  order: number;
+  imageId: string;
+  signedUrl: string | null;
 };
 
 export type FetchPostFeedResponse = FetchPostFeedItem[];
 
-export type PostIdWithCoverImageSignedUrl = Record<string, string | null>; // postId -> coverImageSignedUrl
+export type PostIdWithImageSignedUrl = Record<string, OrderedPostImage[]>;

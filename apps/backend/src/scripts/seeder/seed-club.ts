@@ -78,6 +78,7 @@ async function seedClubs() {
 
     try {
       await prisma.$transaction(async (tx) => {
+        // creat club logo image
         await tx.image.upsert({
           where: { id: club.logoImageId },
           update: {
@@ -99,6 +100,7 @@ async function seedClubs() {
           },
         });
 
+        // creat club
         await tx.club.upsert({
           where: { id: club.id },
           update: {
@@ -115,6 +117,24 @@ async function seedClubs() {
             clubDescription: club.clubDescription,
             clubLogoId: club.logoImageId,
             clubLogoUri: imageUri,
+          },
+        });
+
+        // add club admin role
+        await tx.clubMember.upsert({
+          where: {
+            profileId_clubId: {
+              profileId: clubAdmin.id,
+              clubId: club.id,
+            },
+          },
+          update: {
+            role: "ADMIN",
+          },
+          create: {
+            clubId: club.id,
+            profileId: clubAdmin.id,
+            role: "ADMIN",
           },
         });
       });
