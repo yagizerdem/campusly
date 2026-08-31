@@ -47,7 +47,7 @@ export default function AppTopBar() {
   return (
     <div
       className="flex items-center justify-between gap-1 pr-10  
-    justify-end w-full h-10 px-4 bg-stitch-surface-container-high text-primary rounded-b-lg"
+    justify-end w-full h-10 px-4 bg-stitch-surface-container-low text-primary rounded-b-lg"
     >
       <div className="flex items-center space-x-4 w-20">
         <DropdownMenu>

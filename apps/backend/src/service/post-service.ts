@@ -27,8 +27,10 @@ export async function createPost(
   files: Express.Multer.File[],
 ) {
   const profile = await profileService.ensureProfileExistbyUid(profileUid);
-  const club = await clubService.ensureClubExistById(dto.clubId);
-  await clubService.ensureUserIsClubAdmin(profileUid, dto.clubId);
+  if (dto.clubId) {
+    await clubService.ensureClubExistById(dto.clubId);
+    await clubService.ensureUserIsClubAdmin(profileUid, dto.clubId);
+  }
 
   // check mime types of files
   for (const file of files) {
@@ -95,7 +97,7 @@ export async function createPost(
         data: {
           postContent: dto.postContent,
           postTitle: dto.postTitle,
-          clubId: club.id,
+          clubId: dto.clubId ?? null,
           authorId: profile.id,
         },
       });
@@ -197,7 +199,19 @@ export function getPostById(postId: string, throwErrorIfNotFound = false) {
 
 export async function deletePostById(userUid: string, postId: string) {
   const post = await ensurePostExistById(postId);
-  await clubService.ensureUserIsClubAdmin(userUid, post.clubId);
+  if (post.clubId) {
+    await clubService.ensureUserIsClubAdmin(userUid, post.clubId);
+  } else {
+    // if post is not associated with a club, check if the user is the author of the post
+    if (post.authorId !== userUid) {
+      throw AppError.from({
+        machineCode: ErrorMachineCode.UNAUTHORIZED,
+        message: "User is not authorized to delete this post",
+        statusCode: HttpStatusCode.UNAUTHORIZED,
+        isOperational: true,
+      });
+    }
+  }
 
   let images: Image[] = [];
   try {
@@ -294,7 +308,19 @@ export async function deletePostById(userUid: string, postId: string) {
 export async function updatePost(userUid: string, dto: UpdatePostDto) {
   const post = await ensurePostExistById(dto.postId);
   //  check user is club admin
-  await clubService.ensureUserIsClubAdmin(userUid, dto.clubId);
+  if (dto.clubId) {
+    await clubService.ensureUserIsClubAdmin(userUid, dto.clubId);
+  } else {
+    // if post is not associated with a club, check if the user is the author of the post
+    if (post.authorId !== userUid) {
+      throw AppError.from({
+        machineCode: ErrorMachineCode.UNAUTHORIZED,
+        message: "User is not authorized to update this post",
+        statusCode: HttpStatusCode.UNAUTHORIZED,
+        isOperational: true,
+      });
+    }
+  }
 
   // check post belongs to the club
   if (post.clubId != dto.clubId) {

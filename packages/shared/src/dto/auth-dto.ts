@@ -13,11 +13,15 @@ const strongPasswordRegxp =
 $   
    */
 
-const emailValidator = z.string().email("Invalid email address");
-const passwordValidator = z.string().min(8).max(32).regex(strongPasswordRegxp, {
-  message:
-    "Password must contain at least 1 uppercase letters (A-Z), 1 lowercase letters (a-z),  1 digit (0-9), and 1 special character (!@#$&*).",
-});
+export const emailValidator = z.string().email("Invalid email address");
+export const passwordValidator = z
+  .string()
+  .min(8)
+  .max(32)
+  .regex(strongPasswordRegxp, {
+    message:
+      "Password must contain at least 1 uppercase letters (A-Z), 1 lowercase letters (a-z),  1 digit (0-9), and 1 special character (!@#$&*).",
+  });
 
 export const RegisterValidator = z.object({
   email: emailValidator,

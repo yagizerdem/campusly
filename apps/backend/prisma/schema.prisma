@@ -24,6 +24,7 @@ model Profile {
   stories Stories[]
   surveySchemas SurveySchemas[]
   surveySchemaResponses SurveySchemaResponses[]
+  
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -62,8 +63,9 @@ model Post {
   postTitle String
   postContent String
 
-  club Club @relation(fields: [clubId], references: [id])
-  clubId String  // Foreign key connecting Post to Club
+  club Club? @relation(fields: [clubId], references: [id])
+  clubId String?  // Foreign key connecting Post to Club
+
 
   author   Profile @relation(fields: [authorId], references: [id])
   authorId String

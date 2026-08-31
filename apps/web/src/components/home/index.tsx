@@ -2,6 +2,7 @@ import DefaultLayout from "@/src/layouts/default-layout";
 import { selectFullName } from "@/src/store/slice/auth-slice";
 import { useSelector } from "react-redux";
 import AppTopBar from "../shared/app/app-top-bar";
+import AppSideBar from "../shared/app/app-side-bar";
 
 export default function Page() {
   const fullName = useSelector(selectFullName);
@@ -10,6 +11,7 @@ export default function Page() {
     <DefaultLayout>
       <div className="flex flex-col min-h-screen w-full h-full">
         <AppTopBar />
+        <AppSideBar />
       </div>
     </DefaultLayout>
   );

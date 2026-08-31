@@ -415,14 +415,14 @@ export type ClubMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type ClubScalarRelationFilter = {
-  is?: Prisma.ClubWhereInput
-  isNot?: Prisma.ClubWhereInput
-}
-
 export type ClubNullableScalarRelationFilter = {
   is?: Prisma.ClubWhereInput | null
   isNot?: Prisma.ClubWhereInput | null
+}
+
+export type ClubScalarRelationFilter = {
+  is?: Prisma.ClubWhereInput
+  isNot?: Prisma.ClubWhereInput
 }
 
 export type ClubCreateNestedOneWithoutPostsInput = {
@@ -431,10 +431,12 @@ export type ClubCreateNestedOneWithoutPostsInput = {
   connect?: Prisma.ClubWhereUniqueInput
 }
 
-export type ClubUpdateOneRequiredWithoutPostsNestedInput = {
+export type ClubUpdateOneWithoutPostsNestedInput = {
   create?: Prisma.XOR<Prisma.ClubCreateWithoutPostsInput, Prisma.ClubUncheckedCreateWithoutPostsInput>
   connectOrCreate?: Prisma.ClubCreateOrConnectWithoutPostsInput
   upsert?: Prisma.ClubUpsertWithoutPostsInput
+  disconnect?: Prisma.ClubWhereInput | boolean
+  delete?: Prisma.ClubWhereInput | boolean
   connect?: Prisma.ClubWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClubUpdateToOneWithWhereWithoutPostsInput, Prisma.ClubUpdateWithoutPostsInput>, Prisma.ClubUncheckedUpdateWithoutPostsInput>
 }

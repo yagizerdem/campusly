@@ -19,7 +19,7 @@ const postIdValidator = z.uuid("Invalid post ID.");
 export const CreatePostValidator = z.object({
   postTitle: postTitleValidator,
   postContent: postContentValidator,
-  clubId: clubIdValidator,
+  clubId: clubIdValidator.optional(),
 });
 
 export type CreatePostDto = z.infer<typeof CreatePostValidator>;
@@ -28,7 +28,7 @@ export const UpdatePostValidator = z.object({
   postTitle: postTitleValidator,
   postContent: postContentValidator,
   postId: postIdValidator,
-  clubId: clubIdValidator,
+  clubId: clubIdValidator.optional(),
 });
 
 export type UpdatePostDto = z.infer<typeof UpdatePostValidator>;
@@ -37,7 +37,7 @@ export type FetchPostFeedResponse = {
   postId: string;
   postTitle: string;
   postContent: string;
-  clubId: string;
+  clubId: string | null;
   authorId: string;
   createdAt: Date;
   updatedAt: Date;
