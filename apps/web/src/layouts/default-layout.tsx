@@ -2,7 +2,7 @@ import { cn } from "@lib/utils";
 import { Toaster } from "@components/ui/toast";
 import { useSelector } from "react-redux";
 import type { RootState } from "@store/root-reducer";
-import { AppLoader } from "@components/shared/AppLoader";
+import { AppLoader } from "@/src/components/shared/app/app-loader";
 
 interface DefaultLayoutProps {
   children: React.ReactNode;
