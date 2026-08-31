@@ -574,10 +574,12 @@ export type ProfileCreateNestedOneWithoutSurveySchemasInput = {
   connect?: Prisma.ProfileWhereUniqueInput
 }
 
-export type ProfileUpdateOneRequiredWithoutSurveySchemasNestedInput = {
+export type ProfileUpdateOneWithoutSurveySchemasNestedInput = {
   create?: Prisma.XOR<Prisma.ProfileCreateWithoutSurveySchemasInput, Prisma.ProfileUncheckedCreateWithoutSurveySchemasInput>
   connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutSurveySchemasInput
   upsert?: Prisma.ProfileUpsertWithoutSurveySchemasInput
+  disconnect?: Prisma.ProfileWhereInput | boolean
+  delete?: Prisma.ProfileWhereInput | boolean
   connect?: Prisma.ProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutSurveySchemasInput, Prisma.ProfileUpdateWithoutSurveySchemasInput>, Prisma.ProfileUncheckedUpdateWithoutSurveySchemasInput>
 }

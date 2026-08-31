@@ -94,10 +94,10 @@ model PostImage {
 model Like {
   id    String     @id @default(uuid()) 
 
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String  // Foreign key connecting Like to Post
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting Like to Profile
 
   createdAt DateTime @default(now())
@@ -109,10 +109,10 @@ model Comment {
   id    String     @id @default(uuid()) 
   commentContent String
 
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String  // Foreign key connecting Comment to Post
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting Comment to Profile
 
   createdAt DateTime @default(now())
@@ -268,10 +268,10 @@ model ClubEventImage {
 model ClubEventForm {
   id    String     @id @default(uuid()) 
 
-  clubEvent ClubEvent @relation(fields: [clubEventId], references: [id])
+  clubEvent ClubEvent @relation(fields: [clubEventId], references: [id], onDelete: Cascade)
   clubEventId String @unique
 
-  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id])
+  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id], onDelete: Cascade)
   surveySchemaId String @unique
 
 
@@ -283,8 +283,8 @@ model SurveySchemas {
   id    String     @id @default(uuid()) 
   schemaJson Json
 
-  author   Profile @relation(fields: [authorId], references: [id])
-  authorId String
+  author   Profile? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId String?
 
   surveySchemaResponses SurveySchemaResponses[]
   clubEventForms ClubEventForm[]

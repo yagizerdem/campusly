@@ -146,7 +146,7 @@ export type SurveySchemasGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type SurveySchemasGroupByOutputType = {
   id: string
   schemaJson: runtime.JsonValue
-  authorId: string
+  authorId: string | null
   createdAt: Date
   updatedAt: Date
   _count: SurveySchemasCountAggregateOutputType | null
@@ -175,10 +175,10 @@ export type SurveySchemasWhereInput = {
   NOT?: Prisma.SurveySchemasWhereInput | Prisma.SurveySchemasWhereInput[]
   id?: Prisma.StringFilter<"SurveySchemas"> | string
   schemaJson?: Prisma.JsonFilter<"SurveySchemas">
-  authorId?: Prisma.StringFilter<"SurveySchemas"> | string
+  authorId?: Prisma.StringNullableFilter<"SurveySchemas"> | string | null
   createdAt?: Prisma.DateTimeFilter<"SurveySchemas"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SurveySchemas"> | Date | string
-  author?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  author?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   surveySchemaResponses?: Prisma.SurveySchemaResponsesListRelationFilter
   clubEventForms?: Prisma.ClubEventFormListRelationFilter
 }
@@ -186,7 +186,7 @@ export type SurveySchemasWhereInput = {
 export type SurveySchemasOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   schemaJson?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  authorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   author?: Prisma.ProfileOrderByWithRelationInput
@@ -200,10 +200,10 @@ export type SurveySchemasWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SurveySchemasWhereInput[]
   NOT?: Prisma.SurveySchemasWhereInput | Prisma.SurveySchemasWhereInput[]
   schemaJson?: Prisma.JsonFilter<"SurveySchemas">
-  authorId?: Prisma.StringFilter<"SurveySchemas"> | string
+  authorId?: Prisma.StringNullableFilter<"SurveySchemas"> | string | null
   createdAt?: Prisma.DateTimeFilter<"SurveySchemas"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SurveySchemas"> | Date | string
-  author?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  author?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   surveySchemaResponses?: Prisma.SurveySchemaResponsesListRelationFilter
   clubEventForms?: Prisma.ClubEventFormListRelationFilter
 }, "id">
@@ -211,7 +211,7 @@ export type SurveySchemasWhereUniqueInput = Prisma.AtLeast<{
 export type SurveySchemasOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   schemaJson?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  authorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SurveySchemasCountOrderByAggregateInput
@@ -225,7 +225,7 @@ export type SurveySchemasScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SurveySchemasScalarWhereWithAggregatesInput | Prisma.SurveySchemasScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"SurveySchemas"> | string
   schemaJson?: Prisma.JsonWithAggregatesFilter<"SurveySchemas">
-  authorId?: Prisma.StringWithAggregatesFilter<"SurveySchemas"> | string
+  authorId?: Prisma.StringNullableWithAggregatesFilter<"SurveySchemas"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SurveySchemas"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SurveySchemas"> | Date | string
 }
@@ -235,7 +235,7 @@ export type SurveySchemasCreateInput = {
   schemaJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  author: Prisma.ProfileCreateNestedOneWithoutSurveySchemasInput
+  author?: Prisma.ProfileCreateNestedOneWithoutSurveySchemasInput
   surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutSurveySchemaInput
   clubEventForms?: Prisma.ClubEventFormCreateNestedManyWithoutSurveySchemaInput
 }
@@ -243,7 +243,7 @@ export type SurveySchemasCreateInput = {
 export type SurveySchemasUncheckedCreateInput = {
   id?: string
   schemaJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId: string
+  authorId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutSurveySchemaInput
@@ -255,7 +255,7 @@ export type SurveySchemasUpdateInput = {
   schemaJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  author?: Prisma.ProfileUpdateOneRequiredWithoutSurveySchemasNestedInput
+  author?: Prisma.ProfileUpdateOneWithoutSurveySchemasNestedInput
   surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutSurveySchemaNestedInput
   clubEventForms?: Prisma.ClubEventFormUpdateManyWithoutSurveySchemaNestedInput
 }
@@ -263,7 +263,7 @@ export type SurveySchemasUpdateInput = {
 export type SurveySchemasUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   schemaJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutSurveySchemaNestedInput
@@ -273,7 +273,7 @@ export type SurveySchemasUncheckedUpdateInput = {
 export type SurveySchemasCreateManyInput = {
   id?: string
   schemaJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId: string
+  authorId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -288,7 +288,7 @@ export type SurveySchemasUpdateManyMutationInput = {
 export type SurveySchemasUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   schemaJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -450,7 +450,7 @@ export type SurveySchemasScalarWhereInput = {
   NOT?: Prisma.SurveySchemasScalarWhereInput | Prisma.SurveySchemasScalarWhereInput[]
   id?: Prisma.StringFilter<"SurveySchemas"> | string
   schemaJson?: Prisma.JsonFilter<"SurveySchemas">
-  authorId?: Prisma.StringFilter<"SurveySchemas"> | string
+  authorId?: Prisma.StringNullableFilter<"SurveySchemas"> | string | null
   createdAt?: Prisma.DateTimeFilter<"SurveySchemas"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SurveySchemas"> | Date | string
 }
@@ -460,14 +460,14 @@ export type SurveySchemasCreateWithoutClubEventFormsInput = {
   schemaJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  author: Prisma.ProfileCreateNestedOneWithoutSurveySchemasInput
+  author?: Prisma.ProfileCreateNestedOneWithoutSurveySchemasInput
   surveySchemaResponses?: Prisma.SurveySchemaResponsesCreateNestedManyWithoutSurveySchemaInput
 }
 
 export type SurveySchemasUncheckedCreateWithoutClubEventFormsInput = {
   id?: string
   schemaJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId: string
+  authorId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedCreateNestedManyWithoutSurveySchemaInput
@@ -494,14 +494,14 @@ export type SurveySchemasUpdateWithoutClubEventFormsInput = {
   schemaJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  author?: Prisma.ProfileUpdateOneRequiredWithoutSurveySchemasNestedInput
+  author?: Prisma.ProfileUpdateOneWithoutSurveySchemasNestedInput
   surveySchemaResponses?: Prisma.SurveySchemaResponsesUpdateManyWithoutSurveySchemaNestedInput
 }
 
 export type SurveySchemasUncheckedUpdateWithoutClubEventFormsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   schemaJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   surveySchemaResponses?: Prisma.SurveySchemaResponsesUncheckedUpdateManyWithoutSurveySchemaNestedInput
@@ -512,14 +512,14 @@ export type SurveySchemasCreateWithoutSurveySchemaResponsesInput = {
   schemaJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  author: Prisma.ProfileCreateNestedOneWithoutSurveySchemasInput
+  author?: Prisma.ProfileCreateNestedOneWithoutSurveySchemasInput
   clubEventForms?: Prisma.ClubEventFormCreateNestedManyWithoutSurveySchemaInput
 }
 
 export type SurveySchemasUncheckedCreateWithoutSurveySchemaResponsesInput = {
   id?: string
   schemaJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId: string
+  authorId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   clubEventForms?: Prisma.ClubEventFormUncheckedCreateNestedManyWithoutSurveySchemaInput
@@ -546,14 +546,14 @@ export type SurveySchemasUpdateWithoutSurveySchemaResponsesInput = {
   schemaJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  author?: Prisma.ProfileUpdateOneRequiredWithoutSurveySchemasNestedInput
+  author?: Prisma.ProfileUpdateOneWithoutSurveySchemasNestedInput
   clubEventForms?: Prisma.ClubEventFormUpdateManyWithoutSurveySchemaNestedInput
 }
 
 export type SurveySchemasUncheckedUpdateWithoutSurveySchemaResponsesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   schemaJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubEventForms?: Prisma.ClubEventFormUncheckedUpdateManyWithoutSurveySchemaNestedInput
@@ -637,7 +637,7 @@ export type SurveySchemasSelect<ExtArgs extends runtime.Types.Extensions.Interna
   authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.SurveySchemas$authorArgs<ExtArgs>
   surveySchemaResponses?: boolean | Prisma.SurveySchemas$surveySchemaResponsesArgs<ExtArgs>
   clubEventForms?: boolean | Prisma.SurveySchemas$clubEventFormsArgs<ExtArgs>
   _count?: boolean | Prisma.SurveySchemasCountOutputTypeDefaultArgs<ExtArgs>
@@ -649,7 +649,7 @@ export type SurveySchemasSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.SurveySchemas$authorArgs<ExtArgs>
 }, ExtArgs["result"]["surveySchemas"]>
 
 export type SurveySchemasSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -658,7 +658,7 @@ export type SurveySchemasSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.SurveySchemas$authorArgs<ExtArgs>
 }, ExtArgs["result"]["surveySchemas"]>
 
 export type SurveySchemasSelectScalar = {
@@ -671,29 +671,29 @@ export type SurveySchemasSelectScalar = {
 
 export type SurveySchemasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "schemaJson" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["surveySchemas"]>
 export type SurveySchemasInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.SurveySchemas$authorArgs<ExtArgs>
   surveySchemaResponses?: boolean | Prisma.SurveySchemas$surveySchemaResponsesArgs<ExtArgs>
   clubEventForms?: boolean | Prisma.SurveySchemas$clubEventFormsArgs<ExtArgs>
   _count?: boolean | Prisma.SurveySchemasCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SurveySchemasIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.SurveySchemas$authorArgs<ExtArgs>
 }
 export type SurveySchemasIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.SurveySchemas$authorArgs<ExtArgs>
 }
 
 export type $SurveySchemasPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SurveySchemas"
   objects: {
-    author: Prisma.$ProfilePayload<ExtArgs>
+    author: Prisma.$ProfilePayload<ExtArgs> | null
     surveySchemaResponses: Prisma.$SurveySchemaResponsesPayload<ExtArgs>[]
     clubEventForms: Prisma.$ClubEventFormPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     schemaJson: runtime.JsonValue
-    authorId: string
+    authorId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["surveySchemas"]>
@@ -1090,7 +1090,7 @@ readonly fields: SurveySchemasFieldRefs;
  */
 export interface Prisma__SurveySchemasClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  author<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  author<T extends Prisma.SurveySchemas$authorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SurveySchemas$authorArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   surveySchemaResponses<T extends Prisma.SurveySchemas$surveySchemaResponsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SurveySchemas$surveySchemaResponsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveySchemaResponsesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubEventForms<T extends Prisma.SurveySchemas$clubEventFormsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SurveySchemas$clubEventFormsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubEventFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1525,6 +1525,25 @@ export type SurveySchemasDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many SurveySchemas to delete.
    */
   limit?: number
+}
+
+/**
+ * SurveySchemas.author
+ */
+export type SurveySchemas$authorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Profile
+   */
+  select?: Prisma.ProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Profile
+   */
+  omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  where?: Prisma.ProfileWhereInput
 }
 
 /**
