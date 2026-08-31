@@ -213,37 +213,91 @@
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.92 0.004 286.32);
-  --primary-foreground: oklch(0.21 0.006 285.885);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.552 0.016 285.938);
-  --chart-1: oklch(0.871 0.006 286.286);
-  --chart-2: oklch(0.552 0.016 285.938);
-  --chart-3: oklch(0.442 0.017 285.786);
-  --chart-4: oklch(0.37 0.013 285.805);
-  --chart-5: oklch(0.274 0.006 286.033);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.552 0.016 285.938);
+  /*
+    shad-cn theme variables
+  */
+  --background: #0e141b;
+  --foreground: #dde3ed;
+  --card: #17212b;
+  --card-foreground: #f5f7fa;
+  --popover: #212b36;
+  --popover-foreground: #f5f7fa;
+  --primary: #ffb3ad;
+  --primary-foreground: #680009;
+  --secondary: #6cd8c9;
+  --secondary-foreground: #003731;
+  --muted: #212b36;
+  --muted-foreground: #b0b8c1;
+  --accent: #2aa193;
+  --accent-foreground: #00302b;
+  --destructive: #ffb4ab;
+  --border: #5a403e;
+  --input: #5a403e;
+  --ring: #ffb3ad;
+  --chart-1: #ffb3ad;
+  --chart-2: #6cd8c9;
+  --chart-3: #bcc8d5;
+  --chart-4: #fa5953;
+  --chart-5: #89f5e5;
+  --sidebar: #161c23;
+  --sidebar-foreground: #f5f7fa;
+  --sidebar-primary: #ffb3ad;
+  --sidebar-primary-foreground: #680009;
+  --sidebar-accent: #2aa193;
+  --sidebar-accent-foreground: #00302b;
+  --sidebar-border: #5a403e;
+  --sidebar-ring: #ffb3ad;
+
+  /*
+    google stitch variables
+  */
+  --stitch-surface: #0e141b;
+  --stitch-surface-dim: #0e141b;
+  --stitch-surface-bright: #343a41;
+  --stitch-surface-container-lowest: #090f15;
+  --stitch-surface-container-low: #161c23;
+  --stitch-surface-container: #17212b;
+  --stitch-surface-container-high: #212b36;
+  --stitch-surface-container-highest: #2f353d;
+  --stitch-on-surface: #f5f7fa;
+  --stitch-on-surface-variant: #b0b8c1;
+  --stitch-inverse-surface: #dde3ed;
+  --stitch-inverse-on-surface: #2b3139;
+  --stitch-outline: #a98986;
+  --stitch-outline-variant: #5a403e;
+  --stitch-surface-tint: #ffb3ad;
+  --stitch-primary: #ffb3ad;
+  --stitch-on-primary: #680009;
+  --stitch-primary-container: #fa5953;
+  --stitch-on-primary-container: #5c0007;
+  --stitch-inverse-primary: #b42628;
+  --stitch-secondary: #6cd8c9;
+  --stitch-on-secondary: #003731;
+  --stitch-secondary-container: #2aa193;
+  --stitch-on-secondary-container: #00302b;
+  --stitch-tertiary: #bcc8d5;
+  --stitch-on-tertiary: #27313c;
+  --stitch-tertiary-container: #87929e;
+  --stitch-on-tertiary-container: #202b35;
+  --stitch-error: #ffb4ab;
+  --stitch-on-error: #690005;
+  --stitch-error-container: #93000a;
+  --stitch-on-error-container: #ffdad6;
+  --stitch-primary-fixed: #ffdad6;
+  --stitch-primary-fixed-dim: #ffb3ad;
+  --stitch-on-primary-fixed: #410003;
+  --stitch-on-primary-fixed-variant: #910613;
+  --stitch-secondary-fixed: #89f5e5;
+  --stitch-secondary-fixed-dim: #6cd8c9;
+  --stitch-on-secondary-fixed: #00201c;
+  --stitch-on-secondary-fixed-variant: #005048;
+  --stitch-tertiary-fixed: #d8e4f1;
+  --stitch-tertiary-fixed-dim: #bcc8d5;
+  --stitch-on-tertiary-fixed: #121d26;
+  --stitch-on-tertiary-fixed-variant: #3d4853;
+  --stitch-background: #0e141b;
+  --stitch-on-background: #dde3ed;
+  --stitch-surface-variant: #2f353d;
 }
 
 @layer base {

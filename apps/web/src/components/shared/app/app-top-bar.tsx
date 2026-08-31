@@ -12,6 +12,11 @@ import { Label } from "@components/ui/label";
 import { useTheme } from "@/src/provider/theme-provider";
 import { useRef } from "react";
 import gsap from "gsap";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/src/components/ui/tooltip";
 
 const LANGUAGES = [
   { code: "en", name: "English" },
@@ -42,7 +47,7 @@ export default function AppTopBar() {
   return (
     <div
       className="flex items-center justify-between gap-1 pr-10  
-    justify-end w-full h-16 px-4 bg-stitch-surface-dim text-primary rounded-b-lg"
+    justify-end w-full h-10 px-4 bg-stitch-surface-container-high text-primary rounded-b-lg"
     >
       <div className="flex items-center space-x-4 w-20">
         <DropdownMenu>
@@ -68,13 +73,20 @@ export default function AppTopBar() {
         </DropdownMenu>
       </div>
       <div className="flex items-center space-x-4 ">
-        <div ref={iconWrapperRef} className="text-primary-foreground">
-          {theme.theme === "dark" ? (
-            <SunIcon onClick={toggleTheme} className="cursor-pointer" />
-          ) : (
-            <MoonIcon onClick={toggleTheme} className="cursor-pointer" />
-          )}
-        </div>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <div ref={iconWrapperRef} className="text-primary">
+                {theme.theme === "dark" ? (
+                  <SunIcon onClick={toggleTheme} className="cursor-pointer" />
+                ) : (
+                  <MoonIcon onClick={toggleTheme} className="cursor-pointer" />
+                )}
+              </div>
+            }
+          />
+          <TooltipContent>Toggle Theme</TooltipContent>
+        </Tooltip>
       </div>
     </div>
   );
