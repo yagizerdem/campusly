@@ -13,9 +13,14 @@ import { Label } from "@components/ui/label";
 import { cn } from "@lib/utils";
 import { useState, type Dispatch } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { firebaseApp } from "@/src/lib/firebase-app";
 import {
+  emailValidator,
   LoginValidator,
   type LoginDto,
 } from "@campusly/shared/src/dto/auth-dto";
@@ -98,6 +103,68 @@ export default function LoginPanel(props: LoginPanelProps) {
         toast.add({
           type: "destructive",
           title: "Login failed",
+          description: "Unexpected error occurred. Please try again later.",
+        });
+      }
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  }
+
+  async function forgotPassword() {
+    try {
+      dispatch(setIsLoading(true));
+      setDiagnostics([]); // clear error messages
+
+      if (!props.loginEmail) {
+        toast.add({
+          type: "destructive",
+          description: "Enter your email to reset your password.",
+        });
+        setDiagnostics(["Email and password must be provided."]);
+        return;
+      }
+
+      const parseResult = await emailValidator.safeParseAsync(props.loginEmail);
+
+      if (!parseResult.success) {
+        setDiagnostics(
+          parseResult.error.issues.flatMap((issue) => issue.message),
+        );
+        toast.add({
+          type: "destructive",
+          title: "Login failed",
+          description: "Please check your email and password.",
+        });
+        return;
+      }
+
+      const continueUrl = `${window.location.origin}/reset-password`;
+
+      const auth = getAuth(firebaseApp);
+      await sendPasswordResetEmail(auth, props.loginEmail, {
+        url: continueUrl,
+        handleCodeInApp: false,
+      });
+
+      toast.add({
+        type: "success",
+        description: `Password reset email sent successfully.`,
+      });
+    } catch (err: any) {
+      console.error(err);
+
+      if (err instanceof FirebaseError) {
+        const message = authCodeToMessage(err.code);
+        toast.add({
+          type: "destructive",
+          title: "Password reset failed",
+          description: message,
+        });
+      } else {
+        toast.add({
+          type: "destructive",
+          title: "Password reset failed",
           description: "Unexpected error occurred. Please try again later.",
         });
       }
@@ -197,6 +264,7 @@ export default function LoginPanel(props: LoginPanelProps) {
             type="button"
             variant="outline"
             className="w-full cursor-pointer"
+            onClick={forgotPassword}
           >
             Forgot Password
           </Button>

@@ -1,6 +1,7 @@
 import type {
   CreatePostDto,
   UpdatePostDto,
+  PostIdWithImageSignedUrl,
 } from "@campusly/shared/src/dto/post-dto.js";
 import * as profileService from "@service/profile-service.js";
 import * as clubService from "@service/club-service.js";
@@ -27,8 +28,10 @@ export async function createPost(
   files: Express.Multer.File[],
 ) {
   const profile = await profileService.ensureProfileExistbyUid(profileUid);
-  const club = await clubService.ensureClubExistById(dto.clubId);
-  await clubService.ensureUserIsClubAdmin(profileUid, dto.clubId);
+  if (dto.clubId) {
+    await clubService.ensureClubExistById(dto.clubId);
+    await clubService.ensureUserIsClubAdmin(profileUid, dto.clubId);
+  }
 
   // check mime types of files
   for (const file of files) {
@@ -95,7 +98,7 @@ export async function createPost(
         data: {
           postContent: dto.postContent,
           postTitle: dto.postTitle,
-          clubId: club.id,
+          clubId: dto.clubId ?? null,
           authorId: profile.id,
         },
       });
@@ -197,7 +200,19 @@ export function getPostById(postId: string, throwErrorIfNotFound = false) {
 
 export async function deletePostById(userUid: string, postId: string) {
   const post = await ensurePostExistById(postId);
-  await clubService.ensureUserIsClubAdmin(userUid, post.clubId);
+  if (post.clubId) {
+    await clubService.ensureUserIsClubAdmin(userUid, post.clubId);
+  } else {
+    // if post is not associated with a club, check if the user is the author of the post
+    if (post.authorId !== userUid) {
+      throw AppError.from({
+        machineCode: ErrorMachineCode.UNAUTHORIZED,
+        message: "User is not authorized to delete this post",
+        statusCode: HttpStatusCode.UNAUTHORIZED,
+        isOperational: true,
+      });
+    }
+  }
 
   let images: Image[] = [];
   try {
@@ -294,7 +309,19 @@ export async function deletePostById(userUid: string, postId: string) {
 export async function updatePost(userUid: string, dto: UpdatePostDto) {
   const post = await ensurePostExistById(dto.postId);
   //  check user is club admin
-  await clubService.ensureUserIsClubAdmin(userUid, dto.clubId);
+  if (dto.clubId) {
+    await clubService.ensureUserIsClubAdmin(userUid, dto.clubId);
+  } else {
+    // if post is not associated with a club, check if the user is the author of the post
+    if (post.authorId !== userUid) {
+      throw AppError.from({
+        machineCode: ErrorMachineCode.UNAUTHORIZED,
+        message: "User is not authorized to update this post",
+        statusCode: HttpStatusCode.UNAUTHORIZED,
+        isOperational: true,
+      });
+    }
+  }
 
   // check post belongs to the club
   if (post.clubId != dto.clubId) {
@@ -343,7 +370,16 @@ export async function fetchPostsForFeed(queryObject: QueryString) {
           comments: true,
         },
       },
-
+      author: {
+        select: {
+          profileImageId: true,
+        },
+      },
+      club: {
+        select: {
+          clubLogoId: true,
+        },
+      },
       images: {
         orderBy: {
           order: "asc",
@@ -356,22 +392,30 @@ export async function fetchPostsForFeed(queryObject: QueryString) {
     },
   });
 
-  const coverImageSignedUrls: Record<string, string> = {}; // post-id - cover-img uri
+  const postImageSignedUrls: PostIdWithImageSignedUrl = {};
 
-  await Promise.allSettled(
-    posts.map(async (post) => {
-      if (post?.images && post.images.length > 0) {
-        const coverImageId = post.images[0]!.imageId;
-        const signedUrl = await imageService.generateSignedUrlByImageId(
-          coverImageId,
-          minutesToSeconds(15), // 15 minutes
-        );
-        coverImageSignedUrls[post.id] = signedUrl;
-      }
-    }),
-  );
+  // generate signed urls for post images parallelly and store them in postImageSignedUrls
+  const promises = posts.flatMap((post) => {
+    if (!post?.images || post.images.length === 0) return [];
 
-  return [posts, coverImageSignedUrls];
+    postImageSignedUrls[post.id] = [];
+
+    return post.images.map(async (image) => {
+      const signedUrl = await imageService.generateSignedUrlByImageId(
+        image.imageId,
+        minutesToSeconds(15),
+      );
+      postImageSignedUrls[post.id]!.push({
+        signedUrl,
+        imageId: image.imageId,
+        order: image.order,
+      });
+    });
+  });
+
+  await Promise.allSettled(promises);
+
+  return [posts, postImageSignedUrls] as const;
 }
 
 export async function fetchPostGalleryImages(postId: string) {

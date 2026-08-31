@@ -58,6 +58,8 @@ export default function RegisterPanel(props: RegisterPanelProps) {
         password: props.registerPassword,
       } as RegisterDto)
     ).data;
+
+    return apiResponse;
   }
 
   useEffect(() => {

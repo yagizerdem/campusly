@@ -3,6 +3,7 @@ import { ThemeProvider } from "./theme-provider";
 import { Provider } from "react-redux";
 import { store } from "@store/app-store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@components/ui/tooltip";
 
 const queryClient = new QueryClient();
 
@@ -18,9 +19,11 @@ export function BaseProvider({ children }: BaseProviderProps) {
   return (
     <BaseProviderContext.Provider value={initialState}>
       <ThemeProvider>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>{children}</Provider>
-        </QueryClientProvider>
+        <TooltipProvider>
+          <QueryClientProvider client={queryClient}>
+            <Provider store={store}>{children}</Provider>
+          </QueryClientProvider>
+        </TooltipProvider>
       </ThemeProvider>
     </BaseProviderContext.Provider>
   );

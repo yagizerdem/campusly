@@ -4,18 +4,25 @@ import HttpStatusCode from "@campusly/shared/src/util/http-status-code.js";
 import { ApiResponse } from "@common/api-response.js";
 import { throwIfUidNotExist } from "@common/uid-validator.js";
 import * as postService from "@service/post-service.js";
+import * as imageService from "@service/image-service.js";
 import {
   CreatePostValidator,
   UpdatePostValidator,
+  type FetchPostFeedItem,
   type FetchPostFeedResponse,
+  type OrderedPostImage,
 } from "@campusly/shared/src/dto/post-dto.js";
-import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import type { QueryString } from "@common/prisma-api-features.js";
+import {
+  throwValidationError,
+  getRequiredRouteParam,
+} from "@common/route-validation.js";
+import { minutesToSeconds } from "date-fns";
 
 export async function createPost(req: Request, res: Response) {
   try {
     const adminUid = req.uid!;
+
     throwIfUidNotExist(req);
 
     const { success, data, error } = await CreatePostValidator.safeParseAsync(
@@ -23,20 +30,7 @@ export async function createPost(req: Request, res: Response) {
     );
 
     if (!success) {
-      console.error("Validation error:", error.issues);
-      throw AppError.from({
-        machineCode: ErrorMachineCode.VALIDATION_ERROR,
-        message: "Validation error",
-        statusCode: HttpStatusCode.BAD_REQUEST,
-        isOperational: true,
-        diagnostic: {
-          path: req.path,
-          details: error.issues.map((issue) => ({
-            machineCode: ErrorMachineCode.VALIDATION_ERROR,
-            message: `${issue.path.join(".")}: ${issue.message}`,
-          })),
-        },
-      });
+      throwValidationError(req, error.issues);
     }
 
     const files = req.files as Express.Multer.File[];
@@ -63,25 +57,7 @@ export async function createPost(req: Request, res: Response) {
 export async function deletePost(req: Request, res: Response) {
   const adminUid = req.uid!;
   throwIfUidNotExist(req);
-
-  const postId = req.params.postId;
-  if (!postId) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID is required",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
-  if (typeof postId !== "string") {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID must be a string",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
+  const postId = getRequiredRouteParam(req.params.postId, "postId");
 
   await postService.deletePostById(adminUid, postId);
 
@@ -99,20 +75,7 @@ export async function updatePost(req: Request, res: Response) {
   );
 
   if (!success) {
-    console.error("Validation error:", error.issues);
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Validation error",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-      diagnostic: {
-        path: req.path,
-        details: error.issues.map((issue) => ({
-          machineCode: ErrorMachineCode.VALIDATION_ERROR,
-          message: `${issue.path.join(".")}: ${issue.message}`,
-        })),
-      },
-    });
+    throwValidationError(req, error.issues);
   }
 
   const postFromDb = await postService.updatePost(adminUid, data);
@@ -128,7 +91,7 @@ export async function fetchFeedPosts(req: Request, res: Response) {
 
   const queryObject: QueryString = req.query as QueryString;
 
-  const [posts, coverImageSignedUrls] =
+  const [posts, postImageSignedUrls] =
     await postService.fetchPostsForFeed(queryObject);
 
   // map to dto
@@ -139,32 +102,55 @@ export async function fetchFeedPosts(req: Request, res: Response) {
       .json(ApiResponse.ok("Posts retrieved successfully", []));
   }
 
-  const fetchedPosts: FetchPostFeedResponse = posts.map((post) => {
-    return {
-      authorId: post.authorId,
-      clubId: post.clubId,
-      createdAt: post.createdAt,
-      updatedAt: post.updatedAt,
-      postContent: post.postContent,
-      postId: post.id,
-      postTitle: post.postTitle,
-      commentCount: post._count.comments,
-      likesCount: post._count.likes,
-      coverImageSignedUrl: !Array.isArray(coverImageSignedUrls)
-        ? ((coverImageSignedUrls as Record<string, string | null>)[post.id] ??
-          null)
-        : null,
-      images: post.images.map((img) => {
-        return {
-          order: img.order,
-          imageId: img.imageId,
-        } as {
-          order: number;
-          imageId: string;
-        };
+  const fetchedPosts: FetchPostFeedResponse = (
+    await Promise.allSettled(
+      posts.map(async (post) => {
+        // if club has logo fetch signed url
+        let signedUrl = null;
+        if (post.clubId && post.club?.clubLogoId) {
+          signedUrl = await imageService.generateSignedUrlByImageId(
+            post.club.clubLogoId,
+            minutesToSeconds(15),
+          );
+        } else if (post.authorId && post.author?.profileImageId) {
+          signedUrl = await imageService.generateSignedUrlByImageId(
+            post.author.profileImageId,
+            minutesToSeconds(15),
+          );
+        }
+
+        const response = {
+          authorId: post.authorId,
+          clubId: post.clubId,
+          createdAt: post.createdAt,
+          updatedAt: post.updatedAt,
+          postContent: post.postContent,
+          postId: post.id,
+          postTitle: post.postTitle,
+          commentCount: post._count.comments,
+          likesCount: post._count.likes,
+          images: post.images.map((img) => {
+            return {
+              imageId: img.imageId,
+              order: img.order,
+              signedUrl: postImageSignedUrls[post.id]?.find(
+                (urlObj) => urlObj.imageId === img.imageId,
+              )?.signedUrl,
+            } as OrderedPostImage;
+          }),
+        } as FetchPostFeedItem;
+
+        if (post.clubId && post.club?.clubLogoId) {
+          response.clubLogoSignedUrl = signedUrl;
+        } else if (post.authorId && post.author?.profileImageId) {
+          response.profileImageSignedUrl = signedUrl;
+        }
+        return response;
       }),
-    };
-  });
+    )
+  )
+    .map((result) => (result.status === "fulfilled" ? result.value : null))
+    .filter((item) => item != null);
 
   return res
     .status(HttpStatusCode.OK)
@@ -172,26 +158,7 @@ export async function fetchFeedPosts(req: Request, res: Response) {
 }
 
 export async function fetchPostGalleryImages(req: Request, res: Response) {
-  const postId = req.params.postId;
-
-  if (!postId) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID is required",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
-  if (typeof postId !== "string") {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Post ID must be a string",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-    });
-  }
-
+  const postId = getRequiredRouteParam(req.params.postId, "postId");
   const images = await postService.fetchPostGalleryImages(postId);
 
   return res

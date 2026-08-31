@@ -8,13 +8,13 @@ import { extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { v4 as uuidv4 } from "uuid";
 
-const BUCKET_UPLOAD_DIR = "seed/post-images";
+const BUCKET_UPLOAD_DIR = "seed/club-event-images";
 const SEED_IMAGE_DIR = fileURLToPath(
-  new URL("../../../assets/seed-post-images/", import.meta.url),
+  new URL("../../../assets/seed-club-event-images/", import.meta.url),
 );
-const MIN_IMAGES_PER_POST = 2;
-const MAX_IMAGES_PER_POST = 5;
-const MAX_TOTAL_IMAGES_PER_POST = 20;
+const MIN_IMAGES_TO_SEED = 5;
+const MAX_IMAGES_TO_SEED = 19;
+const MAX_IMAGES_PER_CLUB_EVENT = 20;
 
 const MIME_TYPES: Record<string, string> = {
   ".jpg": "image/jpeg",
@@ -23,15 +23,15 @@ const MIME_TYPES: Record<string, string> = {
   ".webp": "image/webp",
 };
 
-async function seedPostGalleryImages() {
-  const posts = await prisma.post.findMany({
+async function seedClubEventImages() {
+  const clubEvents = await prisma.clubEvent.findMany({
     select: { id: true },
     orderBy: { createdAt: "asc" },
   });
 
-  if (posts.length === 0) {
+  if (clubEvents.length === 0) {
     throw new Error(
-      "Seed post gallery images requires at least one post to be created first.",
+      "Seed club event images requires at least one club event to be created first.",
     );
   }
 
@@ -45,29 +45,39 @@ async function seedPostGalleryImages() {
 
   const bucket = getStorage(firebaseApp).bucket();
   let seededImageCount = 0;
-  let skippedPostCount = 0;
+  let skippedClubEventCount = 0;
 
-  for (const post of posts) {
-    const existingImages = await prisma.postImage.findMany({
-      where: { postId: post.id },
+  for (const clubEvent of clubEvents) {
+    const existingImages = await prisma.clubEventImage.findMany({
+      where: { clubEventId: clubEvent.id },
       select: { order: true },
       orderBy: { order: "desc" },
     });
 
+    if (existingImages.length > MAX_IMAGES_PER_CLUB_EVENT) {
+      throw new Error(
+        `Club event ${clubEvent.id} has more than ${MAX_IMAGES_PER_CLUB_EVENT} images.`,
+      );
+    }
+
+    const hasCoverImage = existingImages.some(({ order }) => order === 0);
+    const reservedCoverSlot = hasCoverImage ? 0 : 1;
     const availableImageSlots =
-      MAX_TOTAL_IMAGES_PER_POST - existingImages.length;
+      MAX_IMAGES_PER_CLUB_EVENT -
+      existingImages.length -
+      reservedCoverSlot;
 
     if (availableImageSlots <= 0) {
-      skippedPostCount += 1;
+      skippedClubEventCount += 1;
       continue;
     }
 
     const requestedImageCount = faker.number.int({
-      min: MIN_IMAGES_PER_POST,
-      max: MAX_IMAGES_PER_POST,
+      min: MIN_IMAGES_TO_SEED,
+      max: MAX_IMAGES_TO_SEED,
     });
     const imageCount = Math.min(requestedImageCount, availableImageSlots);
-    let nextOrder = (existingImages[0]?.order ?? -1) + 1;
+    let nextOrder = Math.max(existingImages[0]?.order ?? 0, 0) + 1;
 
     for (let index = 0; index < imageCount; index += 1) {
       const assetFileName = faker.helpers.arrayElement(assetFileNames);
@@ -76,7 +86,7 @@ async function seedPostGalleryImages() {
       const sourcePath = resolve(SEED_IMAGE_DIR, assetFileName);
       const imageId = uuidv4();
       const fileName = `${imageId}${extension}`;
-      const objectKey = `${BUCKET_UPLOAD_DIR}/${post.id}/${fileName}`;
+      const objectKey = `${BUCKET_UPLOAD_DIR}/${clubEvent.id}/${fileName}`;
       const { size } = await stat(sourcePath);
 
       const [uploadedFile] = await bucket.upload(sourcePath, {
@@ -98,9 +108,9 @@ async function seedPostGalleryImages() {
           },
         });
 
-        await tx.postImage.create({
+        await tx.clubEventImage.create({
           data: {
-            postId: post.id,
+            clubEventId: clubEvent.id,
             imageId,
             order: nextOrder,
           },
@@ -113,13 +123,13 @@ async function seedPostGalleryImages() {
   }
 
   console.log(
-    `${seededImageCount} gallery images seeded for ${posts.length} posts. ` +
-      `${skippedPostCount} posts skipped because they already have 20 images.`,
+    `${seededImageCount} images seeded for ${clubEvents.length} club events. ` +
+      `${skippedClubEventCount} club events skipped because no image slots were available.`,
   );
 }
 
 try {
-  await seedPostGalleryImages();
+  await seedClubEventImages();
 } finally {
   await prisma.$disconnect();
 }

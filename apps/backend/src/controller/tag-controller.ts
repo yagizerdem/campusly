@@ -6,9 +6,8 @@ import {
   AssignTagValidator,
   RemoveAssignedTagValidator,
 } from "@campusly/shared/src/dto/tag-dto.js";
-import { AppError } from "@common/app-error.js";
-import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
 import * as tagService from "@service/tag-service.js";
+import { throwValidationError } from "@common/route-validation.js";
 
 export async function assignTag(req: Request, res: Response) {
   const adminUid = req.uid!;
@@ -19,19 +18,7 @@ export async function assignTag(req: Request, res: Response) {
   );
 
   if (!success) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Validation error",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-      diagnostic: {
-        path: req.path,
-        details: error.issues.map((issue) => ({
-          machineCode: ErrorMachineCode.VALIDATION_ERROR,
-          message: `${issue.path.join(".")}: ${issue.message}`,
-        })),
-      },
-    });
+    throwValidationError(req, error.issues);
   }
 
   const response = await tagService.assignTag(adminUid, data);
@@ -49,19 +36,7 @@ export async function removeAssignedTag(req: Request, res: Response) {
     await RemoveAssignedTagValidator.safeParseAsync(req.body);
 
   if (!success) {
-    throw AppError.from({
-      machineCode: ErrorMachineCode.VALIDATION_ERROR,
-      message: "Validation error",
-      statusCode: HttpStatusCode.BAD_REQUEST,
-      isOperational: true,
-      diagnostic: {
-        path: req.path,
-        details: error.issues.map((issue) => ({
-          machineCode: ErrorMachineCode.VALIDATION_ERROR,
-          message: `${issue.path.join(".")}: ${issue.message}`,
-        })),
-      },
-    });
+    throwValidationError(req, error.issues);
   }
 
   const response = await tagService.removeAssignedTag(adminUid, data);

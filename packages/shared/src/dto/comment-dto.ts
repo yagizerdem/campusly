@@ -1,17 +1,16 @@
 import { z } from "zod";
 
+const commentContentValidator = z
+  .string()
+  .min(1, "Comment content is required")
+  .max(1000, "Comment content is too long");
+
 export const CreateCommentValidator = z.object({
-  commentContent: z
-    .string()
-    .min(1, "Comment content is required")
-    .max(1000, "Comment content is too long"),
+  commentContent: commentContentValidator,
 });
 
 export const UpdateCommentValidator = z.object({
-  commentContent: z
-    .string()
-    .min(1, "Comment content is required")
-    .max(1000, "Comment content is too long"),
+  commentContent: commentContentValidator,
 });
 
 export type CreateCommentDto = z.infer<typeof CreateCommentValidator>;

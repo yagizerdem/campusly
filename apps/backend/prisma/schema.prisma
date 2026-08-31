@@ -24,6 +24,7 @@ model Profile {
   stories Stories[]
   surveySchemas SurveySchemas[]
   surveySchemaResponses SurveySchemaResponses[]
+  
 
   profileImage Image? @relation(fields: [profileImageId], references: [id])
   profileImageId String? @unique
@@ -62,11 +63,12 @@ model Post {
   postTitle String
   postContent String
 
-  club Club @relation(fields: [clubId], references: [id])
-  clubId String  // Foreign key connecting Post to Club
+  club Club? @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  clubId String?  // Foreign key connecting Post to Club
 
-  author   Profile @relation(fields: [authorId], references: [id])
-  authorId String
+
+  author   Profile? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId String?
 
   likes Like[]
   comments Comment[]
@@ -92,10 +94,10 @@ model PostImage {
 model Like {
   id    String     @id @default(uuid()) 
 
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String  // Foreign key connecting Like to Post
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting Like to Profile
 
   createdAt DateTime @default(now())
@@ -107,10 +109,10 @@ model Comment {
   id    String     @id @default(uuid()) 
   commentContent String
 
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String  // Foreign key connecting Comment to Post
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting Comment to Profile
 
   createdAt DateTime @default(now())
@@ -164,7 +166,7 @@ model ClubJoinRequest {
   club Club @relation(fields: [clubId], references: [id])
   clubId String  // Foreign key connecting ClubJoinRequest to Club
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting ClubJoinRequest to Profile
 
   status JoinRequestStatus @default(PENDING)
@@ -176,10 +178,10 @@ model ClubJoinRequest {
 model ClubMember {
   id    String     @id @default(uuid()) 
 
-  club Club @relation(fields: [clubId], references: [id])
+  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId String  // Foreign key connecting ClubMember to Club
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting ClubMember to Profile
 
   role ClubMemberRole @default(MEMBER)
@@ -240,7 +242,7 @@ model ClubEvent {
   eventDescription String
   eventDate DateTime
 
-  club Club @relation(fields: [clubId], references: [id])
+  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId String  // Foreign key connecting ClubEvent to Club
 
   images ClubEventImage[]
@@ -265,12 +267,11 @@ model ClubEventImage {
 
 model ClubEventForm {
   id    String     @id @default(uuid()) 
-  formJson Json
 
-  clubEvent ClubEvent @relation(fields: [clubEventId], references: [id])
+  clubEvent ClubEvent @relation(fields: [clubEventId], references: [id], onDelete: Cascade)
   clubEventId String @unique
 
-  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id])
+  surveySchema SurveySchemas @relation(fields: [surveySchemaId], references: [id], onDelete: Cascade)
   surveySchemaId String @unique
 
 
@@ -282,8 +283,8 @@ model SurveySchemas {
   id    String     @id @default(uuid()) 
   schemaJson Json
 
-  author   Profile @relation(fields: [authorId], references: [id])
-  authorId String
+  author   Profile? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId String?
 
   surveySchemaResponses SurveySchemaResponses[]
   clubEventForms ClubEventForm[]

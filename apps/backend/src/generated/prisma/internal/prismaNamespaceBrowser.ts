@@ -274,7 +274,6 @@ export type ClubEventImageScalarFieldEnum = (typeof ClubEventImageScalarFieldEnu
 
 export const ClubEventFormScalarFieldEnum = {
   id: 'id',
-  formJson: 'formJson',
   clubEventId: 'clubEventId',
   surveySchemaId: 'surveySchemaId',
   createdAt: 'createdAt',

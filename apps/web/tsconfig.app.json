@@ -14,7 +14,8 @@
       "@provider/*": ["./src/provider/*"],
       "@store/*": ["./src/store/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@assets/*": ["./src/assets/*"]
     },
 
     /* Bundler mode */

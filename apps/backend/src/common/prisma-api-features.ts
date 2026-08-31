@@ -8,6 +8,7 @@ export class PrismaAPIFeatures {
   private select: Record<string, boolean> | undefined;
   private skip = 0;
   private take = 100;
+  private meta: Record<string, any> = {};
 
   constructor(queryString: QueryString) {
     this.queryString = queryString;
@@ -21,11 +22,14 @@ export class PrismaAPIFeatures {
         continue;
       }
 
-      const match = key.match(/^(.+)\[(gte|gt|lte|lt|equals|contains)\]$/);
+      if (/^meta\[.*\]/.test(key)) {
+        continue;
+      }
+
+      const match = key.match(/^(.+)\[(gte|gt|lte|lt|equals|contains|not)\]$/);
 
       if (match) {
         const [, field, operator] = match;
-
         if (field && operator) {
           this.where[field] = {
             ...(field && this.where[field] ? this.where[field] : {}),
@@ -103,9 +107,25 @@ export class PrismaAPIFeatures {
     };
   }
 
+  collectMeta() {
+    for (const [key, value] of Object.entries(this.queryString)) {
+      if (!value || !/^meta\[.*\]/.test(key)) {
+        continue;
+      }
+
+      const metaKey = key.replace(/^meta\[(.*)\]$/, "$1");
+      this.meta[metaKey] = this.parseValue(value);
+    }
+  }
+
+  getMeta() {
+    return this.meta;
+  }
+
   private parseValue(value: string) {
     if (value === "true") return true;
     if (value === "false") return false;
+    if (value === "null") return null;
 
     const number = Number(value);
 
