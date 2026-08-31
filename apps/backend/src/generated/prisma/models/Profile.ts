@@ -414,14 +414,14 @@ export type ProfileMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type ProfileScalarRelationFilter = {
-  is?: Prisma.ProfileWhereInput
-  isNot?: Prisma.ProfileWhereInput
-}
-
 export type ProfileNullableScalarRelationFilter = {
   is?: Prisma.ProfileWhereInput | null
   isNot?: Prisma.ProfileWhereInput | null
+}
+
+export type ProfileScalarRelationFilter = {
+  is?: Prisma.ProfileWhereInput
+  isNot?: Prisma.ProfileWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -442,10 +442,12 @@ export type ProfileCreateNestedOneWithoutPostsInput = {
   connect?: Prisma.ProfileWhereUniqueInput
 }
 
-export type ProfileUpdateOneRequiredWithoutPostsNestedInput = {
+export type ProfileUpdateOneWithoutPostsNestedInput = {
   create?: Prisma.XOR<Prisma.ProfileCreateWithoutPostsInput, Prisma.ProfileUncheckedCreateWithoutPostsInput>
   connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutPostsInput
   upsert?: Prisma.ProfileUpsertWithoutPostsInput
+  disconnect?: Prisma.ProfileWhereInput | boolean
+  delete?: Prisma.ProfileWhereInput | boolean
   connect?: Prisma.ProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutPostsInput, Prisma.ProfileUpdateWithoutPostsInput>, Prisma.ProfileUncheckedUpdateWithoutPostsInput>
 }

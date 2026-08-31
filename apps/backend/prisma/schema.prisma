@@ -63,12 +63,12 @@ model Post {
   postTitle String
   postContent String
 
-  club Club? @relation(fields: [clubId], references: [id])
+  club Club? @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId String?  // Foreign key connecting Post to Club
 
 
-  author   Profile @relation(fields: [authorId], references: [id])
-  authorId String
+  author   Profile? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId String?
 
   likes Like[]
   comments Comment[]
