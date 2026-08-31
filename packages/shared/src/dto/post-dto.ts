@@ -33,7 +33,7 @@ export const UpdatePostValidator = z.object({
 
 export type UpdatePostDto = z.infer<typeof UpdatePostValidator>;
 
-export type FetchPostFeedResponse = {
+export type FetchPostFeedItem = {
   postId: string;
   postTitle: string;
   postContent: string;
@@ -50,6 +50,8 @@ export type FetchPostFeedResponse = {
     order: number;
     imageId: string;
   }[];
-}[];
+};
+
+export type FetchPostFeedResponse = FetchPostFeedItem[];
 
 export type PostIdWithCoverImageSignedUrl = Record<string, string | null>; // postId -> coverImageSignedUrl

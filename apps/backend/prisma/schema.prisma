@@ -166,7 +166,7 @@ model ClubJoinRequest {
   club Club @relation(fields: [clubId], references: [id])
   clubId String  // Foreign key connecting ClubJoinRequest to Club
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String  // Foreign key connecting ClubJoinRequest to Profile
 
   status JoinRequestStatus @default(PENDING)
@@ -242,7 +242,7 @@ model ClubEvent {
   eventDescription String
   eventDate DateTime
 
-  club Club @relation(fields: [clubId], references: [id])
+  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId String  // Foreign key connecting ClubEvent to Club
 
   images ClubEventImage[]

@@ -8,6 +8,7 @@ import * as imageService from "@service/image-service.js";
 import {
   CreatePostValidator,
   UpdatePostValidator,
+  type FetchPostFeedItem,
   type FetchPostFeedResponse,
 } from "@campusly/shared/src/dto/post-dto.js";
 import type { QueryString } from "@common/prisma-api-features.js";
@@ -15,6 +16,7 @@ import {
   throwValidationError,
   getRequiredRouteParam,
 } from "@common/route-validation.js";
+import { minutesToSeconds } from "date-fns";
 
 export async function createPost(req: Request, res: Response) {
   try {
@@ -99,40 +101,61 @@ export async function fetchFeedPosts(req: Request, res: Response) {
       .json(ApiResponse.ok("Posts retrieved successfully", []));
   }
 
-  const fetchedPosts: FetchPostFeedResponse = posts.map((post) => {
-    return {
-      authorId: post.authorId,
-      clubId: post.clubId,
-      createdAt: post.createdAt,
-      updatedAt: post.updatedAt,
-      postContent: post.postContent,
-      postId: post.id,
-      postTitle: post.postTitle,
-      commentCount: post._count.comments,
-      likesCount: post._count.likes,
-      coverImageSignedUrl: !Array.isArray(coverImageSignedUrls)
-        ? ((coverImageSignedUrls as Record<string, string | null>)[post.id] ??
-          null)
-        : null,
-      images: post.images.map((img) => {
-        return {
-          order: img.order,
-          imageId: img.imageId,
-        } as {
-          order: number;
-          imageId: string;
-        };
-      }),
-    };
-  });
+  const fetchedPosts: FetchPostFeedResponse = (
+    await Promise.allSettled(
+      posts.map(async (post) => {
+        console.log(post.club);
+        // if club has logo fetch signed url
+        let signedUrl = null;
+        if (post.clubId && post.club?.clubLogoId) {
+          signedUrl = await imageService.generateSignedUrlByImageId(
+            post.club.clubLogoId,
+            minutesToSeconds(15),
+          );
+        } else if (post.authorId && post.author?.profileImageId) {
+          signedUrl = await imageService.generateSignedUrlByImageId(
+            post.author.profileImageId,
+            minutesToSeconds(15),
+          );
+        }
 
-  await Promise.allSettled(
-    posts.map((post) => {
-      // if club has logo fetch signed url
-      if (post.clubId) {
-      }
-    }),
-  );
+        const response = {
+          authorId: post.authorId,
+          clubId: post.clubId,
+          createdAt: post.createdAt,
+          updatedAt: post.updatedAt,
+          postContent: post.postContent,
+          postId: post.id,
+          postTitle: post.postTitle,
+          commentCount: post._count.comments,
+          likesCount: post._count.likes,
+          coverImageSignedUrl: !Array.isArray(coverImageSignedUrls)
+            ? ((coverImageSignedUrls as Record<string, string | null>)[
+                post.id
+              ] ?? null)
+            : null,
+          images: post.images.map((img) => {
+            return {
+              order: img.order,
+              imageId: img.imageId,
+            } as {
+              order: number;
+              imageId: string;
+            };
+          }),
+        } as FetchPostFeedItem;
+
+        if (post.clubId && post.club?.clubLogoId) {
+          response.clubLogoSignedUrl = signedUrl;
+        } else if (post.authorId && post.author?.profileImageId) {
+          response.profileImageSignedUrl = signedUrl;
+        }
+        return response;
+      }),
+    )
+  )
+    .map((result) => (result.status === "fulfilled" ? result.value : null))
+    .filter((item) => item != null);
 
   return res
     .status(HttpStatusCode.OK)
