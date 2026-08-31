@@ -1,5 +1,6 @@
 import { createBrowserRouter, redirect } from "react-router";
 import AuthPage from "@components/auth";
+import PasswordResetPage from "@components/auth/password-reset";
 
 const router = createBrowserRouter([
   {
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthPage />,
+  },
+  {
+    path: "/password-reset",
+    element: <PasswordResetPage />,
   },
 ]);
 
