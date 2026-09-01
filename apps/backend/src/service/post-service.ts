@@ -378,6 +378,7 @@ export async function fetchPostsForFeed(queryObject: QueryString) {
       club: {
         select: {
           clubLogoId: true,
+          clubName: true,
         },
       },
       images: {
