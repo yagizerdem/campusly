@@ -47,8 +47,6 @@ export default function Feed() {
     }
   }, [data]);
 
-  console.log(posts);
-
   return (
     <div className="w-full h-full overflow-y-auto pb-10">
       {posts.map((post) => (

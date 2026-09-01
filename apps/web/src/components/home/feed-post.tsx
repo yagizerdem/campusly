@@ -50,8 +50,6 @@ export default function FeedPost({ post }: Props) {
     }
   };
 
-  console.log(showSlideShow);
-
   return (
     <>
       <article className="w-full rounded-lg border border-border bg-card p-5 text-card-foreground transition-shadow duration-300 hover:shadow-[0_4px_12px_rgba(23,33,43,0.05)]">
