@@ -76,13 +76,22 @@ export function throwIfNotAllowedImageMimeType(mimeType: string): void {
 export async function generateSignedUrlByImageId(
   imgId: string,
   expiresInSeconds: number,
-): Promise<string> {
-  const imageEntityFromDb = await ensureImageExistById(imgId);
-  const signedUrl = await generateSignedUrl(
-    imageEntityFromDb,
-    expiresInSeconds,
-  );
-  return signedUrl;
+  returnNullOnError = false,
+): Promise<string | null> {
+  try {
+    const imageEntityFromDb = await ensureImageExistById(imgId);
+    const signedUrl = await generateSignedUrl(
+      imageEntityFromDb,
+      expiresInSeconds,
+    );
+    return signedUrl;
+  } catch (error) {
+    console.error("Error generating signed URL by image ID:", error);
+    if (returnNullOnError) {
+      return null;
+    }
+    throw error;
+  }
 }
 
 export async function generateSignedUrl(

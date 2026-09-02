@@ -23,4 +23,9 @@ router.post(
   catchAsync(clubController.deleteLogo),
 );
 
+router.get(
+  "/discover",
+  catchAsync(clubController.getClubsWithMembershipStatus),
+);
+
 export default router;

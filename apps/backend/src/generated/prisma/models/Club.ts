@@ -30,6 +30,7 @@ export type ClubMinAggregateOutputType = {
   clubNormalizedName: string | null
   clubDescription: string | null
   clubLogoUri: string | null
+  requiresJoinRequest: boolean | null
   clubLogoId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -41,6 +42,7 @@ export type ClubMaxAggregateOutputType = {
   clubNormalizedName: string | null
   clubDescription: string | null
   clubLogoUri: string | null
+  requiresJoinRequest: boolean | null
   clubLogoId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -52,6 +54,7 @@ export type ClubCountAggregateOutputType = {
   clubNormalizedName: number
   clubDescription: number
   clubLogoUri: number
+  requiresJoinRequest: number
   clubLogoId: number
   createdAt: number
   updatedAt: number
@@ -65,6 +68,7 @@ export type ClubMinAggregateInputType = {
   clubNormalizedName?: true
   clubDescription?: true
   clubLogoUri?: true
+  requiresJoinRequest?: true
   clubLogoId?: true
   createdAt?: true
   updatedAt?: true
@@ -76,6 +80,7 @@ export type ClubMaxAggregateInputType = {
   clubNormalizedName?: true
   clubDescription?: true
   clubLogoUri?: true
+  requiresJoinRequest?: true
   clubLogoId?: true
   createdAt?: true
   updatedAt?: true
@@ -87,6 +92,7 @@ export type ClubCountAggregateInputType = {
   clubNormalizedName?: true
   clubDescription?: true
   clubLogoUri?: true
+  requiresJoinRequest?: true
   clubLogoId?: true
   createdAt?: true
   updatedAt?: true
@@ -171,6 +177,7 @@ export type ClubGroupByOutputType = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri: string | null
+  requiresJoinRequest: boolean
   clubLogoId: string | null
   createdAt: Date
   updatedAt: Date
@@ -203,6 +210,7 @@ export type ClubWhereInput = {
   clubNormalizedName?: Prisma.StringFilter<"Club"> | string
   clubDescription?: Prisma.StringFilter<"Club"> | string
   clubLogoUri?: Prisma.StringNullableFilter<"Club"> | string | null
+  requiresJoinRequest?: Prisma.BoolFilter<"Club"> | boolean
   clubLogoId?: Prisma.StringNullableFilter<"Club"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Club"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Club"> | Date | string
@@ -221,6 +229,7 @@ export type ClubOrderByWithRelationInput = {
   clubNormalizedName?: Prisma.SortOrder
   clubDescription?: Prisma.SortOrder
   clubLogoUri?: Prisma.SortOrderInput | Prisma.SortOrder
+  requiresJoinRequest?: Prisma.SortOrder
   clubLogoId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -243,6 +252,7 @@ export type ClubWhereUniqueInput = Prisma.AtLeast<{
   clubName?: Prisma.StringFilter<"Club"> | string
   clubDescription?: Prisma.StringFilter<"Club"> | string
   clubLogoUri?: Prisma.StringNullableFilter<"Club"> | string | null
+  requiresJoinRequest?: Prisma.BoolFilter<"Club"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Club"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Club"> | Date | string
   posts?: Prisma.PostListRelationFilter
@@ -260,6 +270,7 @@ export type ClubOrderByWithAggregationInput = {
   clubNormalizedName?: Prisma.SortOrder
   clubDescription?: Prisma.SortOrder
   clubLogoUri?: Prisma.SortOrderInput | Prisma.SortOrder
+  requiresJoinRequest?: Prisma.SortOrder
   clubLogoId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -277,6 +288,7 @@ export type ClubScalarWhereWithAggregatesInput = {
   clubNormalizedName?: Prisma.StringWithAggregatesFilter<"Club"> | string
   clubDescription?: Prisma.StringWithAggregatesFilter<"Club"> | string
   clubLogoUri?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
+  requiresJoinRequest?: Prisma.BoolWithAggregatesFilter<"Club"> | boolean
   clubLogoId?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Club"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Club"> | Date | string
@@ -288,6 +300,7 @@ export type ClubCreateInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
@@ -305,6 +318,7 @@ export type ClubUncheckedCreateInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -322,6 +336,7 @@ export type ClubUpdateInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
@@ -339,6 +354,7 @@ export type ClubUncheckedUpdateInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -356,6 +372,7 @@ export type ClubCreateManyInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -367,6 +384,7 @@ export type ClubUpdateManyMutationInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -377,6 +395,7 @@ export type ClubUncheckedUpdateManyInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,6 +407,7 @@ export type ClubCountOrderByAggregateInput = {
   clubNormalizedName?: Prisma.SortOrder
   clubDescription?: Prisma.SortOrder
   clubLogoUri?: Prisma.SortOrder
+  requiresJoinRequest?: Prisma.SortOrder
   clubLogoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -399,6 +419,7 @@ export type ClubMaxOrderByAggregateInput = {
   clubNormalizedName?: Prisma.SortOrder
   clubDescription?: Prisma.SortOrder
   clubLogoUri?: Prisma.SortOrder
+  requiresJoinRequest?: Prisma.SortOrder
   clubLogoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -410,6 +431,7 @@ export type ClubMinOrderByAggregateInput = {
   clubNormalizedName?: Prisma.SortOrder
   clubDescription?: Prisma.SortOrder
   clubLogoUri?: Prisma.SortOrder
+  requiresJoinRequest?: Prisma.SortOrder
   clubLogoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -423,6 +445,10 @@ export type ClubNullableScalarRelationFilter = {
 export type ClubScalarRelationFilter = {
   is?: Prisma.ClubWhereInput
   isNot?: Prisma.ClubWhereInput
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type ClubCreateNestedOneWithoutPostsInput = {
@@ -549,6 +575,7 @@ export type ClubCreateWithoutPostsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tagsOnClubs?: Prisma.TagsOnClubCreateNestedManyWithoutClubInput
@@ -565,6 +592,7 @@ export type ClubUncheckedCreateWithoutPostsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -597,6 +625,7 @@ export type ClubUpdateWithoutPostsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tagsOnClubs?: Prisma.TagsOnClubUpdateManyWithoutClubNestedInput
@@ -613,6 +642,7 @@ export type ClubUncheckedUpdateWithoutPostsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -629,6 +659,7 @@ export type ClubCreateWithoutClubLogoInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
@@ -645,6 +676,7 @@ export type ClubUncheckedCreateWithoutClubLogoInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutClubInput
@@ -677,6 +709,7 @@ export type ClubUpdateWithoutClubLogoInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
@@ -693,6 +726,7 @@ export type ClubUncheckedUpdateWithoutClubLogoInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutClubNestedInput
@@ -709,6 +743,7 @@ export type ClubCreateWithoutTagsOnClubsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
@@ -725,6 +760,7 @@ export type ClubUncheckedCreateWithoutTagsOnClubsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -757,6 +793,7 @@ export type ClubUpdateWithoutTagsOnClubsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
@@ -773,6 +810,7 @@ export type ClubUncheckedUpdateWithoutTagsOnClubsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -789,6 +827,7 @@ export type ClubCreateWithoutClubJoinRequestsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
@@ -805,6 +844,7 @@ export type ClubUncheckedCreateWithoutClubJoinRequestsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -837,6 +877,7 @@ export type ClubUpdateWithoutClubJoinRequestsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
@@ -853,6 +894,7 @@ export type ClubUncheckedUpdateWithoutClubJoinRequestsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -869,6 +911,7 @@ export type ClubCreateWithoutClubMembersInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
@@ -885,6 +928,7 @@ export type ClubUncheckedCreateWithoutClubMembersInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -917,6 +961,7 @@ export type ClubUpdateWithoutClubMembersInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
@@ -933,6 +978,7 @@ export type ClubUncheckedUpdateWithoutClubMembersInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -949,6 +995,7 @@ export type ClubCreateWithoutStoriesInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
@@ -965,6 +1012,7 @@ export type ClubUncheckedCreateWithoutStoriesInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -997,6 +1045,7 @@ export type ClubUpdateWithoutStoriesInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
@@ -1013,6 +1062,7 @@ export type ClubUncheckedUpdateWithoutStoriesInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1029,6 +1079,7 @@ export type ClubCreateWithoutClubEventsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutClubInput
@@ -1045,6 +1096,7 @@ export type ClubUncheckedCreateWithoutClubEventsInput = {
   clubNormalizedName: string
   clubDescription: string
   clubLogoUri?: string | null
+  requiresJoinRequest?: boolean
   clubLogoId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1077,6 +1129,7 @@ export type ClubUpdateWithoutClubEventsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutClubNestedInput
@@ -1093,6 +1146,7 @@ export type ClubUncheckedUpdateWithoutClubEventsInput = {
   clubNormalizedName?: Prisma.StringFieldUpdateOperationsInput | string
   clubDescription?: Prisma.StringFieldUpdateOperationsInput | string
   clubLogoUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requiresJoinRequest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clubLogoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1185,6 +1239,7 @@ export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   clubNormalizedName?: boolean
   clubDescription?: boolean
   clubLogoUri?: boolean
+  requiresJoinRequest?: boolean
   clubLogoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1204,6 +1259,7 @@ export type ClubSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   clubNormalizedName?: boolean
   clubDescription?: boolean
   clubLogoUri?: boolean
+  requiresJoinRequest?: boolean
   clubLogoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1216,6 +1272,7 @@ export type ClubSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   clubNormalizedName?: boolean
   clubDescription?: boolean
   clubLogoUri?: boolean
+  requiresJoinRequest?: boolean
   clubLogoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1228,12 +1285,13 @@ export type ClubSelectScalar = {
   clubNormalizedName?: boolean
   clubDescription?: boolean
   clubLogoUri?: boolean
+  requiresJoinRequest?: boolean
   clubLogoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clubName" | "clubNormalizedName" | "clubDescription" | "clubLogoUri" | "clubLogoId" | "createdAt" | "updatedAt", ExtArgs["result"]["club"]>
+export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clubName" | "clubNormalizedName" | "clubDescription" | "clubLogoUri" | "requiresJoinRequest" | "clubLogoId" | "createdAt" | "updatedAt", ExtArgs["result"]["club"]>
 export type ClubInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | Prisma.Club$postsArgs<ExtArgs>
   tagsOnClubs?: boolean | Prisma.Club$tagsOnClubsArgs<ExtArgs>
@@ -1268,6 +1326,7 @@ export type $ClubPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     clubNormalizedName: string
     clubDescription: string
     clubLogoUri: string | null
+    requiresJoinRequest: boolean
     clubLogoId: string | null
     createdAt: Date
     updatedAt: Date
@@ -1706,6 +1765,7 @@ export interface ClubFieldRefs {
   readonly clubNormalizedName: Prisma.FieldRef<"Club", 'String'>
   readonly clubDescription: Prisma.FieldRef<"Club", 'String'>
   readonly clubLogoUri: Prisma.FieldRef<"Club", 'String'>
+  readonly requiresJoinRequest: Prisma.FieldRef<"Club", 'Boolean'>
   readonly clubLogoId: Prisma.FieldRef<"Club", 'String'>
   readonly createdAt: Prisma.FieldRef<"Club", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Club", 'DateTime'>

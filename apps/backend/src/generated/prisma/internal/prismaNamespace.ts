@@ -406,6 +406,7 @@ export const ModelName = {
   Image: 'Image',
   Tag: 'Tag',
   TagsOnClub: 'TagsOnClub',
+  TagOnPost: 'TagOnPost',
   ClubJoinRequest: 'ClubJoinRequest',
   ClubMember: 'ClubMember',
   AuditLogs: 'AuditLogs',
@@ -431,7 +432,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "club" | "post" | "postImage" | "like" | "comment" | "image" | "tag" | "tagsOnClub" | "clubJoinRequest" | "clubMember" | "auditLogs" | "storyImage" | "stories" | "clubEvent" | "clubEventImage" | "clubEventForm" | "surveySchemas" | "surveySchemaResponses"
+    modelProps: "profile" | "club" | "post" | "postImage" | "like" | "comment" | "image" | "tag" | "tagsOnClub" | "tagOnPost" | "clubJoinRequest" | "clubMember" | "auditLogs" | "storyImage" | "stories" | "clubEvent" | "clubEventImage" | "clubEventForm" | "surveySchemas" | "surveySchemaResponses"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1098,6 +1099,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TagsOnClubCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TagsOnClubCountAggregateOutputType> | number
+        }
+      }
+    }
+    TagOnPost: {
+      payload: Prisma.$TagOnPostPayload<ExtArgs>
+      fields: Prisma.TagOnPostFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TagOnPostFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TagOnPostFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>
+        }
+        findFirst: {
+          args: Prisma.TagOnPostFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TagOnPostFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>
+        }
+        findMany: {
+          args: Prisma.TagOnPostFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>[]
+        }
+        create: {
+          args: Prisma.TagOnPostCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>
+        }
+        createMany: {
+          args: Prisma.TagOnPostCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TagOnPostCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>[]
+        }
+        delete: {
+          args: Prisma.TagOnPostDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>
+        }
+        update: {
+          args: Prisma.TagOnPostUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>
+        }
+        deleteMany: {
+          args: Prisma.TagOnPostDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TagOnPostUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TagOnPostUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>[]
+        }
+        upsert: {
+          args: Prisma.TagOnPostUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagOnPostPayload>
+        }
+        aggregate: {
+          args: Prisma.TagOnPostAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTagOnPost>
+        }
+        groupBy: {
+          args: Prisma.TagOnPostGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagOnPostGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TagOnPostCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagOnPostCountAggregateOutputType> | number
         }
       }
     }
@@ -1885,6 +1960,7 @@ export const ProfileScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   telephoneNumber: 'telephoneNumber',
+  email: 'email',
   profileImageId: 'profileImageId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1899,6 +1975,7 @@ export const ClubScalarFieldEnum = {
   clubNormalizedName: 'clubNormalizedName',
   clubDescription: 'clubDescription',
   clubLogoUri: 'clubLogoUri',
+  requiresJoinRequest: 'requiresJoinRequest',
   clubLogoId: 'clubLogoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1982,6 +2059,14 @@ export const TagsOnClubScalarFieldEnum = {
 export type TagsOnClubScalarFieldEnum = (typeof TagsOnClubScalarFieldEnum)[keyof typeof TagsOnClubScalarFieldEnum]
 
 
+export const TagOnPostScalarFieldEnum = {
+  tagId: 'tagId',
+  postId: 'postId'
+} as const
+
+export type TagOnPostScalarFieldEnum = (typeof TagOnPostScalarFieldEnum)[keyof typeof TagOnPostScalarFieldEnum]
+
+
 export const ClubJoinRequestScalarFieldEnum = {
   id: 'id',
   clubId: 'clubId',
@@ -2047,6 +2132,8 @@ export const ClubEventScalarFieldEnum = {
   eventTitle: 'eventTitle',
   eventDescription: 'eventDescription',
   eventDate: 'eventDate',
+  location: 'location',
+  locationUrl: 'locationUrl',
   clubId: 'clubId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2169,6 +2256,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -2415,6 +2509,7 @@ export type GlobalOmitConfig = {
   image?: Prisma.ImageOmit
   tag?: Prisma.TagOmit
   tagsOnClub?: Prisma.TagsOnClubOmit
+  tagOnPost?: Prisma.TagOnPostOmit
   clubJoinRequest?: Prisma.ClubJoinRequestOmit
   clubMember?: Prisma.ClubMemberOmit
   auditLogs?: Prisma.AuditLogsOmit

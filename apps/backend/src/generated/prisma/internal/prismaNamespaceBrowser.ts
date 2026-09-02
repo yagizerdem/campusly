@@ -60,6 +60,7 @@ export const ModelName = {
   Image: 'Image',
   Tag: 'Tag',
   TagsOnClub: 'TagsOnClub',
+  TagOnPost: 'TagOnPost',
   ClubJoinRequest: 'ClubJoinRequest',
   ClubMember: 'ClubMember',
   AuditLogs: 'AuditLogs',
@@ -93,6 +94,7 @@ export const ProfileScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   telephoneNumber: 'telephoneNumber',
+  email: 'email',
   profileImageId: 'profileImageId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -107,6 +109,7 @@ export const ClubScalarFieldEnum = {
   clubNormalizedName: 'clubNormalizedName',
   clubDescription: 'clubDescription',
   clubLogoUri: 'clubLogoUri',
+  requiresJoinRequest: 'requiresJoinRequest',
   clubLogoId: 'clubLogoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -190,6 +193,14 @@ export const TagsOnClubScalarFieldEnum = {
 export type TagsOnClubScalarFieldEnum = (typeof TagsOnClubScalarFieldEnum)[keyof typeof TagsOnClubScalarFieldEnum]
 
 
+export const TagOnPostScalarFieldEnum = {
+  tagId: 'tagId',
+  postId: 'postId'
+} as const
+
+export type TagOnPostScalarFieldEnum = (typeof TagOnPostScalarFieldEnum)[keyof typeof TagOnPostScalarFieldEnum]
+
+
 export const ClubJoinRequestScalarFieldEnum = {
   id: 'id',
   clubId: 'clubId',
@@ -255,6 +266,8 @@ export const ClubEventScalarFieldEnum = {
   eventTitle: 'eventTitle',
   eventDescription: 'eventDescription',
   eventDate: 'eventDate',
+  location: 'location',
+  locationUrl: 'locationUrl',
   clubId: 'clubId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

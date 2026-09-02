@@ -5,6 +5,7 @@ import { throwIfUidNotExist } from "@common/uid-validator.js";
 import {
   CreateClubValidator,
   UpdateClubValidator,
+  type GetClubsWithMembershipStatusDto,
 } from "@campusly/shared/src/dto/club-dto.js";
 import { AppError } from "@common/app-error.js";
 import { ErrorMachineCode } from "@campusly/shared/src/util/error-machine-code.js";
@@ -16,6 +17,9 @@ import {
   throwValidationError,
   getRequiredRouteParam,
 } from "@common/route-validation.js";
+import type { QueryString } from "@common/prisma-api-features.js";
+import * as imageService from "@service/image-service.js";
+import { minutesToSeconds } from "date-fns";
 
 export async function updateClub(req: Request, res: Response) {
   const adminUid = req.uid!;
@@ -111,4 +115,74 @@ export async function deleteLogo(req: Request, res: Response) {
   return res
     .status(HttpStatusCode.OK)
     .json(ApiResponse.success(null, "Club logo deleted successfully."));
+}
+
+export async function getClubsWithMembershipStatus(
+  req: Request,
+  res: Response,
+) {
+  const uid = req.uid;
+
+  const queryObject = req.query as QueryString;
+  const clubs = await clubService.getClubsWithRelations(queryObject);
+
+  const response: GetClubsWithMembershipStatusDto[] = (
+    await Promise.allSettled(
+      clubs.map(async (club) => {
+        const currentMembership = club.clubMembers.find(
+          (member) => member.profileId === uid,
+        );
+        const clubAdmin = club.clubMembers.find(
+          (member) => member.role === "ADMIN",
+        );
+
+        const clubLogoSignedUrl = club.clubLogoId
+          ? await imageService.generateSignedUrlByImageId(
+              club.clubLogoId,
+              minutesToSeconds(15),
+              true,
+            )
+          : null;
+
+        const adminProfileImageSignedUrl = clubAdmin?.profile?.profileImageId
+          ? await imageService.generateSignedUrlByImageId(
+              clubAdmin.profile.profileImageId,
+              minutesToSeconds(15),
+              true,
+            )
+          : null;
+
+        const clubResponse: GetClubsWithMembershipStatusDto = {
+          clubAdminEmail: clubAdmin?.profile?.email ?? null,
+          clubAdminProfileImageId: clubAdmin?.profile?.profileImageId ?? null,
+          clubAdminFullName: clubAdmin?.profile
+            ? `${clubAdmin.profile.firstName} ${clubAdmin.profile.lastName}`
+            : null,
+          clubAdminUid: clubAdmin?.profile?.id ?? null,
+          clubId: club.id,
+          clubName: club.clubName,
+          clubNormalizedName: club.clubNormalizedName,
+          clubDescription: club.clubDescription,
+          createdAt: club.createdAt,
+          membershipStatus: currentMembership?.role ?? "NOT_MEMBER",
+          membersCount: club.clubMembers.length,
+          eventsCount: club.clubEvents.length,
+          clubLogoUri: clubLogoSignedUrl,
+          clubAdminProfileImageUri: adminProfileImageSignedUrl,
+          tags: club.tagsOnClubs.map((tagOnClub) => ({
+            tagId: tagOnClub.tag.id,
+            tagName: tagOnClub.tag.tagName,
+          })),
+        };
+
+        return clubResponse;
+      }),
+    )
+  )
+    .filter((result) => result.status === "fulfilled")
+    .map((result) => result.value);
+
+  return res
+    .status(HttpStatusCode.OK)
+    .json(ApiResponse.success(response, "Clubs retrieved successfully."));
 }
