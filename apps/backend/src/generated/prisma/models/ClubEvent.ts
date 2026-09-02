@@ -29,6 +29,8 @@ export type ClubEventMinAggregateOutputType = {
   eventTitle: string | null
   eventDescription: string | null
   eventDate: Date | null
+  location: string | null
+  locationUrl: string | null
   clubId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -39,6 +41,8 @@ export type ClubEventMaxAggregateOutputType = {
   eventTitle: string | null
   eventDescription: string | null
   eventDate: Date | null
+  location: string | null
+  locationUrl: string | null
   clubId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +53,8 @@ export type ClubEventCountAggregateOutputType = {
   eventTitle: number
   eventDescription: number
   eventDate: number
+  location: number
+  locationUrl: number
   clubId: number
   createdAt: number
   updatedAt: number
@@ -61,6 +67,8 @@ export type ClubEventMinAggregateInputType = {
   eventTitle?: true
   eventDescription?: true
   eventDate?: true
+  location?: true
+  locationUrl?: true
   clubId?: true
   createdAt?: true
   updatedAt?: true
@@ -71,6 +79,8 @@ export type ClubEventMaxAggregateInputType = {
   eventTitle?: true
   eventDescription?: true
   eventDate?: true
+  location?: true
+  locationUrl?: true
   clubId?: true
   createdAt?: true
   updatedAt?: true
@@ -81,6 +91,8 @@ export type ClubEventCountAggregateInputType = {
   eventTitle?: true
   eventDescription?: true
   eventDate?: true
+  location?: true
+  locationUrl?: true
   clubId?: true
   createdAt?: true
   updatedAt?: true
@@ -164,6 +176,8 @@ export type ClubEventGroupByOutputType = {
   eventTitle: string
   eventDescription: string
   eventDate: Date
+  location: string
+  locationUrl: string | null
   clubId: string
   createdAt: Date
   updatedAt: Date
@@ -195,6 +209,8 @@ export type ClubEventWhereInput = {
   eventTitle?: Prisma.StringFilter<"ClubEvent"> | string
   eventDescription?: Prisma.StringFilter<"ClubEvent"> | string
   eventDate?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
+  location?: Prisma.StringFilter<"ClubEvent"> | string
+  locationUrl?: Prisma.StringNullableFilter<"ClubEvent"> | string | null
   clubId?: Prisma.StringFilter<"ClubEvent"> | string
   createdAt?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
@@ -208,6 +224,8 @@ export type ClubEventOrderByWithRelationInput = {
   eventTitle?: Prisma.SortOrder
   eventDescription?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   clubId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -224,6 +242,8 @@ export type ClubEventWhereUniqueInput = Prisma.AtLeast<{
   eventTitle?: Prisma.StringFilter<"ClubEvent"> | string
   eventDescription?: Prisma.StringFilter<"ClubEvent"> | string
   eventDate?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
+  location?: Prisma.StringFilter<"ClubEvent"> | string
+  locationUrl?: Prisma.StringNullableFilter<"ClubEvent"> | string | null
   clubId?: Prisma.StringFilter<"ClubEvent"> | string
   createdAt?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
@@ -237,6 +257,8 @@ export type ClubEventOrderByWithAggregationInput = {
   eventTitle?: Prisma.SortOrder
   eventDescription?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   clubId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -253,6 +275,8 @@ export type ClubEventScalarWhereWithAggregatesInput = {
   eventTitle?: Prisma.StringWithAggregatesFilter<"ClubEvent"> | string
   eventDescription?: Prisma.StringWithAggregatesFilter<"ClubEvent"> | string
   eventDate?: Prisma.DateTimeWithAggregatesFilter<"ClubEvent"> | Date | string
+  location?: Prisma.StringWithAggregatesFilter<"ClubEvent"> | string
+  locationUrl?: Prisma.StringNullableWithAggregatesFilter<"ClubEvent"> | string | null
   clubId?: Prisma.StringWithAggregatesFilter<"ClubEvent"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClubEvent"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ClubEvent"> | Date | string
@@ -263,6 +287,8 @@ export type ClubEventCreateInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubCreateNestedOneWithoutClubEventsInput
@@ -275,6 +301,8 @@ export type ClubEventUncheckedCreateInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   clubId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -287,6 +315,8 @@ export type ClubEventUpdateInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneRequiredWithoutClubEventsNestedInput
@@ -299,6 +329,8 @@ export type ClubEventUncheckedUpdateInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -311,6 +343,8 @@ export type ClubEventCreateManyInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   clubId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -321,6 +355,8 @@ export type ClubEventUpdateManyMutationInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -330,6 +366,8 @@ export type ClubEventUncheckedUpdateManyInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -350,6 +388,8 @@ export type ClubEventCountOrderByAggregateInput = {
   eventTitle?: Prisma.SortOrder
   eventDescription?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationUrl?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -360,6 +400,8 @@ export type ClubEventMaxOrderByAggregateInput = {
   eventTitle?: Prisma.SortOrder
   eventDescription?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationUrl?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -370,6 +412,8 @@ export type ClubEventMinOrderByAggregateInput = {
   eventTitle?: Prisma.SortOrder
   eventDescription?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationUrl?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -455,6 +499,8 @@ export type ClubEventCreateWithoutClubInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ClubEventImageCreateNestedManyWithoutClubEventInput
@@ -466,6 +512,8 @@ export type ClubEventUncheckedCreateWithoutClubInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ClubEventImageUncheckedCreateNestedManyWithoutClubEventInput
@@ -506,6 +554,8 @@ export type ClubEventScalarWhereInput = {
   eventTitle?: Prisma.StringFilter<"ClubEvent"> | string
   eventDescription?: Prisma.StringFilter<"ClubEvent"> | string
   eventDate?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
+  location?: Prisma.StringFilter<"ClubEvent"> | string
+  locationUrl?: Prisma.StringNullableFilter<"ClubEvent"> | string | null
   clubId?: Prisma.StringFilter<"ClubEvent"> | string
   createdAt?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubEvent"> | Date | string
@@ -516,6 +566,8 @@ export type ClubEventCreateWithoutImagesInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubCreateNestedOneWithoutClubEventsInput
@@ -527,6 +579,8 @@ export type ClubEventUncheckedCreateWithoutImagesInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   clubId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -554,6 +608,8 @@ export type ClubEventUpdateWithoutImagesInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneRequiredWithoutClubEventsNestedInput
@@ -565,6 +621,8 @@ export type ClubEventUncheckedUpdateWithoutImagesInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -576,6 +634,8 @@ export type ClubEventCreateWithoutClubEventFormInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubCreateNestedOneWithoutClubEventsInput
@@ -587,6 +647,8 @@ export type ClubEventUncheckedCreateWithoutClubEventFormInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   clubId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -614,6 +676,8 @@ export type ClubEventUpdateWithoutClubEventFormInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneRequiredWithoutClubEventsNestedInput
@@ -625,6 +689,8 @@ export type ClubEventUncheckedUpdateWithoutClubEventFormInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -636,6 +702,8 @@ export type ClubEventCreateManyClubInput = {
   eventTitle: string
   eventDescription: string
   eventDate: Date | string
+  location: string
+  locationUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -645,6 +713,8 @@ export type ClubEventUpdateWithoutClubInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ClubEventImageUpdateManyWithoutClubEventNestedInput
@@ -656,6 +726,8 @@ export type ClubEventUncheckedUpdateWithoutClubInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ClubEventImageUncheckedUpdateManyWithoutClubEventNestedInput
@@ -667,6 +739,8 @@ export type ClubEventUncheckedUpdateManyWithoutClubInput = {
   eventTitle?: Prisma.StringFieldUpdateOperationsInput | string
   eventDescription?: Prisma.StringFieldUpdateOperationsInput | string
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  locationUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -707,6 +781,8 @@ export type ClubEventSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   eventTitle?: boolean
   eventDescription?: boolean
   eventDate?: boolean
+  location?: boolean
+  locationUrl?: boolean
   clubId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -721,6 +797,8 @@ export type ClubEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   eventTitle?: boolean
   eventDescription?: boolean
   eventDate?: boolean
+  location?: boolean
+  locationUrl?: boolean
   clubId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -732,6 +810,8 @@ export type ClubEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   eventTitle?: boolean
   eventDescription?: boolean
   eventDate?: boolean
+  location?: boolean
+  locationUrl?: boolean
   clubId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -743,12 +823,14 @@ export type ClubEventSelectScalar = {
   eventTitle?: boolean
   eventDescription?: boolean
   eventDate?: boolean
+  location?: boolean
+  locationUrl?: boolean
   clubId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ClubEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventTitle" | "eventDescription" | "eventDate" | "clubId" | "createdAt" | "updatedAt", ExtArgs["result"]["clubEvent"]>
+export type ClubEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventTitle" | "eventDescription" | "eventDate" | "location" | "locationUrl" | "clubId" | "createdAt" | "updatedAt", ExtArgs["result"]["clubEvent"]>
 export type ClubEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
   images?: boolean | Prisma.ClubEvent$imagesArgs<ExtArgs>
@@ -774,6 +856,8 @@ export type $ClubEventPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     eventTitle: string
     eventDescription: string
     eventDate: Date
+    location: string
+    locationUrl: string | null
     clubId: string
     createdAt: Date
     updatedAt: Date
@@ -1207,6 +1291,8 @@ export interface ClubEventFieldRefs {
   readonly eventTitle: Prisma.FieldRef<"ClubEvent", 'String'>
   readonly eventDescription: Prisma.FieldRef<"ClubEvent", 'String'>
   readonly eventDate: Prisma.FieldRef<"ClubEvent", 'DateTime'>
+  readonly location: Prisma.FieldRef<"ClubEvent", 'String'>
+  readonly locationUrl: Prisma.FieldRef<"ClubEvent", 'String'>
   readonly clubId: Prisma.FieldRef<"ClubEvent", 'String'>
   readonly createdAt: Prisma.FieldRef<"ClubEvent", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ClubEvent", 'DateTime'>

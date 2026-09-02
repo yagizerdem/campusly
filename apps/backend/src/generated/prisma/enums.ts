@@ -20,6 +20,7 @@ export type AuditLogLevel = (typeof AuditLogLevel)[keyof typeof AuditLogLevel]
 
 export const JoinRequestStatus = {
   PENDING: 'PENDING',
+  CANCELLED: 'CANCELLED',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
 } as const

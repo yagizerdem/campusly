@@ -6,7 +6,6 @@
       "name": "backend",
       "type": "node",
       "request": "launch",
-      // İlgili app dizininde çalışması için cwd kritik:
       "cwd": "${workspaceFolder}/apps/backend",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],

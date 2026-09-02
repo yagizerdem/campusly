@@ -129,6 +129,7 @@ export async function fetchFeedPosts(req: Request, res: Response) {
           postTitle: post.postTitle,
           commentCount: post._count.comments,
           likesCount: post._count.likes,
+          clubName: post.club?.clubName ?? null,
           images: post.images.map((img) => {
             return {
               imageId: img.imageId,

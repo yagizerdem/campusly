@@ -45,6 +45,9 @@ async function seedClubs() {
     );
   }
 
+  const tags = await prisma.tag.findMany({});
+  const tagCount = tags.length;
+
   const assetFileNames = (await readdir(SEED_IMAGE_DIR))
     .filter((fileName) => MIME_TYPES[extname(fileName).toLowerCase()])
     .sort();
@@ -118,6 +121,21 @@ async function seedClubs() {
             clubLogoId: club.logoImageId,
             clubLogoUri: imageUri,
           },
+        });
+
+        // add random tags to the club
+        const randomTagCount = Math.min(
+          Math.floor(Math.random() * 5),
+          tagCount,
+        );
+        const randomTags = faker.helpers.arrayElements(tags, randomTagCount);
+
+        await tx.tagsOnClub.createMany({
+          data: randomTags.map((tag) => ({
+            clubId: club.id,
+            tagId: tag.id,
+          })),
+          skipDuplicates: true,
         });
 
         // add club admin role

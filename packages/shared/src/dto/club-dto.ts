@@ -51,3 +51,23 @@ export const UpdateClubMemberValidator = z.object({
 export type CreateClubDto = z.infer<typeof CreateClubValidator>;
 
 export type UpdateClubDto = z.infer<typeof UpdateClubValidator>;
+
+export type MembershipStatus = "MEMBER" | "ADMIN" | "MANAGER" | "NOT_MEMBER";
+
+export type GetClubsWithMembershipStatusDto = {
+  clubId: string;
+  clubName: string;
+  membershipStatus: MembershipStatus;
+  clubNormalizedName: string;
+  clubDescription: string;
+  createdAt: Date;
+  clubAdminUid: string | null;
+  clubAdminFullName: string | null;
+  clubAdminProfileImageId: string | null;
+  clubAdminEmail: string | null;
+  clubLogoUri: string | null;
+  clubAdminProfileImageUri: string | null;
+  membersCount: number;
+  eventsCount: number;
+  tags: { tagId: string; tagName: string }[];
+};

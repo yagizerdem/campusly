@@ -38,6 +38,7 @@ export type FetchPostFeedItem = {
   postTitle: string;
   postContent: string;
   clubId: string | null;
+  clubName: string | null;
   authorId: string;
   createdAt: Date;
   updatedAt: Date;

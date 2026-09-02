@@ -16,6 +16,10 @@ import path from "path";
 import type { ClubMemberRole } from "../generated/prisma/enums.js";
 import { withRetry } from "@lib/retry.js";
 import type { Image } from "@src/generated/prisma/client.js";
+import {
+  PrismaAPIFeatures,
+  type QueryString,
+} from "@common/prisma-api-features.js";
 
 export function normalizeClubName(name: string) {
   return name.trim().replace(/\s+/g, " ").toLowerCase();
@@ -350,4 +354,36 @@ export async function ensureUserNotIsInRole(
   }
 
   return membershipFromDb;
+}
+
+export async function getClubs(queryObject: QueryString) {
+  const apiFeatures = new PrismaAPIFeatures(queryObject);
+
+  const builtQuery = apiFeatures.paginate().sort().filter().build();
+
+  // const { select: _unusedSelect, ...prismaQuery } = builtQuery;
+
+  const clubs = await prisma.club.findMany({
+    ...builtQuery,
+  });
+  return clubs;
+}
+
+export async function getClubsWithRelations(queryObject: QueryString) {
+  const apiFeatures = new PrismaAPIFeatures(queryObject);
+
+  const builtQuery = apiFeatures.paginate().sort().filter().build();
+
+  const { select: _unusedSelect, ...prismaQuery } = builtQuery;
+
+  const clubs = await prisma.club.findMany({
+    ...prismaQuery,
+
+    include: {
+      clubMembers: { include: { profile: true } },
+      clubEvents: true,
+      tagsOnClubs: { include: { tag: true } },
+    },
+  });
+  return clubs;
 }

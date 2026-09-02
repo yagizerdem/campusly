@@ -1,10 +1,13 @@
-import type { FetchPostFeedResponse } from "@campusly/shared/src/dto/post-dto";
+import type {
+  FetchPostFeedItem,
+  FetchPostFeedResponse,
+} from "@campusly/shared/src/dto/post-dto";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface FeedState {
   offset: number;
-  posts: FetchPostFeedResponse[];
+  posts: FetchPostFeedItem[];
 }
 
 // Define the initial state using that type
@@ -21,7 +24,7 @@ export const feedSlice = createSlice({
     setOffset(state, action: PayloadAction<number>) {
       state.offset = action.payload;
     },
-    setPosts(state, action: PayloadAction<FetchPostFeedResponse[]>) {
+    setPosts(state, action: PayloadAction<FetchPostFeedItem[]>) {
       state.posts = action.payload;
     },
   },

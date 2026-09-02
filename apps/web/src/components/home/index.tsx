@@ -8,7 +8,15 @@ export default function Page() {
 
   return (
     <AppLayout>
-      <Feed />
+      <div className="flex flex-row  w-full h-full ">
+        <div className="w-full h-full  flex flex-row">
+          <div className="w-full h-full  flex-col">
+            <div>header</div>
+            <Feed />
+          </div>
+          <div className="w-96 h-full">afaf</div>
+        </div>
+      </div>
     </AppLayout>
   );
 }

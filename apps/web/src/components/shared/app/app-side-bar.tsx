@@ -15,7 +15,7 @@ import { useNavigate } from "react-router";
 const SIDE_BAR_NAVIGATION_ITEMS = [
   { label: "home", icon: <HomeIcon />, path: "/home" },
   { label: "discover", icon: <CompassIcon />, path: "/discover" },
-  { label: "clubs", icon: <UsersIcon />, path: "/clubs" },
+  { label: "club", icon: <UsersIcon />, path: "/club" },
   { label: "events", icon: <CalendarIcon />, path: "/events" },
   { label: "notifications", icon: <BellIcon />, path: "/notifications" },
   { label: "saved", icon: <BookmarkIcon />, path: "/saved" },

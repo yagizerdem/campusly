@@ -14,6 +14,7 @@ model Profile {
   firstName String
   lastName String
   telephoneNumber String?
+  email String?
 
   likes Like[]
   comments Comment[]
@@ -40,7 +41,7 @@ model Club {
   clubName String
   clubNormalizedName String @unique
   clubDescription String
-  clubLogoUri String?
+  requiresJoinRequest Boolean @default(false)
 
 
   posts Post[]
@@ -73,6 +74,7 @@ model Post {
   likes Like[]
   comments Comment[]
   images PostImage[]
+  tagsOnPosts TagOnPost[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -144,6 +146,7 @@ model Tag {
   id    String     @id @default(uuid()) 
   tagName String @unique  
   tagsOnClubs TagsOnClub[]
+  tagsOnPosts TagOnPost[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -157,6 +160,16 @@ model TagsOnClub {
   clubId String
 
   @@id([tagId, clubId])
+}
+
+model TagOnPost {
+  tag Tag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  @@id([tagId, postId])
 }
 
 
@@ -241,6 +254,8 @@ model ClubEvent {
   eventTitle String
   eventDescription String
   eventDate DateTime
+  location String
+  locationUrl String?
 
   club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId String  // Foreign key connecting ClubEvent to Club
@@ -321,6 +336,7 @@ enum AuditLogLevel {
 
 enum JoinRequestStatus {
   PENDING
+  CANCELLED
   APPROVED
   REJECTED 
 }

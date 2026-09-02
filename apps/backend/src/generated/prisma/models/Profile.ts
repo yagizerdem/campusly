@@ -29,6 +29,7 @@ export type ProfileMinAggregateOutputType = {
   firstName: string | null
   lastName: string | null
   telephoneNumber: string | null
+  email: string | null
   profileImageId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -39,6 +40,7 @@ export type ProfileMaxAggregateOutputType = {
   firstName: string | null
   lastName: string | null
   telephoneNumber: string | null
+  email: string | null
   profileImageId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +51,7 @@ export type ProfileCountAggregateOutputType = {
   firstName: number
   lastName: number
   telephoneNumber: number
+  email: number
   profileImageId: number
   createdAt: number
   updatedAt: number
@@ -61,6 +64,7 @@ export type ProfileMinAggregateInputType = {
   firstName?: true
   lastName?: true
   telephoneNumber?: true
+  email?: true
   profileImageId?: true
   createdAt?: true
   updatedAt?: true
@@ -71,6 +75,7 @@ export type ProfileMaxAggregateInputType = {
   firstName?: true
   lastName?: true
   telephoneNumber?: true
+  email?: true
   profileImageId?: true
   createdAt?: true
   updatedAt?: true
@@ -81,6 +86,7 @@ export type ProfileCountAggregateInputType = {
   firstName?: true
   lastName?: true
   telephoneNumber?: true
+  email?: true
   profileImageId?: true
   createdAt?: true
   updatedAt?: true
@@ -164,6 +170,7 @@ export type ProfileGroupByOutputType = {
   firstName: string
   lastName: string
   telephoneNumber: string | null
+  email: string | null
   profileImageId: string | null
   createdAt: Date
   updatedAt: Date
@@ -195,6 +202,7 @@ export type ProfileWhereInput = {
   firstName?: Prisma.StringFilter<"Profile"> | string
   lastName?: Prisma.StringFilter<"Profile"> | string
   telephoneNumber?: Prisma.StringNullableFilter<"Profile"> | string | null
+  email?: Prisma.StringNullableFilter<"Profile"> | string | null
   profileImageId?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
@@ -215,6 +223,7 @@ export type ProfileOrderByWithRelationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   telephoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   profileImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -239,6 +248,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   firstName?: Prisma.StringFilter<"Profile"> | string
   lastName?: Prisma.StringFilter<"Profile"> | string
   telephoneNumber?: Prisma.StringNullableFilter<"Profile"> | string | null
+  email?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   likes?: Prisma.LikeListRelationFilter
@@ -258,6 +268,7 @@ export type ProfileOrderByWithAggregationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   telephoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   profileImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -274,6 +285,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   firstName?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   telephoneNumber?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  email?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   profileImageId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
@@ -284,6 +296,7 @@ export type ProfileCreateInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -303,6 +316,7 @@ export type ProfileUncheckedCreateInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -322,6 +336,7 @@ export type ProfileUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -341,6 +356,7 @@ export type ProfileUncheckedUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,6 +376,7 @@ export type ProfileCreateManyInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -370,6 +387,7 @@ export type ProfileUpdateManyMutationInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -379,6 +397,7 @@ export type ProfileUncheckedUpdateManyInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -389,6 +408,7 @@ export type ProfileCountOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   telephoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   profileImageId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -399,6 +419,7 @@ export type ProfileMaxOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   telephoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   profileImageId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -409,6 +430,7 @@ export type ProfileMinOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   telephoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   profileImageId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -605,6 +627,7 @@ export type ProfileCreateWithoutPostsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -623,6 +646,7 @@ export type ProfileUncheckedCreateWithoutPostsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -657,6 +681,7 @@ export type ProfileUpdateWithoutPostsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -675,6 +700,7 @@ export type ProfileUncheckedUpdateWithoutPostsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -693,6 +719,7 @@ export type ProfileCreateWithoutLikesInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentCreateNestedManyWithoutProfileInput
@@ -711,6 +738,7 @@ export type ProfileUncheckedCreateWithoutLikesInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -745,6 +773,7 @@ export type ProfileUpdateWithoutLikesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUpdateManyWithoutProfileNestedInput
@@ -763,6 +792,7 @@ export type ProfileUncheckedUpdateWithoutLikesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -781,6 +811,7 @@ export type ProfileCreateWithoutCommentsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -799,6 +830,7 @@ export type ProfileUncheckedCreateWithoutCommentsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -833,6 +865,7 @@ export type ProfileUpdateWithoutCommentsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -851,6 +884,7 @@ export type ProfileUncheckedUpdateWithoutCommentsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -869,6 +903,7 @@ export type ProfileCreateWithoutProfileImageInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -887,6 +922,7 @@ export type ProfileUncheckedCreateWithoutProfileImageInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutProfileInput
@@ -921,6 +957,7 @@ export type ProfileUpdateWithoutProfileImageInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -939,6 +976,7 @@ export type ProfileUncheckedUpdateWithoutProfileImageInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUncheckedUpdateManyWithoutProfileNestedInput
@@ -957,6 +995,7 @@ export type ProfileCreateWithoutClubJoinRequestsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -975,6 +1014,7 @@ export type ProfileUncheckedCreateWithoutClubJoinRequestsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1009,6 +1049,7 @@ export type ProfileUpdateWithoutClubJoinRequestsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -1027,6 +1068,7 @@ export type ProfileUncheckedUpdateWithoutClubJoinRequestsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1045,6 +1087,7 @@ export type ProfileCreateWithoutClubMembershipsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -1063,6 +1106,7 @@ export type ProfileUncheckedCreateWithoutClubMembershipsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1097,6 +1141,7 @@ export type ProfileUpdateWithoutClubMembershipsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -1115,6 +1160,7 @@ export type ProfileUncheckedUpdateWithoutClubMembershipsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1133,6 +1179,7 @@ export type ProfileCreateWithoutAuditLogsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -1151,6 +1198,7 @@ export type ProfileUncheckedCreateWithoutAuditLogsInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1185,6 +1233,7 @@ export type ProfileUpdateWithoutAuditLogsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -1203,6 +1252,7 @@ export type ProfileUncheckedUpdateWithoutAuditLogsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1221,6 +1271,7 @@ export type ProfileCreateWithoutStoriesInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -1239,6 +1290,7 @@ export type ProfileUncheckedCreateWithoutStoriesInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1273,6 +1325,7 @@ export type ProfileUpdateWithoutStoriesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -1291,6 +1344,7 @@ export type ProfileUncheckedUpdateWithoutStoriesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1309,6 +1363,7 @@ export type ProfileCreateWithoutSurveySchemasInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -1327,6 +1382,7 @@ export type ProfileUncheckedCreateWithoutSurveySchemasInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1361,6 +1417,7 @@ export type ProfileUpdateWithoutSurveySchemasInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -1379,6 +1436,7 @@ export type ProfileUncheckedUpdateWithoutSurveySchemasInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1397,6 +1455,7 @@ export type ProfileCreateWithoutSurveySchemaResponsesInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeCreateNestedManyWithoutProfileInput
@@ -1415,6 +1474,7 @@ export type ProfileUncheckedCreateWithoutSurveySchemaResponsesInput = {
   firstName: string
   lastName: string
   telephoneNumber?: string | null
+  email?: string | null
   profileImageId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1449,6 +1509,7 @@ export type ProfileUpdateWithoutSurveySchemaResponsesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUpdateManyWithoutProfileNestedInput
@@ -1467,6 +1528,7 @@ export type ProfileUncheckedUpdateWithoutSurveySchemaResponsesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   telephoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1588,6 +1650,7 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   firstName?: boolean
   lastName?: boolean
   telephoneNumber?: boolean
+  email?: boolean
   profileImageId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1609,6 +1672,7 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   firstName?: boolean
   lastName?: boolean
   telephoneNumber?: boolean
+  email?: boolean
   profileImageId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1620,6 +1684,7 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   firstName?: boolean
   lastName?: boolean
   telephoneNumber?: boolean
+  email?: boolean
   profileImageId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1631,12 +1696,13 @@ export type ProfileSelectScalar = {
   firstName?: boolean
   lastName?: boolean
   telephoneNumber?: boolean
+  email?: boolean
   profileImageId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "telephoneNumber" | "profileImageId" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "telephoneNumber" | "email" | "profileImageId" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   likes?: boolean | Prisma.Profile$likesArgs<ExtArgs>
   comments?: boolean | Prisma.Profile$commentsArgs<ExtArgs>
@@ -1676,6 +1742,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     firstName: string
     lastName: string
     telephoneNumber: string | null
+    email: string | null
     profileImageId: string | null
     createdAt: Date
     updatedAt: Date
@@ -2116,6 +2183,7 @@ export interface ProfileFieldRefs {
   readonly firstName: Prisma.FieldRef<"Profile", 'String'>
   readonly lastName: Prisma.FieldRef<"Profile", 'String'>
   readonly telephoneNumber: Prisma.FieldRef<"Profile", 'String'>
+  readonly email: Prisma.FieldRef<"Profile", 'String'>
   readonly profileImageId: Prisma.FieldRef<"Profile", 'String'>
   readonly createdAt: Prisma.FieldRef<"Profile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Profile", 'DateTime'>
